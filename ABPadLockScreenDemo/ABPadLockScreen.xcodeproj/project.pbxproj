@@ -1,0 +1,404 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9CB9EFC2141A2641003B990E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB9EFC1141A2641003B990E /* UIKit.framework */; };
+		9CB9EFC4141A2641003B990E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB9EFC3141A2641003B990E /* Foundation.framework */; };
+		9CB9EFC6141A2641003B990E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB9EFC5141A2641003B990E /* CoreGraphics.framework */; };
+		9CB9EFCC141A2641003B990E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFCA141A2641003B990E /* InfoPlist.strings */; };
+		9CB9EFCE141A2641003B990E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9EFCD141A2641003B990E /* main.m */; };
+		9CB9EFD2141A2641003B990E /* ABPadLockScreenAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9EFD1141A2641003B990E /* ABPadLockScreenAppDelegate.m */; };
+		9CB9EFD5141A2641003B990E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFD3141A2641003B990E /* MainWindow.xib */; };
+		9CB9EFE3141A2672003B990E /* YourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9EFE2141A2672003B990E /* YourViewController.m */; };
+		9CB9F002141A26C9003B990E /* ABPadLockScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9EFE4141A26C9003B990E /* ABPadLockScreen.m */; };
+		9CB9F003141A26C9003B990E /* 0-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFE6141A26C9003B990E /* 0-selected.png */; };
+		9CB9F004141A26C9003B990E /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFE7141A26C9003B990E /* 0.png */; };
+		9CB9F005141A26C9003B990E /* 1-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFE8141A26C9003B990E /* 1-selected.png */; };
+		9CB9F006141A26C9003B990E /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFE9141A26C9003B990E /* 1.png */; };
+		9CB9F007141A26C9003B990E /* 2-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFEA141A26C9003B990E /* 2-selected.png */; };
+		9CB9F008141A26C9003B990E /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFEB141A26C9003B990E /* 2.png */; };
+		9CB9F009141A26C9003B990E /* 3-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFEC141A26C9003B990E /* 3-selected.png */; };
+		9CB9F00A141A26C9003B990E /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFED141A26C9003B990E /* 3.png */; };
+		9CB9F00B141A26C9003B990E /* 4-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFEE141A26C9003B990E /* 4-selected.png */; };
+		9CB9F00C141A26C9003B990E /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFEF141A26C9003B990E /* 4.png */; };
+		9CB9F00D141A26C9003B990E /* 5-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF0141A26C9003B990E /* 5-selected.png */; };
+		9CB9F00E141A26C9003B990E /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF1141A26C9003B990E /* 5.png */; };
+		9CB9F00F141A26C9003B990E /* 6-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF2141A26C9003B990E /* 6-selected.png */; };
+		9CB9F010141A26C9003B990E /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF3141A26C9003B990E /* 6.png */; };
+		9CB9F011141A26C9003B990E /* 7-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF4141A26C9003B990E /* 7-selected.png */; };
+		9CB9F012141A26C9003B990E /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF5141A26C9003B990E /* 7.png */; };
+		9CB9F013141A26C9003B990E /* 8-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF6141A26C9003B990E /* 8-selected.png */; };
+		9CB9F014141A26C9003B990E /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF7141A26C9003B990E /* 8.png */; };
+		9CB9F015141A26C9003B990E /* 9-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF8141A26C9003B990E /* 9-selected.png */; };
+		9CB9F016141A26C9003B990E /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFF9141A26C9003B990E /* 9.png */; };
+		9CB9F017141A26C9003B990E /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFFA141A26C9003B990E /* background.png */; };
+		9CB9F018141A26C9003B990E /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFFB141A26C9003B990E /* blank.png */; };
+		9CB9F019141A26C9003B990E /* clear-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFFC141A26C9003B990E /* clear-selected.png */; };
+		9CB9F01A141A26C9003B990E /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFFD141A26C9003B990E /* clear.png */; };
+		9CB9F01B141A26C9003B990E /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFFE141A26C9003B990E /* close.png */; };
+		9CB9F01C141A26C9003B990E /* error-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9EFFF141A26C9003B990E /* error-box.png */; };
+		9CB9F01D141A26C9003B990E /* input.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CB9F000141A26C9003B990E /* input.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9CB9EFBD141A2641003B990E /* ABPadLockScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ABPadLockScreen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CB9EFC1141A2641003B990E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9CB9EFC3141A2641003B990E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9CB9EFC5141A2641003B990E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9CB9EFC9141A2641003B990E /* ABPadLockScreen-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ABPadLockScreen-Info.plist"; sourceTree = "<group>"; };
+		9CB9EFCB141A2641003B990E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9CB9EFCD141A2641003B990E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9CB9EFCF141A2641003B990E /* ABPadLockScreen-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ABPadLockScreen-Prefix.pch"; sourceTree = "<group>"; };
+		9CB9EFD0141A2641003B990E /* ABPadLockScreenAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenAppDelegate.h; sourceTree = "<group>"; };
+		9CB9EFD1141A2641003B990E /* ABPadLockScreenAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenAppDelegate.m; sourceTree = "<group>"; };
+		9CB9EFD4141A2641003B990E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		9CB9EFE1141A2672003B990E /* YourViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YourViewController.h; sourceTree = "<group>"; };
+		9CB9EFE2141A2672003B990E /* YourViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YourViewController.m; sourceTree = "<group>"; };
+		9CB9EFE4141A26C9003B990E /* ABPadLockScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreen.m; sourceTree = "<group>"; };
+		9CB9EFE6141A26C9003B990E /* 0-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-selected.png"; sourceTree = "<group>"; };
+		9CB9EFE7141A26C9003B990E /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
+		9CB9EFE8141A26C9003B990E /* 1-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-selected.png"; sourceTree = "<group>"; };
+		9CB9EFE9141A26C9003B990E /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		9CB9EFEA141A26C9003B990E /* 2-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2-selected.png"; sourceTree = "<group>"; };
+		9CB9EFEB141A26C9003B990E /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		9CB9EFEC141A26C9003B990E /* 3-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3-selected.png"; sourceTree = "<group>"; };
+		9CB9EFED141A26C9003B990E /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		9CB9EFEE141A26C9003B990E /* 4-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4-selected.png"; sourceTree = "<group>"; };
+		9CB9EFEF141A26C9003B990E /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
+		9CB9EFF0141A26C9003B990E /* 5-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5-selected.png"; sourceTree = "<group>"; };
+		9CB9EFF1141A26C9003B990E /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
+		9CB9EFF2141A26C9003B990E /* 6-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "6-selected.png"; sourceTree = "<group>"; };
+		9CB9EFF3141A26C9003B990E /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
+		9CB9EFF4141A26C9003B990E /* 7-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "7-selected.png"; sourceTree = "<group>"; };
+		9CB9EFF5141A26C9003B990E /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
+		9CB9EFF6141A26C9003B990E /* 8-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "8-selected.png"; sourceTree = "<group>"; };
+		9CB9EFF7141A26C9003B990E /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
+		9CB9EFF8141A26C9003B990E /* 9-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "9-selected.png"; sourceTree = "<group>"; };
+		9CB9EFF9141A26C9003B990E /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
+		9CB9EFFA141A26C9003B990E /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		9CB9EFFB141A26C9003B990E /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
+		9CB9EFFC141A26C9003B990E /* clear-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear-selected.png"; sourceTree = "<group>"; };
+		9CB9EFFD141A26C9003B990E /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
+		9CB9EFFE141A26C9003B990E /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		9CB9EFFF141A26C9003B990E /* error-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error-box.png"; sourceTree = "<group>"; };
+		9CB9F000141A26C9003B990E /* input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input.png; sourceTree = "<group>"; };
+		9CB9F001141A26C9003B990E /* ABPadLockScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreen.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9CB9EFBA141A2641003B990E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CB9EFC2141A2641003B990E /* UIKit.framework in Frameworks */,
+				9CB9EFC4141A2641003B990E /* Foundation.framework in Frameworks */,
+				9CB9EFC6141A2641003B990E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9CB9EFB2141A2641003B990E = {
+			isa = PBXGroup;
+			children = (
+				9CB9EFC7141A2641003B990E /* ABPadLockScreen */,
+				9CB9EFC8141A2641003B990E /* Supporting Files */,
+				9CB9EFC0141A2641003B990E /* Frameworks */,
+				9CB9EFBE141A2641003B990E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9CB9EFBE141A2641003B990E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9CB9EFBD141A2641003B990E /* ABPadLockScreen.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9CB9EFC0141A2641003B990E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9CB9EFC1141A2641003B990E /* UIKit.framework */,
+				9CB9EFC3141A2641003B990E /* Foundation.framework */,
+				9CB9EFC5141A2641003B990E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9CB9EFC7141A2641003B990E /* ABPadLockScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9CB9EFE5141A26C9003B990E /* Assets */,
+				9CB9EFE4141A26C9003B990E /* ABPadLockScreen.m */,
+				9CB9F001141A26C9003B990E /* ABPadLockScreen.h */,
+				9CB9EFD0141A2641003B990E /* ABPadLockScreenAppDelegate.h */,
+				9CB9EFD1141A2641003B990E /* ABPadLockScreenAppDelegate.m */,
+				9CB9EFE1141A2672003B990E /* YourViewController.h */,
+				9CB9EFE2141A2672003B990E /* YourViewController.m */,
+				9CB9EFD3141A2641003B990E /* MainWindow.xib */,
+			);
+			path = ABPadLockScreen;
+			sourceTree = "<group>";
+		};
+		9CB9EFC8141A2641003B990E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9CB9EFC9141A2641003B990E /* ABPadLockScreen-Info.plist */,
+				9CB9EFCA141A2641003B990E /* InfoPlist.strings */,
+				9CB9EFCD141A2641003B990E /* main.m */,
+				9CB9EFCF141A2641003B990E /* ABPadLockScreen-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = ABPadLockScreen;
+			sourceTree = "<group>";
+		};
+		9CB9EFE5141A26C9003B990E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9CB9EFE6141A26C9003B990E /* 0-selected.png */,
+				9CB9EFE7141A26C9003B990E /* 0.png */,
+				9CB9EFE8141A26C9003B990E /* 1-selected.png */,
+				9CB9EFE9141A26C9003B990E /* 1.png */,
+				9CB9EFEA141A26C9003B990E /* 2-selected.png */,
+				9CB9EFEB141A26C9003B990E /* 2.png */,
+				9CB9EFEC141A26C9003B990E /* 3-selected.png */,
+				9CB9EFED141A26C9003B990E /* 3.png */,
+				9CB9EFEE141A26C9003B990E /* 4-selected.png */,
+				9CB9EFEF141A26C9003B990E /* 4.png */,
+				9CB9EFF0141A26C9003B990E /* 5-selected.png */,
+				9CB9EFF1141A26C9003B990E /* 5.png */,
+				9CB9EFF2141A26C9003B990E /* 6-selected.png */,
+				9CB9EFF3141A26C9003B990E /* 6.png */,
+				9CB9EFF4141A26C9003B990E /* 7-selected.png */,
+				9CB9EFF5141A26C9003B990E /* 7.png */,
+				9CB9EFF6141A26C9003B990E /* 8-selected.png */,
+				9CB9EFF7141A26C9003B990E /* 8.png */,
+				9CB9EFF8141A26C9003B990E /* 9-selected.png */,
+				9CB9EFF9141A26C9003B990E /* 9.png */,
+				9CB9EFFA141A26C9003B990E /* background.png */,
+				9CB9EFFB141A26C9003B990E /* blank.png */,
+				9CB9EFFC141A26C9003B990E /* clear-selected.png */,
+				9CB9EFFD141A26C9003B990E /* clear.png */,
+				9CB9EFFE141A26C9003B990E /* close.png */,
+				9CB9EFFF141A26C9003B990E /* error-box.png */,
+				9CB9F000141A26C9003B990E /* input.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9CB9EFBC141A2641003B990E /* ABPadLockScreen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9CB9EFDE141A2641003B990E /* Build configuration list for PBXNativeTarget "ABPadLockScreen" */;
+			buildPhases = (
+				9CB9EFB9141A2641003B990E /* Sources */,
+				9CB9EFBA141A2641003B990E /* Frameworks */,
+				9CB9EFBB141A2641003B990E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ABPadLockScreen;
+			productName = ABPadLockScreen;
+			productReference = 9CB9EFBD141A2641003B990E /* ABPadLockScreen.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9CB9EFB4141A2641003B990E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Aron's IT Consultancy";
+			};
+			buildConfigurationList = 9CB9EFB7141A2641003B990E /* Build configuration list for PBXProject "ABPadLockScreen" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9CB9EFB2141A2641003B990E;
+			productRefGroup = 9CB9EFBE141A2641003B990E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9CB9EFBC141A2641003B990E /* ABPadLockScreen */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9CB9EFBB141A2641003B990E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CB9EFCC141A2641003B990E /* InfoPlist.strings in Resources */,
+				9CB9EFD5141A2641003B990E /* MainWindow.xib in Resources */,
+				9CB9F003141A26C9003B990E /* 0-selected.png in Resources */,
+				9CB9F004141A26C9003B990E /* 0.png in Resources */,
+				9CB9F005141A26C9003B990E /* 1-selected.png in Resources */,
+				9CB9F006141A26C9003B990E /* 1.png in Resources */,
+				9CB9F007141A26C9003B990E /* 2-selected.png in Resources */,
+				9CB9F008141A26C9003B990E /* 2.png in Resources */,
+				9CB9F009141A26C9003B990E /* 3-selected.png in Resources */,
+				9CB9F00A141A26C9003B990E /* 3.png in Resources */,
+				9CB9F00B141A26C9003B990E /* 4-selected.png in Resources */,
+				9CB9F00C141A26C9003B990E /* 4.png in Resources */,
+				9CB9F00D141A26C9003B990E /* 5-selected.png in Resources */,
+				9CB9F00E141A26C9003B990E /* 5.png in Resources */,
+				9CB9F00F141A26C9003B990E /* 6-selected.png in Resources */,
+				9CB9F010141A26C9003B990E /* 6.png in Resources */,
+				9CB9F011141A26C9003B990E /* 7-selected.png in Resources */,
+				9CB9F012141A26C9003B990E /* 7.png in Resources */,
+				9CB9F013141A26C9003B990E /* 8-selected.png in Resources */,
+				9CB9F014141A26C9003B990E /* 8.png in Resources */,
+				9CB9F015141A26C9003B990E /* 9-selected.png in Resources */,
+				9CB9F016141A26C9003B990E /* 9.png in Resources */,
+				9CB9F017141A26C9003B990E /* background.png in Resources */,
+				9CB9F018141A26C9003B990E /* blank.png in Resources */,
+				9CB9F019141A26C9003B990E /* clear-selected.png in Resources */,
+				9CB9F01A141A26C9003B990E /* clear.png in Resources */,
+				9CB9F01B141A26C9003B990E /* close.png in Resources */,
+				9CB9F01C141A26C9003B990E /* error-box.png in Resources */,
+				9CB9F01D141A26C9003B990E /* input.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9CB9EFB9141A2641003B990E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CB9EFCE141A2641003B990E /* main.m in Sources */,
+				9CB9EFD2141A2641003B990E /* ABPadLockScreenAppDelegate.m in Sources */,
+				9CB9EFE3141A2672003B990E /* YourViewController.m in Sources */,
+				9CB9F002141A26C9003B990E /* ABPadLockScreen.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9CB9EFCA141A2641003B990E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9CB9EFCB141A2641003B990E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9CB9EFD3141A2641003B990E /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9CB9EFD4141A2641003B990E /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9CB9EFDC141A2641003B990E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		9CB9EFDD141A2641003B990E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9CB9EFDF141A2641003B990E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ABPadLockScreen/ABPadLockScreen-Prefix.pch";
+				INFOPLIST_FILE = "ABPadLockScreen/ABPadLockScreen-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9CB9EFE0141A2641003B990E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ABPadLockScreen/ABPadLockScreen-Prefix.pch";
+				INFOPLIST_FILE = "ABPadLockScreen/ABPadLockScreen-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9CB9EFB7141A2641003B990E /* Build configuration list for PBXProject "ABPadLockScreen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CB9EFDC141A2641003B990E /* Debug */,
+				9CB9EFDD141A2641003B990E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CB9EFDE141A2641003B990E /* Build configuration list for PBXNativeTarget "ABPadLockScreen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CB9EFDF141A2641003B990E /* Debug */,
+				9CB9EFE0141A2641003B990E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9CB9EFB4141A2641003B990E /* Project object */;
+}
