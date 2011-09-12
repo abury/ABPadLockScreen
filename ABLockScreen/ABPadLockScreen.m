@@ -1,7 +1,7 @@
 //
 //  ABPadLockScreen.m
 //
-//  Version 1.0
+//  Version 1.1
 //
 //  Created by Aron Bury on 09/09/2011.
 //  Copyright 2011 Aron Bury. All rights reserved.
@@ -128,18 +128,18 @@
     UIImageView *_keyValueImageTwo = [[UIImageView alloc] initWithFrame:CGRectMake(123.0f, keyValueOneImageView.frame.origin.y, 16.0f, 16.0f)];
     [self setKeyValueTwoImageView:_keyValueImageTwo];
     [self.view addSubview:keyValueTwoImageView];
-
+    
     UIImageView *_keyValueImageThree = [[UIImageView alloc] initWithFrame:CGRectMake(194.0f, 
-                                                                                   keyValueOneImageView.frame.origin.y, 
-                                                                                   16.0f, 
-                                                                                   16.0f)];
+                                                                                     keyValueOneImageView.frame.origin.y, 
+                                                                                     16.0f, 
+                                                                                     16.0f)];
     [self setKeyValueThreeImageView:_keyValueImageThree];
     [self.view addSubview:keyValueThreeImageView];
     
     UIImageView *_keyValueImageFour = [[UIImageView alloc] initWithFrame:CGRectMake(265.0f, 
-                                                                                     keyValueOneImageView.frame.origin.y, 
-                                                                                     16.0f, 
-                                                                                     16.0f)];
+                                                                                    keyValueOneImageView.frame.origin.y, 
+                                                                                    16.0f, 
+                                                                                    16.0f)];
     [self setKeyValueFourImageView:_keyValueImageFour];
     [self.view addSubview:keyValueFourImageView];
     
@@ -180,16 +180,16 @@
     
     UIButton *threeButton = [self getStyledButtonForNumber:3];
     [threeButton setFrame:CGRectMake(twoButton.frame.origin.x + twoButton.frame.size.width, 
-                                   twoButton.frame.origin.y, 
-                                   rightButtonWidth, 
-                                   buttonHeight)];
+                                     twoButton.frame.origin.y, 
+                                     rightButtonWidth, 
+                                     buttonHeight)];
     [self.view addSubview:threeButton];
     
     UIButton *fourButton = [self getStyledButtonForNumber:4];
     [fourButton setFrame:CGRectMake(oneButton.frame.origin.x, 
-                                     oneButton.frame.origin.y + oneButton.frame.size.height - 1, 
-                                     leftButtonWidth, 
-                                     buttonHeight)];
+                                    oneButton.frame.origin.y + oneButton.frame.size.height - 1, 
+                                    leftButtonWidth, 
+                                    buttonHeight)];
     [self.view addSubview:fourButton];
     
     UIButton *fiveButton = [self getStyledButtonForNumber:5];
@@ -201,16 +201,16 @@
     
     UIButton *sixButton = [self getStyledButtonForNumber:6];
     [sixButton setFrame:CGRectMake(threeButton.frame.origin.x, 
-                                    fiveButton.frame.origin.y, 
-                                    rightButtonWidth, 
-                                    buttonHeight)];
+                                   fiveButton.frame.origin.y, 
+                                   rightButtonWidth, 
+                                   buttonHeight)];
     [self.view addSubview:sixButton];
     
     UIButton *sevenButton = [self getStyledButtonForNumber:7];
     [sevenButton setFrame:CGRectMake(oneButton.frame.origin.x, 
-                                   fourButton.frame.origin.y + fourButton.frame.size.height - 1, 
-                                   leftButtonWidth, 
-                                   buttonHeight)];
+                                     fourButton.frame.origin.y + fourButton.frame.size.height - 1, 
+                                     leftButtonWidth, 
+                                     buttonHeight)];
     [self.view addSubview:sevenButton];
     
     UIButton *eightButton = [self getStyledButtonForNumber:8];
@@ -222,9 +222,9 @@
     
     UIButton *nineButton = [self getStyledButtonForNumber:9];
     [nineButton setFrame:CGRectMake(threeButton.frame.origin.x, 
-                                     sevenButton.frame.origin.y, 
-                                     rightButtonWidth, 
-                                     buttonHeight)];
+                                    sevenButton.frame.origin.y, 
+                                    rightButtonWidth, 
+                                    buttonHeight)];
     [self.view addSubview:nineButton];
     
     UIButton *blankButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -286,12 +286,17 @@
     [self setDigitTwo:nil];
     [self setDigitThree:nil];
     [self setDigitFour:nil];
+    
+    [self setAttempts:0];
 }
 
 #pragma mark - button methods
 - (void)cancelButtonTapped:(id)sender
 {
     [delegate unlockWasCancelled];
+    [self resetLockScreen];
+    [incorrectAttemptImageView setImage:nil];
+    [incorrectAttemptLabel setText:nil];
     
 }
 
@@ -348,7 +353,7 @@
             [keyValueTwoImageView setImage:[UIImage imageNamed:@"input"]];
             [self setDigitTwo:[NSString stringWithFormat:@"%i", digit]];
             break;
-        
+            
         case 2:
             digitsPressed = 3;
             [keyValueThreeImageView setImage:[UIImage imageNamed:@"input"]];
@@ -374,6 +379,9 @@
     if (stringPasscode == [dataSource unlockPasscode]) 
     {
         [delegate unlockWasSuccessful];
+        [self resetLockScreen];
+        [incorrectAttemptImageView setImage:nil];
+        [incorrectAttemptLabel setText:nil];
     }
     else
     {
@@ -381,7 +389,7 @@
         [delegate unlockWasUnsuccessful:stringPasscode afterAttemptNumber:attempts];
         if ([dataSource hasAttemptLimit]) 
         {
-
+            
             int remainingAttempts = [dataSource attemptLimit] - attempts;
             if (remainingAttempts != 0) 
             {

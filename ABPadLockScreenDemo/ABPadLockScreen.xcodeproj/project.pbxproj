@@ -136,8 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				9CB9EFE5141A26C9003B990E /* Assets */,
-				9CB9EFE4141A26C9003B990E /* ABPadLockScreen.m */,
 				9CB9F001141A26C9003B990E /* ABPadLockScreen.h */,
+				9CB9EFE4141A26C9003B990E /* ABPadLockScreen.m */,
 				9CB9EFD0141A2641003B990E /* ABPadLockScreenAppDelegate.h */,
 				9CB9EFD1141A2641003B990E /* ABPadLockScreenAppDelegate.m */,
 				9CB9EFE1141A2672003B990E /* YourViewController.h */,
@@ -397,6 +397,7 @@
 				9CB9EFE0141A2641003B990E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

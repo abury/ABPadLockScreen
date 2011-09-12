@@ -1,7 +1,7 @@
 //
 //  ABPadLockScreen.h
 //
-//  Version 1.0
+//  Version 1.1
 //
 //  Created by Aron Bury on 09/09/2011.
 //  Copyright 2011 Aron Bury. All rights reserved.
