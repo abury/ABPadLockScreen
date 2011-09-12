@@ -286,7 +286,10 @@
     [self setDigitTwo:nil];
     [self setDigitThree:nil];
     [self setDigitFour:nil];
-    
+}
+
+- (void)resetAttempts
+{
     [self setAttempts:0];
 }
 

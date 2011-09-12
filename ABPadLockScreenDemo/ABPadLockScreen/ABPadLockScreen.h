@@ -56,6 +56,7 @@
 @property (nonatomic, assign) id<ABPadLockScreenDataSource> dataSource;
 
 - (id)initWithDelegate:(id<ABPadLockScreenDelegate>)aDelegate withDataSource:(id<ABPadLockScreenDataSource>)aDataSource;
+- (void)resetAttempts;
 - (void)resetLockScreen;
 
 @end
