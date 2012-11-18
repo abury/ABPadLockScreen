@@ -34,6 +34,8 @@
 #define ipadView ((ABPadLockScreenView_iPad *)[self view])
 #define iPhoneView ((ABPadLockScreenView_iPhone *)[self view])
 
+#define kNoAttemptLimit -1
+
 
 typedef enum {
     ABLockPadDeviceTypeiPhone = 0,
@@ -141,12 +143,42 @@ typedef enum {
 #pragma mark - Public Methods
 - (void)resetAttempts
 {
-
+    self.attempts = 0;
+    
+    if ([self.view isKindOfClass:[ABPadLockScreenView_iPhone class]])
+    {
+        iPhoneView.remainingAttemptsLabel.text = @"";
+        iPhoneView.errorbackView.alpha = 0.0f;
+        iPhoneView.subtitleLabel.text = self.subtitle;
+    }
 }
 
 - (void)resetLockScreen
 {
+    self.currentPin = @"";
     
+    if ([self.view isKindOfClass:[ABPadLockScreenView_iPhone class]])
+    {
+        for (int i = 1; i < 5; i++)
+        {
+            if ([[iPhoneView viewWithTag:i] isKindOfClass:[UIImageView class]])
+            {
+                UIImageView *relevantPinImage = (UIImageView *)[iPhoneView viewWithTag:i];
+                relevantPinImage.image = [UIImage imageNamed:@"EntryBox"];
+            }
+        }
+    }
+}
+
+- (void)setAttemptLimit:(NSInteger)attemptLimit
+{
+    if (attemptLimit == 0)
+    {
+        _attemptLimit = -1;
+        return;
+    }
+    
+    _attemptLimit = attemptLimit;
 }
 
 #pragma mark -
@@ -168,7 +200,11 @@ typedef enum {
 - (void)cancelButtonSelected:(id)sender
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWasCancelled)])
+    {
         [self.delegate unlockWasCancelled];
+        [self resetLockScreen];
+        [self resetAttempts];
+    }
 }
 
 
@@ -184,12 +220,74 @@ typedef enum {
 
 - (void)checkPin
 {
+    self.attempts ++;
     
+    if ([self.currentPin isEqualToString:self.pin])
+    {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWasSuccessful)])
+        {
+            [self.delegate unlockWasSuccessful];
+            [self resetAttempts];
+        }
+
+    }
+    else
+    {
+        NSInteger attemptsLeft = kNoAttemptLimit;
+        
+        if (self.attemptLimit != kNoAttemptLimit)
+        {
+            attemptsLeft = self.attemptLimit - self.attempts;
+        
+            if (self.deviceType == ABLockPadDeviceTypeiPhone)
+            {
+                iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Attempts Remaining", attemptsLeft];
+                if (iPhoneView.errorbackView.alpha == 0.0f)
+                {
+                    [UIView animateWithDuration:0.4f animations:^{
+                        iPhoneView.errorbackView.alpha = 1.0f;
+                    }];
+                }
+            }
+        }
+        else
+        {
+            if (self.deviceType == ABLockPadDeviceTypeiPhone)
+            {
+                iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Failed Passcode Attempts", self.attempts];                
+                if (iPhoneView.errorbackView.alpha == 0.0f)
+                {
+                    [UIView animateWithDuration:0.4f animations:^{
+                        iPhoneView.errorbackView.alpha = 1.0f;
+                    }];
+                }
+            }
+        }
+
+        if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWasUnsuccessful:afterAttemptNumber:)])
+        {
+            [self.delegate unlockWasUnsuccessful:self.currentPin afterAttemptNumber:self.attempts];
+        }
+        
+        if (self.attempts == self.attemptLimit)
+        {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(attemptsExpired)])
+                [self.delegate attemptsExpired];
+            [self lockPad];
+        }
+    }
+   
+    [self resetLockScreen];    
 }
 
 - (void)lockPad
 {
-    
+    if (self.deviceType == ABLockPadDeviceTypeiPhone)
+    {
+        [iPhoneView.hiddenTextField resignFirstResponder];
+        iPhoneView.remainingAttemptsLabel.text = @"Attempts expired";
+        iPhoneView.subtitleLabel.text = @"PIN Entry Locked";
+    }
 }
 
 #pragma mark -
@@ -218,7 +316,8 @@ typedef enum {
         self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, self.currentPin.length - 1)];
     }
     
-    if
+    if (self.currentPin.length == 4)
+        [self performSelector:@selector(checkPin) withObject:Nil afterDelay:0.1];
     
     return NO;
 }

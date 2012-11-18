@@ -28,4 +28,14 @@
  */
 @property (nonatomic, strong) UITextField *hiddenTextField;
 
+/**
+ Displays the remaining alerts to the user
+ */
+@property (nonatomic, strong) UILabel *remainingAttemptsLabel;
+
+/**
+ Displays the red alert background for the remainingAttemptsLabel
+ */
+@property (nonatomic, strong) UIImageView *errorbackView;
+
 @end

@@ -47,7 +47,7 @@
  @param attemptNumber The attempt number
  @required
  */
-- (void)unlockWasUnsuccessful:(NSInteger)falsePin afterAttemptNumber:(NSInteger)attemptNumber;
+- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber;
 
 /**
  Called when the user canclles the unlock
@@ -74,7 +74,7 @@
 /**
  The passcode required to unlock the pin screen
  */
-@property (nonatomic) NSInteger pin;
+@property (nonatomic) NSString *pin;
 
 /**
  The title text for the lock screen

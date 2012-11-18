@@ -34,8 +34,8 @@
     if (!self.pinScreen)
     {
         self.pinScreen = [[ABPadLockScreenController alloc] initWithDelegate:self];
-        self.pinScreen.pin = 1234;
-        self.pinScreen.attemptLimit = 3;
+        self.pinScreen.pin = @"1234";
+        self.pinScreen.attemptLimit = 0;
         self.pinScreen.title = @"Enter Pin";
         self.pinScreen.subtitle = @"Please enter your PIN";
     }
@@ -58,10 +58,9 @@
     NSLog(@"Pin entry cancelled");
 }
 
-- (void)unlockWasUnsuccessful:(NSInteger)falseEntryCode afterAttemptNumber:(NSInteger)attemptNumber
+- (void)unlockWasUnsuccessful:(NSString *)falseEntryCode afterAttemptNumber:(NSInteger)attemptNumber
 {
-    [self dismissModalViewControllerAnimated:YES];
-    NSLog(@"Failed attempt number %d with pin: %d", falseEntryCode, attemptNumber);
+    NSLog(@"Failed attempt number %d with pin: %@", attemptNumber, falseEntryCode);
 }
 
 @end
