@@ -116,15 +116,17 @@ typedef enum {
     if (self.deviceType == ABLockPadDeviceTypeiPad)
         self.view = [[ABPadLockScreenView_iPad alloc] initWithFrame:self.view.frame];
     
+    UIBarButtonItem *cancelBarButtonitem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonSelected:)];
+    [[self navigationItem] setRightBarButtonItem:cancelBarButtonitem animated:NO];
     
     if ([self.view isKindOfClass:[ABPadLockScreenView_iPhone class]])
     {
-        ABPadLockScreenView_iPhone *phoneView = (ABPadLockScreenView_iPhone *)self.view;
-        phoneView.hiddenTextField.delegate = self;
-        phoneView.subtitleLabel.text = self.subtitle;
-        
-        UIBarButtonItem *cancelBarButtonitem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonSelected:)];
-        [[self navigationItem] setRightBarButtonItem:cancelBarButtonitem animated:NO];
+        iPhoneView.hiddenTextField.delegate = self;
+        iPhoneView.subtitleLabel.text = self.subtitle;
+    }
+    else if ([self.view isKindOfClass:[ABPadLockScreenView_iPad class]])
+    {
+        ipadView.subtitleLabel.text = self.subtitle;
     }
 }
 
