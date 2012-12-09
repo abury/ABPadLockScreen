@@ -1,14 +1,17 @@
 ABPadLockScreen README
-www.aronbury.com
-Aron Bury 2011
+ABPadLockScreen 2.0
+Aron Bury 2012
 
-ABPadLockScreen provides a simple keypad style unlock feature for your app. The classes use delegation to obtain necessary 
-data and instruct the delegate of important events.
+ABPadLockScreen provides a simple keypad style unlock feature for your iPhone or iPad app. 
 
 To use in your app:
-1. Copy all the files in the ABPadLockScreen folder into your apps source folder
-2. Add the files into your Xcode project
-3. Simply import the ABPadLockScreen.h file and use as required
+1. Import the framework anywhere into your project.
+2. Add the ABPadLockScreen files into your Xcode project
+3. Import the ABPadLockScreenController.h into your project and go from there!
 
-To view a demo of the ABPadLockScreen in action, as well as an example of how to use the class, have a look through the 
-ABPadLockScreenDemo project.
+A demo project is included to help you get started. The framework is smart enough to detect
+if your app is running on an iPhone or iPad and will do most of the logic for you.
+
+Happy Coding!
+
+- Aron
