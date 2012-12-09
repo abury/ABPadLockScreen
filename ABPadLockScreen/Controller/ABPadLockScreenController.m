@@ -109,6 +109,7 @@ typedef enum {
     {
         _delegate = delegate;
         _currentPin = @"";
+        _attemptLimit = 0;
     }
     
     return self;
@@ -269,7 +270,8 @@ typedef enum {
         relevantPinImage.image = [UIImage imageNamed:@"EntryBox"];
     }
     
-    self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, self.currentPin.length - 1)];
+    if (self.currentPin.length > 0)
+        self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, self.currentPin.length - 1)];
 }
 
 - (void)checkPin
