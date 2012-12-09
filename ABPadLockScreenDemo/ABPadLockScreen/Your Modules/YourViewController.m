@@ -45,6 +45,7 @@
     
     [self presentModalViewController:navCon animated:YES];
     
+    //Needed if presenting the view controller as form sheet modal for iPad
     navCon.view.superview.bounds = CGRectMake(0, 0, lockScreenWidth, lockScreenHeight);
 
 }

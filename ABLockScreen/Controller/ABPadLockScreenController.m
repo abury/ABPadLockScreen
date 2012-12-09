@@ -157,13 +157,10 @@ typedef enum {
 {
     [super viewWillAppear:animated];
     
-    if ([self.view isKindOfClass:[ABPadLockScreenView_iPhone class]])
-    {
-        ABPadLockScreenView_iPhone *phoneView = (ABPadLockScreenView_iPhone *)self.view;
-        [phoneView.hiddenTextField becomeFirstResponder];
-    }
-    
+    if (self.deviceType == ABLockPadDeviceTypeiPhone)
+        [iPhoneView.hiddenTextField becomeFirstResponder];
 }
+
 #pragma mark -
 #pragma mark - Public Methods
 - (void)resetAttempts

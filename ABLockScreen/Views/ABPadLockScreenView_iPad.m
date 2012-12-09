@@ -114,7 +114,7 @@
     self.remainingAttemptsLabel.font = [UIFont systemFontOfSize:14.0f];
     
     //Add buttons
-    CGFloat buttonTop = 230.0f;
+    CGFloat buttonTop = 200.0f;
     CGFloat buttonHeight = 55.0f;
     CGFloat leftButtonWidth = 106.0f;
     CGFloat middleButtonWidth = 109.0f;

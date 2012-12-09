@@ -31,7 +31,7 @@
 #import <UIKit/UIKit.h>
 
 #define lockScreenWidth 320
-#define lockScreenHeight 490
+#define lockScreenHeight 460
 
 /**
  Methods that the Lock Screen will fire when it has completed an important action
