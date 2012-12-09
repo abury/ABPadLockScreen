@@ -45,7 +45,7 @@
 - (void)unlockWasSuccessful;
 
 /**
- Called when an unlocke was unsuccessfully, providing the entry code and the attempt number
+ Called when an unlock was unsuccessfully, providing the entry code and the attempt number
  @param falsePin The entry code that prompted the unssuccessful entry
  @param attemptNumber The attempt number
  @required
