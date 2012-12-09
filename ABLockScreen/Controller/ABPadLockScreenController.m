@@ -48,17 +48,17 @@ typedef enum {
 /**
  Helper property to determine the device type the controller is currently running on
  */
-@property (nonatomic, readonly) ABLockPadDeviceType deviceType;
+@property (nonatomic, assign, readonly) ABLockPadDeviceType deviceType;
 
 /**
  The current pin value
  */
-@property (nonatomic) NSString *currentPin;
+@property (nonatomic, strong) NSString *currentPin;
 
 /**
  How many unlock attempts the user has performed
  */
-@property (nonatomic) NSInteger attempts;
+@property (nonatomic, assign) NSInteger attempts;
 
 /**
  Called when the user selects the cancel button
@@ -85,19 +85,30 @@ typedef enum {
  */
 - (void)lockPad;
 
+/**
+ Performs the relevant actions when a user fails a PIN entry attempt that is not their last
+ @param remainingAttempts The reamining attempts to display to the user
+ */
+- (void)failedAttemptWithRemaningAttempts:(NSInteger)remainingAttempts;
+
+/**
+ Performs the relevant actions when a user fails their final PIN entry attempt
+ */
+- (void)failedFinalAttempt;
+
 @end
 
 @implementation ABPadLockScreenController
 
 #pragma mark -
 #pragma mark - init Methods
-- (id)initWithDelegate:(id<ABlockScreenDelegate>)delegate
+- (id)initWithDelegate:(id<ABLockScreenDelegate>)delegate
 {
     self = [super init];
     if (self)
     {
-        self.delegate = delegate;
-        self.currentPin = @"";
+        _delegate = delegate;
+        _currentPin = @"";
     }
     
     return self;
@@ -119,14 +130,26 @@ typedef enum {
     UIBarButtonItem *cancelBarButtonitem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonSelected:)];
     [[self navigationItem] setRightBarButtonItem:cancelBarButtonitem animated:NO];
     
-    if ([self.view isKindOfClass:[ABPadLockScreenView_iPhone class]])
+    if (self.deviceType == ABLockPadDeviceTypeiPhone)
     {
         iPhoneView.hiddenTextField.delegate = self;
         iPhoneView.subtitleLabel.text = self.subtitle;
     }
-    else if ([self.view isKindOfClass:[ABPadLockScreenView_iPad class]])
+    else if (self.deviceType == ABLockPadDeviceTypeiPad)
     {
         ipadView.subtitleLabel.text = self.subtitle;
+        
+        [ipadView.one addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.two addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.three addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.four addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.five addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.six addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.seven addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.eight addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.nine addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.zero addTarget:self action:@selector(digitButtonselected:) forControlEvents:UIControlEventTouchUpInside];
+        [ipadView.back addTarget:self action:@selector(backButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
@@ -147,11 +170,17 @@ typedef enum {
 {
     self.attempts = 0;
     
-    if ([self.view isKindOfClass:[ABPadLockScreenView_iPhone class]])
+    if (self.deviceType == ABLockPadDeviceTypeiPhone)
     {
         iPhoneView.remainingAttemptsLabel.text = @"";
         iPhoneView.errorbackView.alpha = 0.0f;
         iPhoneView.subtitleLabel.text = self.subtitle;
+    }
+    else if (self.deviceType == ABLockPadDeviceTypeiPad)
+    {
+        ipadView.remainingAttemptsLabel.text = @"";
+        ipadView.errorbackView.alpha = 0.0f;
+        ipadView.subtitleLabel.text = self.subtitle;
     }
 }
 
@@ -159,15 +188,23 @@ typedef enum {
 {
     self.currentPin = @"";
     
-    if ([self.view isKindOfClass:[ABPadLockScreenView_iPhone class]])
+    UIView *relevantVeiw = iPhoneView;
+    NSInteger startingPoint = 1;
+    NSInteger endingPoint = 5;
+    
+    if (self.deviceType == ABLockPadDeviceTypeiPad)
     {
-        for (int i = 1; i < 5; i++)
+        relevantVeiw = ipadView;
+        startingPoint = 11;
+        endingPoint = 15;
+    }
+    
+    for (int i = startingPoint; i < endingPoint; i++)
+    {
+        if ([[relevantVeiw viewWithTag:i] isKindOfClass:[UIImageView class]])
         {
-            if ([[iPhoneView viewWithTag:i] isKindOfClass:[UIImageView class]])
-            {
-                UIImageView *relevantPinImage = (UIImageView *)[iPhoneView viewWithTag:i];
-                relevantPinImage.image = [UIImage imageNamed:@"EntryBox"];
-            }
+            UIImageView *relevantPinImage = (UIImageView *)[relevantVeiw viewWithTag:i];
+            relevantPinImage.image = [UIImage imageNamed:@"EntryBox"];
         }
     }
 }
@@ -209,15 +246,33 @@ typedef enum {
     }
 }
 
-
 - (void)digitButtonselected:(id)sender
 {
+    UIButton *digitButton = (UIButton *)sender;
     
+    NSString *digitAsString = [NSString stringWithFormat:@"%d", digitButton.tag];
+
+    if ([[ipadView viewWithTag:self.currentPin.length + 11] isKindOfClass:[UIImageView class]])
+    {
+        UIImageView *relevantPinImage = (UIImageView *)[ipadView viewWithTag:self.currentPin.length + 11];
+        relevantPinImage.image = [UIImage imageNamed:@"EntryBox_entry"];
+    }
+    
+    self.currentPin = [NSString stringWithFormat:@"%@%@", self.currentPin, digitAsString];
+
+    if (self.currentPin.length == 4)
+        [self performSelector:@selector(checkPin) withObject:Nil afterDelay:0.1];
 }
 
 - (void)backButtonSelected:(id)sender
-{
+{   
+    if ([[ipadView viewWithTag:self.currentPin.length + 10] isKindOfClass:[UIImageView class]])
+    {
+        UIImageView *relevantPinImage = (UIImageView *)[ipadView viewWithTag:self.currentPin.length + 10];
+        relevantPinImage.image = [UIImage imageNamed:@"EntryBox"];
+    }
     
+    self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, self.currentPin.length - 1)];
 }
 
 - (void)checkPin
@@ -235,35 +290,13 @@ typedef enum {
     }
     else
     {
-        NSInteger attemptsLeft = kNoAttemptLimit;
-        
         if (self.attemptLimit != kNoAttemptLimit)
         {
-            attemptsLeft = self.attemptLimit - self.attempts;
-        
-            if (self.deviceType == ABLockPadDeviceTypeiPhone)
-            {
-                iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Attempts Remaining", attemptsLeft];
-                if (iPhoneView.errorbackView.alpha == 0.0f)
-                {
-                    [UIView animateWithDuration:0.4f animations:^{
-                        iPhoneView.errorbackView.alpha = 1.0f;
-                    }];
-                }
-            }
+            [self failedAttemptWithRemaningAttempts:self.attemptLimit - self.attempts];
         }
         else
         {
-            if (self.deviceType == ABLockPadDeviceTypeiPhone)
-            {
-                iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Failed Passcode Attempts", self.attempts];                
-                if (iPhoneView.errorbackView.alpha == 0.0f)
-                {
-                    [UIView animateWithDuration:0.4f animations:^{
-                        iPhoneView.errorbackView.alpha = 1.0f;
-                    }];
-                }
-            }
+            [self failedFinalAttempt];
         }
 
         if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWasUnsuccessful:afterAttemptNumber:)])
@@ -290,6 +323,59 @@ typedef enum {
         iPhoneView.remainingAttemptsLabel.text = @"Attempts expired";
         iPhoneView.subtitleLabel.text = @"PIN Entry Locked";
     }
+    else if (self.deviceType == ABLockPadDeviceTypeiPad)
+    {
+        ipadView.remainingAttemptsLabel.text = @"Attempts expired";
+        ipadView.subtitleLabel.text = @"PIN Entry Locked";
+    }
+}
+
+- (void)failedAttemptWithRemaningAttempts:(NSInteger)remainingAttempts
+{
+    if (self.deviceType == ABLockPadDeviceTypeiPhone)
+    {
+        iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Attempts Remaining", remainingAttempts];
+        if (iPhoneView.errorbackView.alpha == 0.0f)
+        {
+            [UIView animateWithDuration:0.4f animations:^{
+                iPhoneView.errorbackView.alpha = 1.0f;
+            }];
+        }
+    }
+    else if (self.deviceType == ABLockPadDeviceTypeiPad)
+    {
+        ipadView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Attempts Remaining", remainingAttempts];
+        if (ipadView.errorbackView.alpha == 0.0f)
+        {
+            [UIView animateWithDuration:0.4f animations:^{
+                ipadView.errorbackView.alpha = 1.0f;
+            }];
+        }
+    }
+}
+
+- (void)failedFinalAttempt
+{
+    if (self.deviceType == ABLockPadDeviceTypeiPhone)
+    {
+        iPhoneView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Failed Passcode Attempts", self.attempts];
+        if (iPhoneView.errorbackView.alpha == 0.0f)
+        {
+            [UIView animateWithDuration:0.4f animations:^{
+                iPhoneView.errorbackView.alpha = 1.0f;
+            }];
+        }
+    }
+    else if (self.deviceType == ABLockPadDeviceTypeiPad)
+    {
+        ipadView.remainingAttemptsLabel.text = [NSString stringWithFormat:@"%d Failed Passcode Attempts", self.attempts];
+        if (ipadView.errorbackView.alpha == 0.0f)
+        {
+            [UIView animateWithDuration:0.4f animations:^{
+                ipadView.errorbackView.alpha = 1.0f;
+            }];
+        }
+    }
 }
 
 #pragma mark -
@@ -315,7 +401,8 @@ typedef enum {
             relevantPinImage.image = [UIImage imageNamed:@"EntryBox"];
         }
         
-        self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, self.currentPin.length - 1)];
+        if (self.currentPin.length > 0)
+            self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, self.currentPin.length - 1)];
     }
     
     if (self.currentPin.length == 4)

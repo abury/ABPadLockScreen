@@ -30,10 +30,13 @@
 
 #import <UIKit/UIKit.h>
 
+#define lockScreenWidth 320
+#define lockScreenHeight 490
+
 /**
  Methods that the Lock Screen will fire when it has completed an important action
  */
-@protocol ABlockScreenDelegate <NSObject>
+@protocol ABLockScreenDelegate <NSObject>
 @required
 /**
  Called when the unlock was completed successfully
@@ -74,7 +77,7 @@
 /**
  The passcode required to unlock the pin screen
  */
-@property (nonatomic) NSString *pin;
+@property (nonatomic, strong) NSString *pin;
 
 /**
  The title text for the lock screen
@@ -90,18 +93,18 @@
  The attempt limit for the lock screen. A value of '0' indicates no limit.
  Defaults to 0
  */
-@property (nonatomic) NSInteger attemptLimit;
+@property (nonatomic, assign) NSInteger attemptLimit;
 
 /**
  The callback object responsible for recieving calls from the LockScreenController
  */
-@property (nonatomic, assign) id<ABlockScreenDelegate> delegate;
+@property (nonatomic, weak) id<ABLockScreenDelegate> delegate;
 
 
 /**
  Convenience method to init with a set delegate
  */
-- (id)initWithDelegate:(id<ABlockScreenDelegate>)delegate;
+- (id)initWithDelegate:(id<ABLockScreenDelegate>)delegate;
 
 /**
  Resets the attempts for the controller. If there is no attempt limit this will do nothing

@@ -9,7 +9,7 @@
 #import "YourViewController.h"
 #import "ABPadLockScreenController.h"
 
-@interface YourViewController () <ABlockScreenDelegate>
+@interface YourViewController () <ABLockScreenDelegate>
 
 @property (nonatomic, strong) ABPadLockScreenController *pinScreen;
 
@@ -41,11 +41,16 @@
     }
 
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:self.pinScreen];
+    navCon.modalPresentationStyle = UIModalPresentationFormSheet;
+    
     [self presentModalViewController:navCon animated:YES];
+    
+    navCon.view.superview.bounds = CGRectMake(0, 0, lockScreenWidth, lockScreenHeight);
+
 }
 
 #pragma mark -
-#pragma mark - ABParentScreenDelegate
+#pragma mark - ABLockScreenDelegate Methods
 - (void)unlockWasSuccessful
 {
     [self dismissModalViewControllerAnimated:YES];

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define clearTag 1221
+
 @interface ABPadLockScreenView_iPad : UIView
 
 /**
@@ -34,6 +36,18 @@
 @property (nonatomic, strong) UIImageView *errorbackView;
 
 /** Emulated Keyboard Buttons */
+@property (nonatomic, strong) UIButton *one;
+@property (nonatomic, strong) UIButton *two;
+@property (nonatomic, strong) UIButton *three;
+@property (nonatomic, strong) UIButton *four;
+@property (nonatomic, strong) UIButton *five;
+@property (nonatomic, strong) UIButton *six;
+@property (nonatomic, strong) UIButton *seven;
+@property (nonatomic, strong) UIButton *eight;
+@property (nonatomic, strong) UIButton *nine;
+@property (nonatomic, strong) UIButton *zero;
+@property (nonatomic, strong) UIButton *back;
+@property (nonatomic, strong) UIButton *blank;
 
 
 @end
