@@ -410,4 +410,19 @@ typedef enum {
     return NO;
 }
 
+#pragma mark - Interface orientation for iOS 5
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    if (interfaceOrientation == UIInterfaceOrientationPortrait)
+    {
+        return YES;
+    }else if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight)  {
+        return YES;
+    }else {
+        return NO;
+    }
+}
+
 @end
