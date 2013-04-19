@@ -383,6 +383,11 @@ typedef enum {
 {
     if (string.length > 0)
     {
+        // Allow only numbers
+        NSCharacterSet *nonNumberSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    	if(![string stringByTrimmingCharactersInSet:nonNumberSet].length)
+	    	return NO;
+        
         //Currently code in here is ony for iPhone. May change if future enhancement allows iPad text entry.
         if ([[iPhoneView viewWithTag:self.currentPin.length + 1] isKindOfClass:[UIImageView class]])
         {
