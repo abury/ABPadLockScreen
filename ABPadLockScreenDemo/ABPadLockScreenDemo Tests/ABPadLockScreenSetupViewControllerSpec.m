@@ -25,4 +25,12 @@
     XCTAssert(setupLockVC.delegate == vc, @"Init Method assign delegate correctly");
 }
 
+#pragma mark -
+#pragma mark - Private Methods
+
+- (void)testPinConfirmation
+{
+    
+}
+
 @end

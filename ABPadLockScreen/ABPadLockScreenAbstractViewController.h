@@ -7,7 +7,7 @@
 //
 
 /**
- Abstract Class that encapsulates common functionality between the lock and setup screen
+ Abstract Class that encapsulates common functionality between the lock and setup screen. It is not designed to be used directly
  */
 
 @protocol ABPadLockScreenDelegate;
@@ -22,6 +22,8 @@
 
 - (void)setLockScreenTitle:(NSString *)title;
 - (void)cancelButtonDisabled:(BOOL)disabled;
+
+- (void)processPin; //Called when the pin has reached 4 digits 
 
 @end
 

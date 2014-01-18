@@ -14,6 +14,11 @@
 
 @interface ABPadLockScreenSetupViewController ()
 
+@property (nonatomic, strong) NSString *enteredPin;
+
+- (void)startPinConfirmation;
+- (void)validateConfirmedPin;
+
 @end
 
 @implementation ABPadLockScreenSetupViewController
@@ -27,11 +32,57 @@
     {
         self.delegate = delegate;
         _setupScreenDelegate = delegate;
+        _enteredPin = nil;
     }
     return self;
 }
 
 #pragma mark -
-#pragma mark - View Controller Lifecycele Methods
+#pragma mark - Init Methods
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [lockScreenView updateDetailLabelWithString:@"Please Enter your pin" animated:NO completion:nil];
+}
+
+#pragma mark -
+#pragma mark - Pin Processing
+- (void)processPin
+{
+    if (!self.enteredPin)
+    {
+        [self startPinConfirmation];
+    }
+    else
+    {
+        [self validateConfirmedPin];
+    }
+}
+
+- (void)startPinConfirmation
+{
+    self.enteredPin = self.currentPin;
+    self.currentPin = @"";
+    [lockScreenView updateDetailLabelWithString:@"Please confirm your pin" animated:YES completion:nil];
+    [lockScreenView resetAnimated:YES];
+}
+         
+- (void)validateConfirmedPin
+{
+    if ([self.currentPin isEqualToString:self.enteredPin])
+    {
+        if ([self.setupScreenDelegate respondsToSelector:@selector(pinSet:padLockScreenSetupViewController:)])
+        {
+            [self.setupScreenDelegate pinSet:self.currentPin padLockScreenSetupViewController:self];
+        }
+    }
+    else
+    {
+        [lockScreenView updateDetailLabelWithString:@"Not a match. Please try again" animated:YES completion:nil];
+        [lockScreenView resetAnimated:YES];
+        self.enteredPin = nil;
+        self.currentPin = @"";
+    }
+}
 
 @end

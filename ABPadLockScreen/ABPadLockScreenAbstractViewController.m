@@ -24,6 +24,18 @@
 @implementation ABPadLockScreenAbstractViewController
 
 #pragma mark -
+#pragma mark - init methods
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        _currentPin = @"";
+    }
+    return self;
+}
+
+#pragma mark -
 #pragma mark - View Controller Lifecycele Methods
 - (void)viewDidLoad
 {
@@ -65,6 +77,11 @@
     lockScreenView.cancelButtonDisabled = disabled;
 }
 
+- (void)processPin
+{
+    //Subclass to provide concrete implementation
+}
+
 #pragma mark -
 #pragma mark - Button Methods
 - (void)newPinSelected:(NSInteger)pinNumber
@@ -92,6 +109,7 @@
     else if ([self.currentPin length] == 4)
     {
         [lockScreenView.pinFourSelectionView setSelected:YES animated:YES completion:nil];
+        [self processPin];
     }
 }
 

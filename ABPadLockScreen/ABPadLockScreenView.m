@@ -139,6 +139,15 @@
     } animated:animated completion:completion];
 }
 
+- (void)resetAnimated:(BOOL)animated
+{
+    [self.pinOneSelectionView setSelected:NO animated:animated completion:nil];
+    [self.pinTwoSelectionView setSelected:NO animated:animated completion:nil];
+    [self.pinThreeSelectionView setSelected:NO animated:animated completion:nil];
+    [self.pinFourSelectionView setSelected:NO animated:animated completion:nil];
+    [self showCancelButtonAnimated:animated completion:nil];
+}
+
 #pragma mark -
 #pragma mark - Helper Methods
 - (void)prepareApperance

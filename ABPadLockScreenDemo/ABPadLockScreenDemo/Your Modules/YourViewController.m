@@ -42,7 +42,7 @@
     
     UIButton *setupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [setupButton setTitle:@"Setup Pin" forState:UIControlStateNormal];
-    [setupButton addTarget:self action:@selector(lockScreenSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [setupButton addTarget:self action:@selector(setUpLockScreenSelected:) forControlEvents:UIControlEventTouchUpInside];
     setupButton.frame = CGRectMake(80, 120, 100, 40);
     
     [self.view addSubview:lockButton];
@@ -93,7 +93,8 @@
 #pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
 - (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController
 {
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"Pin Set to pin");
 }
 
 @end

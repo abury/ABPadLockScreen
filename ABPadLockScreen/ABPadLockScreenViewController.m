@@ -14,7 +14,6 @@
 
 @interface ABPadLockScreenViewController ()
 
-- (void)processPin;
 - (BOOL)isPinValid:(NSString *)pin;
 
 - (void)unlockScreen;
@@ -34,7 +33,6 @@
         self.delegate = delegate;
         _lockScreenDelegate = delegate;
         _pin = pin;
-        self.currentPin = @"";
         _remainingAttempts = -1;
     }
     return self;
@@ -49,17 +47,7 @@
 }
 
 #pragma mark -
-#pragma mark - Pin Validation
-- (void)newPinSelected:(NSInteger)pinNumber
-{
-    [super newPinSelected:pinNumber];
-    
-    if ([self.currentPin length] == 4)
-    {
-        [self processPin];
-    }
-}
-
+#pragma mark - Pin Processing
 - (void)processPin
 {
     if ([self isPinValid:self.currentPin])
@@ -84,11 +72,7 @@
 {
     _remainingAttempts --;
     _totalAttempts ++;
-    [lockScreenView.pinOneSelectionView setSelected:NO animated:YES completion:nil];
-    [lockScreenView.pinTwoSelectionView setSelected:NO animated:YES completion:nil];
-    [lockScreenView.pinThreeSelectionView setSelected:NO animated:YES completion:nil];
-    [lockScreenView.pinFourSelectionView setSelected:NO animated:YES completion:nil];
-    [lockScreenView showCancelButtonAnimated:YES completion:nil];
+    [lockScreenView resetAnimated:YES];
     
     if (self.remainingAttempts > 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempts left", (long)self.remainingAttempts] animated:YES completion:nil];
     else if (self.remainingAttempts == 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempt left", (long)self.remainingAttempts] animated:YES completion:nil];

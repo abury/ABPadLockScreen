@@ -64,7 +64,6 @@
 		9C79B192188A1A7100D465D8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9C79B196188A1A7100D465D8 /* ABPadLockScreenDemo Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ABPadLockScreenDemo Tests-Prefix.pch"; sourceTree = "<group>"; };
 		9C79B19C188A1A9100D465D8 /* ABPadLockScreenViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenViewControllerSpec.m; sourceTree = "<group>"; };
-		9C79B19E188A206200D465D8 /* ABPadLockScreenViewController+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ABPadLockScreenViewController+Private.h"; sourceTree = "<group>"; };
 		9C9F7AB3188A35A1004B0B6D /* ABPadButtonSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadButtonSpec.m; sourceTree = "<group>"; };
 		9C9F7AB5188A40A1004B0B6D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9CC50D1B188A73D100DBC969 /* UIColor+HexValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexValue.h"; sourceTree = "<group>"; };
@@ -82,6 +81,7 @@
 		9CC50D35188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenAbstractViewController.m; sourceTree = "<group>"; };
 		9CC50D37188A803200DBC969 /* ABPadLockScreenSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenSetupViewController.h; sourceTree = "<group>"; };
 		9CC50D38188A803200DBC969 /* ABPadLockScreenSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenSetupViewController.m; sourceTree = "<group>"; };
+		9CC50D3A188A815000DBC969 /* ABPadLockScreenViewController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ABPadLockScreenViewController+Private.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +196,7 @@
 		9C79B18E188A1A7100D465D8 /* ABPadLockScreenDemo Tests */ = {
 			isa = PBXGroup;
 			children = (
-				9C79B19E188A206200D465D8 /* ABPadLockScreenViewController+Private.h */,
+				9CC50D3A188A815000DBC969 /* ABPadLockScreenViewController+Private.h */,
 				9C79B19C188A1A9100D465D8 /* ABPadLockScreenViewControllerSpec.m */,
 				9C79B18F188A1A7100D465D8 /* Supporting Files */,
 				9C9F7AB3188A35A1004B0B6D /* ABPadButtonSpec.m */,

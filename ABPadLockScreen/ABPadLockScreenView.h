@@ -49,4 +49,6 @@
 
 - (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
+- (void)resetAnimated:(BOOL)animated;
+
 @end

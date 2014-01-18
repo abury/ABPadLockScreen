@@ -29,5 +29,4 @@
 @required
 - (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController;
 
-
 @end
