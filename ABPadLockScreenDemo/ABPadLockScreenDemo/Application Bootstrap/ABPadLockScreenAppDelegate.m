@@ -7,7 +7,7 @@
 //
 
 #import "ABPadLockScreenAppDelegate.h"
-#import "YourViewController.h"
+#import "ExampleViewController.h"
 
 @implementation ABPadLockScreenAppDelegate
 
@@ -19,7 +19,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    YourViewController *YVC = [[YourViewController alloc] init];
+    ExampleViewController *YVC = [[ExampleViewController alloc] init];
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:YVC];
     self.window.rootViewController = navCon;
     
