@@ -7,23 +7,24 @@
 //
 
 #import "YourViewController.h"
-#import "ABPadLockScreenViewController.h"
 #import "ABPadLockScreenView.h"
 #import "ABPadButton.h"
 #import "ABPinSelectionView.h"
 #import "UIColor+HexValue.h"
 
-@interface YourViewController () <ABPadLockScreenViewControllerDelegate>
+@interface YourViewController ()
 
 @property (nonatomic, strong) ABPadLockScreenViewController *pinScreen;
 
 - (void)lockScreenSelected:(id)sender;
+- (void)setUpLockScreenSelected:(id)sender;
 @end
 
 @implementation YourViewController
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Your Amazing App";
     
     [[ABPadLockScreenView appearance] setLabelColour:[UIColor whiteColor]];
     [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"4B67A1"]];
@@ -35,11 +36,17 @@
     [[ABPinSelectionView appearance] setSelectedColor:[UIColor colorWithHexValue:@"282B35"]];
     
     UIButton *lockButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [lockButton setTitle:@"Enter Pin" forState:UIControlStateNormal];
+    [lockButton setTitle:@"Lock App" forState:UIControlStateNormal];
     [lockButton addTarget:self action:@selector(lockScreenSelected:) forControlEvents:UIControlEventTouchUpInside];
     lockButton.frame = CGRectMake(80, 80, 100, 40);
     
+    UIButton *setupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [setupButton setTitle:@"Setup Pin" forState:UIControlStateNormal];
+    [setupButton addTarget:self action:@selector(lockScreenSelected:) forControlEvents:UIControlEventTouchUpInside];
+    setupButton.frame = CGRectMake(80, 120, 100, 40);
+    
     [self.view addSubview:lockButton];
+    [self.view addSubview:setupButton];
 }
 
 - (void)lockScreenSelected:(id)sender
@@ -47,6 +54,16 @@
     ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self pin:@"1234"];
     [lockScreen setAllowedAttempts:2];
 
+    lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
+    lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [self presentViewController:lockScreen animated:YES completion:nil];
+}
+
+- (void)setUpLockScreenSelected:(id)sender
+{
+    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self];
+    
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
@@ -61,16 +78,22 @@
     NSLog(@"Pin entry successfull");
 }
 
-- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    NSLog(@"Pin entry cancelled");
-}
-
 - (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
     NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
+}
+
+- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"Pin entry cancelled");
+}
+
+#pragma mark -
+#pragma mark - ABPadLockScreenSetupViewControllerDelegate Methods
+- (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController
+{
+    
 }
 
 @end

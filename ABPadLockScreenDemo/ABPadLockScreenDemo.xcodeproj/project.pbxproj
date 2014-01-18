@@ -15,7 +15,6 @@
 		9C79B0EA188A184A00D465D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C79B0E9188A184A00D465D8 /* Images.xcassets */; };
 		9C79B10C188A18A100D465D8 /* ABPadLockScreenAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C79B108188A18A100D465D8 /* ABPadLockScreenAppDelegate.m */; };
 		9C79B10D188A18A100D465D8 /* YourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C79B10B188A18A100D465D8 /* YourViewController.m */; };
-		9C79B183188A18AF00D465D8 /* ABPadLockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C79B148188A18AF00D465D8 /* ABPadLockScreenViewController.m */; };
 		9C79B18B188A1A7100D465D8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C79B0F0188A184A00D465D8 /* XCTest.framework */; };
 		9C79B18C188A1A7100D465D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C79B0D7188A184A00D465D8 /* Foundation.framework */; };
 		9C79B18D188A1A7100D465D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C79B0DB188A184A00D465D8 /* UIKit.framework */; };
@@ -23,14 +22,16 @@
 		9C79B19D188A1A9100D465D8 /* ABPadLockScreenViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C79B19C188A1A9100D465D8 /* ABPadLockScreenViewControllerSpec.m */; };
 		9C79B1A7188A23B900D465D8 /* YourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C79B10B188A18A100D465D8 /* YourViewController.m */; };
 		9C79B1A8188A23BD00D465D8 /* ABPadLockScreenAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C79B108188A18A100D465D8 /* ABPadLockScreenAppDelegate.m */; };
-		9C79B1A9188A23C000D465D8 /* ABPadLockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C79B148188A18AF00D465D8 /* ABPadLockScreenViewController.m */; };
-		9C9F7AAC188A24E2004B0B6D /* ABPadLockScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F7AAB188A24E2004B0B6D /* ABPadLockScreenView.m */; };
-		9C9F7AAD188A25ED004B0B6D /* ABPadLockScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F7AAB188A24E2004B0B6D /* ABPadLockScreenView.m */; };
-		9C9F7AB2188A3548004B0B6D /* ABPadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F7AB1188A3548004B0B6D /* ABPadButton.m */; };
 		9C9F7AB4188A35A1004B0B6D /* ABPadButtonSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F7AB3188A35A1004B0B6D /* ABPadButtonSpec.m */; };
 		9C9F7AB6188A40A1004B0B6D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C9F7AB5188A40A1004B0B6D /* QuartzCore.framework */; };
-		9CC50D1A188A499F00DBC969 /* ABPinSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D19188A499F00DBC969 /* ABPinSelectionView.m */; };
 		9CC50D1D188A73D100DBC969 /* UIColor+HexValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D1C188A73D100DBC969 /* UIColor+HexValue.m */; };
+		9CC50D2B188A797400DBC969 /* ABPadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D22188A797400DBC969 /* ABPadButton.m */; };
+		9CC50D2D188A797400DBC969 /* ABPadLockScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D26188A797400DBC969 /* ABPadLockScreenView.m */; };
+		9CC50D2E188A797400DBC969 /* ABPadLockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D28188A797400DBC969 /* ABPadLockScreenViewController.m */; };
+		9CC50D2F188A797400DBC969 /* ABPinSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D2A188A797400DBC969 /* ABPinSelectionView.m */; };
+		9CC50D33188A7B2000DBC969 /* ABPadLockScreenSetupViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D32188A7B2000DBC969 /* ABPadLockScreenSetupViewControllerSpec.m */; };
+		9CC50D36188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D35188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.m */; };
+		9CC50D39188A803200DBC969 /* ABPadLockScreenSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D38188A803200DBC969 /* ABPadLockScreenSetupViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,24 +59,29 @@
 		9C79B108188A18A100D465D8 /* ABPadLockScreenAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenAppDelegate.m; sourceTree = "<group>"; };
 		9C79B10A188A18A100D465D8 /* YourViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YourViewController.h; sourceTree = "<group>"; };
 		9C79B10B188A18A100D465D8 /* YourViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YourViewController.m; sourceTree = "<group>"; };
-		9C79B147188A18AF00D465D8 /* ABPadLockScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenViewController.h; sourceTree = "<group>"; };
-		9C79B148188A18AF00D465D8 /* ABPadLockScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenViewController.m; sourceTree = "<group>"; };
 		9C79B18A188A1A7100D465D8 /* ABPadLockScreenDemo Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ABPadLockScreenDemo Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C79B190188A1A7100D465D8 /* ABPadLockScreenDemo Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ABPadLockScreenDemo Tests-Info.plist"; sourceTree = "<group>"; };
 		9C79B192188A1A7100D465D8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9C79B196188A1A7100D465D8 /* ABPadLockScreenDemo Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ABPadLockScreenDemo Tests-Prefix.pch"; sourceTree = "<group>"; };
 		9C79B19C188A1A9100D465D8 /* ABPadLockScreenViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenViewControllerSpec.m; sourceTree = "<group>"; };
 		9C79B19E188A206200D465D8 /* ABPadLockScreenViewController+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ABPadLockScreenViewController+Private.h"; sourceTree = "<group>"; };
-		9C9F7AAA188A24E2004B0B6D /* ABPadLockScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenView.h; sourceTree = "<group>"; };
-		9C9F7AAB188A24E2004B0B6D /* ABPadLockScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenView.m; sourceTree = "<group>"; };
-		9C9F7AB0188A3548004B0B6D /* ABPadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadButton.h; sourceTree = "<group>"; };
-		9C9F7AB1188A3548004B0B6D /* ABPadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadButton.m; sourceTree = "<group>"; };
 		9C9F7AB3188A35A1004B0B6D /* ABPadButtonSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadButtonSpec.m; sourceTree = "<group>"; };
 		9C9F7AB5188A40A1004B0B6D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		9CC50D18188A499F00DBC969 /* ABPinSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPinSelectionView.h; sourceTree = "<group>"; };
-		9CC50D19188A499F00DBC969 /* ABPinSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPinSelectionView.m; sourceTree = "<group>"; };
 		9CC50D1B188A73D100DBC969 /* UIColor+HexValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexValue.h"; sourceTree = "<group>"; };
 		9CC50D1C188A73D100DBC969 /* UIColor+HexValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexValue.m"; sourceTree = "<group>"; };
+		9CC50D21188A797400DBC969 /* ABPadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadButton.h; sourceTree = "<group>"; };
+		9CC50D22188A797400DBC969 /* ABPadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadButton.m; sourceTree = "<group>"; };
+		9CC50D25188A797400DBC969 /* ABPadLockScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenView.h; sourceTree = "<group>"; };
+		9CC50D26188A797400DBC969 /* ABPadLockScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenView.m; sourceTree = "<group>"; };
+		9CC50D27188A797400DBC969 /* ABPadLockScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenViewController.h; sourceTree = "<group>"; };
+		9CC50D28188A797400DBC969 /* ABPadLockScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenViewController.m; sourceTree = "<group>"; };
+		9CC50D29188A797400DBC969 /* ABPinSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPinSelectionView.h; sourceTree = "<group>"; };
+		9CC50D2A188A797400DBC969 /* ABPinSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPinSelectionView.m; sourceTree = "<group>"; };
+		9CC50D32188A7B2000DBC969 /* ABPadLockScreenSetupViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenSetupViewControllerSpec.m; sourceTree = "<group>"; };
+		9CC50D34188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenAbstractViewController.h; sourceTree = "<group>"; };
+		9CC50D35188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenAbstractViewController.m; sourceTree = "<group>"; };
+		9CC50D37188A803200DBC969 /* ABPadLockScreenSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenSetupViewController.h; sourceTree = "<group>"; };
+		9CC50D38188A803200DBC969 /* ABPadLockScreenSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenSetupViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,20 +186,11 @@
 		9C79B10E188A18AF00D465D8 /* ABPadLockScreen */ = {
 			isa = PBXGroup;
 			children = (
-				9C9F7AA9188A24D9004B0B6D /* View */,
-				9C79B144188A18AF00D465D8 /* Controller */,
+				9CC50D31188A797E00DBC969 /* View */,
+				9CC50D30188A797700DBC969 /* Controller */,
 			);
 			name = ABPadLockScreen;
 			path = ../ABPadLockScreen;
-			sourceTree = "<group>";
-		};
-		9C79B144188A18AF00D465D8 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				9C79B147188A18AF00D465D8 /* ABPadLockScreenViewController.h */,
-				9C79B148188A18AF00D465D8 /* ABPadLockScreenViewController.m */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		9C79B18E188A1A7100D465D8 /* ABPadLockScreenDemo Tests */ = {
@@ -203,6 +200,7 @@
 				9C79B19C188A1A9100D465D8 /* ABPadLockScreenViewControllerSpec.m */,
 				9C79B18F188A1A7100D465D8 /* Supporting Files */,
 				9C9F7AB3188A35A1004B0B6D /* ABPadButtonSpec.m */,
+				9CC50D32188A7B2000DBC969 /* ABPadLockScreenSetupViewControllerSpec.m */,
 			);
 			path = "ABPadLockScreenDemo Tests";
 			sourceTree = "<group>";
@@ -217,17 +215,30 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9C9F7AA9188A24D9004B0B6D /* View */ = {
+		9CC50D30188A797700DBC969 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9C9F7AAA188A24E2004B0B6D /* ABPadLockScreenView.h */,
-				9C9F7AAB188A24E2004B0B6D /* ABPadLockScreenView.m */,
-				9C9F7AB0188A3548004B0B6D /* ABPadButton.h */,
-				9C9F7AB1188A3548004B0B6D /* ABPadButton.m */,
-				9CC50D18188A499F00DBC969 /* ABPinSelectionView.h */,
-				9CC50D19188A499F00DBC969 /* ABPinSelectionView.m */,
+				9CC50D37188A803200DBC969 /* ABPadLockScreenSetupViewController.h */,
+				9CC50D38188A803200DBC969 /* ABPadLockScreenSetupViewController.m */,
+				9CC50D27188A797400DBC969 /* ABPadLockScreenViewController.h */,
+				9CC50D28188A797400DBC969 /* ABPadLockScreenViewController.m */,
+				9CC50D34188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.h */,
+				9CC50D35188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.m */,
 			);
-			path = View;
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		9CC50D31188A797E00DBC969 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9CC50D25188A797400DBC969 /* ABPadLockScreenView.h */,
+				9CC50D26188A797400DBC969 /* ABPadLockScreenView.m */,
+				9CC50D21188A797400DBC969 /* ABPadButton.h */,
+				9CC50D22188A797400DBC969 /* ABPadButton.m */,
+				9CC50D29188A797400DBC969 /* ABPinSelectionView.h */,
+				9CC50D2A188A797400DBC969 /* ABPinSelectionView.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,14 +337,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C79B183188A18AF00D465D8 /* ABPadLockScreenViewController.m in Sources */,
-				9C9F7AAC188A24E2004B0B6D /* ABPadLockScreenView.m in Sources */,
+				9CC50D39188A803200DBC969 /* ABPadLockScreenSetupViewController.m in Sources */,
+				9CC50D36188A7C2100DBC969 /* ABPadLockScreenAbstractViewController.m in Sources */,
 				9C79B10C188A18A100D465D8 /* ABPadLockScreenAppDelegate.m in Sources */,
-				9CC50D1A188A499F00DBC969 /* ABPinSelectionView.m in Sources */,
+				9CC50D2B188A797400DBC969 /* ABPadButton.m in Sources */,
+				9CC50D2F188A797400DBC969 /* ABPinSelectionView.m in Sources */,
+				9CC50D2E188A797400DBC969 /* ABPadLockScreenViewController.m in Sources */,
 				9C79B0E4188A184A00D465D8 /* main.m in Sources */,
-				9C9F7AB2188A3548004B0B6D /* ABPadButton.m in Sources */,
 				9C79B10D188A18A100D465D8 /* YourViewController.m in Sources */,
 				9CC50D1D188A73D100DBC969 /* UIColor+HexValue.m in Sources */,
+				9CC50D2D188A797400DBC969 /* ABPadLockScreenView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,12 +354,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C9F7AAD188A25ED004B0B6D /* ABPadLockScreenView.m in Sources */,
 				9C9F7AB4188A35A1004B0B6D /* ABPadButtonSpec.m in Sources */,
-				9C79B1A9188A23C000D465D8 /* ABPadLockScreenViewController.m in Sources */,
 				9C79B1A8188A23BD00D465D8 /* ABPadLockScreenAppDelegate.m in Sources */,
 				9C79B1A7188A23B900D465D8 /* YourViewController.m in Sources */,
 				9C79B19D188A1A9100D465D8 /* ABPadLockScreenViewControllerSpec.m in Sources */,
+				9CC50D33188A7B2000DBC969 /* ABPadLockScreenSetupViewControllerSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

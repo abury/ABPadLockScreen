@@ -1,52 +1,27 @@
 //
-//  ABPadLockScreenViewController.m
-//  ABPadLockScreen
+//  ABPadLockScreenAbstractViewController.m
+//  ABPadLockScreenDemo
 //
 //  Created by Aron Bury on 18/01/2014.
-//  Copyright (c) 2014 Aron's IT Consultancy. All rights reserved.
+//  Copyright (c) 2014 Aron Bury. All rights reserved.
 //
 
-#import "ABPadLockScreenViewController.h"
+#import "ABPadLockScreenAbstractViewController.h"
 #import "ABPadLockScreenView.h"
 #import "ABPinSelectionView.h"
 
 #define lockScreenView ((ABPadLockScreenView *) [self view])
 
-@interface ABPadLockScreenViewController ()
-
-@property (nonatomic, strong) NSString *currentPin;
+@interface ABPadLockScreenAbstractViewController ()
 
 - (void)setUpButtonMapping;
-- (void)processPin;
-- (BOOL)isPinValid:(NSString *)pin;
-- (void)newPinSelected:(NSInteger)pinNumber;
-- (void)deleteFromPin;
-
 - (void)buttonSelected:(UIButton *)sender;
 - (void)cancelButtonSelected:(UIButton *)sender;
 - (void)deleteButtonSeleted:(UIButton *)sender;
 
-- (void)unlockScreen;
-- (void)processFailure;
-- (void)lockScreen;
-
 @end
 
-@implementation ABPadLockScreenViewController
-#pragma mark -
-#pragma mark - Init Methods
-- (instancetype)initWithDelegate:(id<ABPadLockScreenViewControllerDelegate>)delegate pin:(NSString *)pin
-{
-    self = [super init];
-    if (self)
-    {
-        _delegate = delegate;
-        _pin = pin;
-        _currentPin = @"";
-        _remainingAttempts = -1;
-    }
-    return self;
-}
+@implementation ABPadLockScreenAbstractViewController
 
 #pragma mark -
 #pragma mark - View Controller Lifecycele Methods
@@ -79,14 +54,6 @@
     }
 }
 
-#pragma mark -
-#pragma mark - Attempts
-- (void)setAllowedAttempts:(NSInteger)allowedAttempts
-{
-    _totalAttempts = 0;
-    _remainingAttempts = allowedAttempts;
-}
-
 - (void)setLockScreenTitle:(NSString *)title
 {
     self.title = title;
@@ -99,56 +66,7 @@
 }
 
 #pragma mark -
-#pragma mark - Pin Validation
-- (void)processPin
-{
-    if ([self isPinValid:self.currentPin])
-    {
-        [self unlockScreen];
-    }
-    else
-    {
-        [self processFailure];
-    }
-}
-
-- (void)unlockScreen
-{
-    if ([self.delegate respondsToSelector:@selector(unlockWasSuccessfulForPadLockScreenViewController:)])
-    {
-        [self.delegate unlockWasSuccessfulForPadLockScreenViewController:self];
-    }
-}
-
-- (void)processFailure
-{
-    _remainingAttempts --;
-    _totalAttempts ++;
-    [lockScreenView.pinOneSelectionView setSelected:NO animated:YES completion:nil];
-    [lockScreenView.pinTwoSelectionView setSelected:NO animated:YES completion:nil];
-    [lockScreenView.pinThreeSelectionView setSelected:NO animated:YES completion:nil];
-    [lockScreenView.pinFourSelectionView setSelected:NO animated:YES completion:nil];
-    [lockScreenView showCancelButtonAnimated:YES completion:nil];
-    
-    if (self.remainingAttempts > 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempts left", (long)self.remainingAttempts] animated:YES completion:nil];
-    else if (self.remainingAttempts == 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempt left", (long)self.remainingAttempts] animated:YES completion:nil];
-    else if (self.remainingAttempts == 0) [self lockScreen];
-    
-    if ([self.delegate respondsToSelector:@selector(unlockWasUnsuccessful:afterAttemptNumber:padLockScreenViewController:)])
-    {
-        [self.delegate unlockWasUnsuccessful:self.currentPin afterAttemptNumber:self.totalAttempts padLockScreenViewController:self];
-    }
-    self.currentPin = @"";
-}
-
-- (BOOL)isPinValid:(NSString *)pin
-{
-    if ([_pin isEqualToString:pin]) return YES;
-    return NO;
-}
-
-#pragma mark -
-#pragma mark - Pin Selection
+#pragma mark - Button Methods
 - (void)newPinSelected:(NSInteger)pinNumber
 {
     if ([self.currentPin length] >= 4)
@@ -174,7 +92,6 @@
     else if ([self.currentPin length] == 4)
     {
         [lockScreenView.pinFourSelectionView setSelected:YES animated:YES completion:nil];
-        [self processPin];
     }
 }
 
@@ -202,19 +119,6 @@
     }
 }
 
-- (void)lockScreen
-{
-    [lockScreenView updateDetailLabelWithString:@"You have been locked out" animated:YES completion:nil];
-    [lockScreenView lockViewAnimated:YES completion:nil];
-    
-    if ([self.delegate respondsToSelector:@selector(attemptsExpiredForPadLockScreenViewController:)])
-    {
-        [self.delegate attemptsExpiredForPadLockScreenViewController:self];
-    }
-}
-
-#pragma mark -
-#pragma mark - Button Selection
 - (void)buttonSelected:(UIButton *)sender
 {
     NSInteger tag = sender.tag;
