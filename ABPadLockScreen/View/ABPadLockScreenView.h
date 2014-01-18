@@ -35,7 +35,10 @@
 @property (nonatomic, strong, readonly) UIButton *buttonZero;
 
 @property (nonatomic, strong, readonly) UIButton *cancelButton;
+@property (nonatomic, strong, readonly) UIButton *deleteButton;
 
 - (NSArray *)buttonArray; //Lazy loaded array that returns all the buttons ordered from 0-9
+- (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (void)showDeleteButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 @end

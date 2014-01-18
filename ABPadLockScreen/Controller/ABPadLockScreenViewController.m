@@ -18,8 +18,12 @@
 
 - (void)setUpButtonMapping;
 - (BOOL)isPinValid:(NSString *)pin;
+- (void)newPinSelected:(NSInteger)pinNumber;
+- (void)deleteFromPin;
+
 - (void)buttonSelected:(UIButton *)sender;
 - (void)cancelButtonSelected:(UIButton *)sender;
+- (void)deleteButtonSeleted:(UIButton *)sender;
 
 @end
 
@@ -47,6 +51,7 @@
     self.view = [[ABPadLockScreenView alloc] initWithFrame:self.view.frame];
     [self setUpButtonMapping];
     [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [lockScreenView.deleteButton addTarget:self action:@selector(deleteButtonSeleted:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -99,15 +104,19 @@
 
 #pragma mark -
 #pragma mark - Pin Selection
-- (void)buttonSelected:(UIButton *)sender
+- (void)newPinSelected:(NSInteger)pinNumber
 {
-    NSInteger tag = sender.tag;
-    NSString *numberAsString = [NSString stringWithFormat:@"%ld", (long)tag];
-    self.currentPin = [NSString stringWithFormat:@"%@%@", self.currentPin, numberAsString];
+    if ([self.currentPin length] >= 4)
+    {
+        return;
+    }
+    
+    self.currentPin = [NSString stringWithFormat:@"%@%ld", self.currentPin, (long)pinNumber];
     
     if ([self.currentPin length] == 1)
     {
         [lockScreenView.pinOneSelectionView setSelected:YES animated:YES completion:nil];
+        [lockScreenView showDeleteButtonAnimated:YES completion:nil];
     }
     else if ([self.currentPin length] == 2)
     {
@@ -124,12 +133,49 @@
     }
 }
 
+- (void)deleteFromPin
+{
+    if ([self.currentPin length] == 0)
+    {
+        return;
+    }
+    
+    self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, [self.currentPin length] - 1)];
+    
+    if ([self.currentPin length] == 2)
+    {
+        [lockScreenView.pinThreeSelectionView setSelected:NO animated:YES completion:nil];
+    }
+    else if ([self.currentPin length] == 1)
+    {
+        [lockScreenView.pinTwoSelectionView setSelected:NO animated:YES completion:nil];
+    }
+    else if ([self.currentPin length] == 0)
+    {
+        [lockScreenView.pinOneSelectionView setSelected:NO animated:YES completion:nil];
+        [lockScreenView showCancelButtonAnimated:YES completion:nil];
+    }
+}
+
+#pragma mark -
+#pragma mark - Button Selection
+- (void)buttonSelected:(UIButton *)sender
+{
+    NSInteger tag = sender.tag;
+    [self newPinSelected:tag];
+}
+
 - (void)cancelButtonSelected:(UIButton *)sender
 {
     if ([self.delegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
     {
         [self.delegate unlockWasCancelledForPadLockScreenViewController:self];
     }
+}
+
+- (void)deleteButtonSeleted:(UIButton *)sender
+{
+    [self deleteFromPin];
 }
 
 @end

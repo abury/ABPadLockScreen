@@ -10,6 +10,8 @@
 #import "ABPadButton.h"
 #import "ABPinSelectionView.h"
 
+#define animationLength 0.15
+
 @interface ABPadLockScreenView()
 
 - (void)prepareApperance;
@@ -47,6 +49,10 @@
         _cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
         
+        _deleteButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+        _deleteButton.alpha = 0.0f;
+        
         _pinOneSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
         _pinTwoSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
         _pinThreeSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
@@ -79,12 +85,38 @@
              self.buttonSeven, self.buttonEight, self.buttonNine];
 }
 
+- (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+{
+    [self performAnimations:^{
+        self.cancelButton.alpha = 1.0f;
+        self.deleteButton.alpha = 0.0f;
+    } animated:animated completion:completion];
+}
+
+- (void)showDeleteButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+{
+    [self performAnimations:^{
+        self.cancelButton.alpha = 0.0f;
+        self.deleteButton.alpha = 1.0f;
+    } animated:animated completion:completion];
+}
+
+- (void)performAnimations:(void (^)(void))animations animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+{
+    CGFloat length = (animated) ? animationLength : 0.0f;
+    
+    [UIView animateWithDuration:length delay:0.0f options:UIViewAnimationOptionCurveEaseIn
+                     animations:animations
+                     completion:completion];
+}
+
 #pragma mark -
 #pragma mark - Helper Methods
 - (void)prepareApperance
 {
     self.enterPasscodeLabel.textColor = self.labelColour;
     [self.cancelButton setTitleColor:self.labelColour forState:UIControlStateNormal];
+    [self.deleteButton setTitleColor:self.labelColour forState:UIControlStateNormal];
 }
 
 - (void)performLayout
@@ -119,6 +151,9 @@
     
     self.cancelButton.frame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight/3), ABPadButtonWidth, 20);
     [self addSubview:self.cancelButton];
+    
+    self.deleteButton.frame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight/3), ABPadButtonWidth, 20);
+    [self addSubview:self.deleteButton];
     
     CGFloat pinPadding = 25;
     

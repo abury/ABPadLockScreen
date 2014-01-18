@@ -58,4 +58,28 @@
     XCTAssertFalse(isPinValid, @"Pin does not correctly report NO");
 }
 
+- (void)testPinSelection
+{
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
+    [padLockScreenVC newPinSelected:1];
+    XCTAssert([padLockScreenVC.currentPin isEqualToString:@"1"], @"First pin entry failed");
+    [padLockScreenVC newPinSelected:2];
+    [padLockScreenVC newPinSelected:3];
+    [padLockScreenVC newPinSelected:4];
+    XCTAssert([padLockScreenVC.currentPin isEqualToString:@"1234"], @"Pin Entry failed");
+    [padLockScreenVC newPinSelected:4];
+    XCTAssert([padLockScreenVC.currentPin length] != 5, @"Pin was able to get past a length of 4");
+}
+
+- (void)testPinDeletion
+{
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
+    padLockScreenVC.currentPin = @"123";
+    [padLockScreenVC deleteFromPin];
+    XCTAssert([padLockScreenVC.currentPin isEqualToString:@"12"], @"Pin value wasnt deleted");
+    [padLockScreenVC deleteFromPin];
+    [padLockScreenVC deleteFromPin];
+    XCTAssert([padLockScreenVC.currentPin isEqualToString:@""], @"Last pin values wernt deleted");
+}
+
 @end

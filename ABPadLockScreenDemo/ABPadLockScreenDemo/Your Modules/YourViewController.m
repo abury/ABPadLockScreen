@@ -10,6 +10,7 @@
 #import "ABPadLockScreenViewController.h"
 #import "ABPadLockScreenView.h"
 #import "ABPadButton.h"
+#import "ABPinSelectionView.h"
 
 @interface YourViewController () <ABPadLockScreenViewControllerDelegate>
 
@@ -42,6 +43,7 @@
     [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor blackColor]];
     
     [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
+    [[ABPinSelectionView appearance] setSelectedColor:[UIColor grayColor]];
 
     self.pinScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     self.pinScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -60,6 +62,8 @@
 - (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    self.pinScreen = nil;
+    
     NSLog(@"Pin entry cancelled");
 }
 
