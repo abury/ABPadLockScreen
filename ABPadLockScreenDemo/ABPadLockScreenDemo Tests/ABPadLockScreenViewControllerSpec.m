@@ -7,7 +7,7 @@
 //
 
 #import "ABPadLockScreenViewController+Private.h"
-#import "YourViewController.h"
+#import "ExampleViewController.h"
 
 #define pinValue @"1111"
 #define attempts 3
@@ -22,7 +22,7 @@
 #pragma mark - Public Methods
 - (void)testInit
 {
-    YourViewController *yourViewController = [[YourViewController alloc] init];
+    ExampleViewController *yourViewController = [[ExampleViewController alloc] init];
     ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:yourViewController pin:pinValue];
     XCTAssert([padLockScreenVC isKindOfClass:[padLockScreenVC class]], @"Pad Lock Screen VC is not correct type");
     XCTAssert(padLockScreenVC.delegate == yourViewController, @"Pad Lock Screen delegate is not correct type");

@@ -7,7 +7,7 @@
 //
 
 #import "ABPadLockScreenSetupViewController.h"
-#import "YourViewController.h"
+#import "ExampleViewController.h"
 
 @interface ABPadLockScreenSetupViewControllerSpec : XCTestCase
 
@@ -19,7 +19,7 @@
 #pragma mark - Public Methods
 - (void)testInit
 {
-    YourViewController *vc = [[YourViewController alloc] init];
+    ExampleViewController *vc = [[ExampleViewController alloc] init];
     ABPadLockScreenSetupViewController *setupLockVC = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:vc];
     XCTAssert([setupLockVC isKindOfClass:[ABPadLockScreenSetupViewController class]], @"Init Method didnt return the right class");
     XCTAssert(setupLockVC.delegate == vc, @"Init Method assign delegate correctly");
