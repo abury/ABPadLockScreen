@@ -8,11 +8,13 @@
 
 #import "ABPadLockScreenView.h"
 #import "ABPadButton.h"
+#import "ABPinSelectionView.h"
 
 @interface ABPadLockScreenView()
 
 - (void)prepareApperance;
 - (void)performLayout;
+- (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top;
 
 @end
 
@@ -41,6 +43,14 @@
         _buttonNine = [[ABPadButton alloc] initWithFrame:CGRectZero number:9 letters:@"WXYZ"];
         
         _buttonZero = [[ABPadButton alloc] initWithFrame:CGRectZero number:0 letters:nil];
+        
+        _cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        
+        _pinOneSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
+        _pinTwoSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
+        _pinThreeSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
+        _pinFourSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -58,11 +68,23 @@
     [super drawRect:rect];
     [self prepareApperance];
 }
+
+#pragma mark -
+#pragma mark - Public Methods
+- (NSArray *)buttonArray
+{
+    return @[self.buttonZero,
+             self.buttonOne, self.buttonTwo, self.buttonThree,
+             self.buttonFour, self.buttonFive, self.buttonSix,
+             self.buttonSeven, self.buttonEight, self.buttonNine];
+}
+
 #pragma mark -
 #pragma mark - Helper Methods
 - (void)prepareApperance
 {
     self.enterPasscodeLabel.textColor = self.labelColour;
+    [self.cancelButton setTitleColor:self.labelColour forState:UIControlStateNormal];
 }
 
 - (void)performLayout
@@ -81,43 +103,51 @@
     CGFloat bottomRowTop = middleRowTop + ABPadButtonHeight + buttonPadding;
     CGFloat zeroRowTop = bottomRowTop + ABPadButtonHeight + buttonPadding;
     
-    self.buttonOne.frame = CGRectMake(lefButtonLeft, topRowTop, ABPadButtonWidth, ABPadButtonHeight);
-    self.buttonTwo.frame = CGRectMake(centerButtonLeft, topRowTop, ABPadButtonWidth, ABPadButtonHeight);
-    self.buttonThree.frame = CGRectMake(rightButtonLeft, topRowTop, ABPadButtonWidth, ABPadButtonHeight);
+    [self setUpButton:self.buttonOne left:lefButtonLeft top:topRowTop];
+    [self setUpButton:self.buttonTwo left:centerButtonLeft top:topRowTop];
+    [self setUpButton:self.buttonThree left:rightButtonLeft top:topRowTop];
     
-    self.buttonFour.frame = CGRectMake(lefButtonLeft, middleRowTop, ABPadButtonWidth, ABPadButtonHeight);
-    self.buttonFive.frame = CGRectMake(centerButtonLeft, middleRowTop, ABPadButtonWidth, ABPadButtonHeight);
-    self.buttonSix.frame = CGRectMake(rightButtonLeft, middleRowTop, ABPadButtonWidth, ABPadButtonHeight);
+    [self setUpButton:self.buttonFour left:lefButtonLeft top:middleRowTop];
+    [self setUpButton:self.buttonFive left:centerButtonLeft top:middleRowTop];
+    [self setUpButton:self.buttonSix left:rightButtonLeft top:middleRowTop];
     
-    self.buttonSeven.frame = CGRectMake(lefButtonLeft, bottomRowTop, ABPadButtonWidth, ABPadButtonHeight);
-    self.buttonEight.frame = CGRectMake(centerButtonLeft, bottomRowTop, ABPadButtonWidth, ABPadButtonHeight);
-    self.buttonNine.frame = CGRectMake(rightButtonLeft, bottomRowTop, ABPadButtonWidth, ABPadButtonHeight);
+    [self setUpButton:self.buttonSeven left:lefButtonLeft top:bottomRowTop];
+    [self setUpButton:self.buttonEight left:centerButtonLeft top:bottomRowTop];
+    [self setUpButton:self.buttonNine left:rightButtonLeft top:bottomRowTop];
     
-    self.buttonZero.frame = CGRectMake(centerButtonLeft, zeroRowTop, ABPadButtonWidth, ABPadButtonHeight);
+    [self setUpButton:self.buttonZero left:centerButtonLeft top:zeroRowTop];
     
-    [self addSubview:self.buttonOne];
-    [self setRoundedView:self.buttonOne toDiameter:75];
-    [self addSubview:self.buttonTwo];
-    [self setRoundedView:self.buttonTwo toDiameter:75];
-    [self addSubview:self.buttonThree];
-    [self setRoundedView:self.buttonThree toDiameter:75];
+    self.cancelButton.frame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight/3), ABPadButtonWidth, 20);
+    [self addSubview:self.cancelButton];
     
-    [self addSubview:self.buttonFour];
-    [self setRoundedView:self.buttonFour toDiameter:75];
-    [self addSubview:self.buttonFive];
-    [self setRoundedView:self.buttonFive toDiameter:75];
-    [self addSubview:self.buttonSix];
-    [self setRoundedView:self.buttonSix toDiameter:75];
+    CGFloat pinPadding = 25;
     
-    [self addSubview:self.buttonSeven];
-    [self setRoundedView:self.buttonSeven toDiameter:75];
-    [self addSubview:self.buttonEight];
-    [self setRoundedView:self.buttonEight toDiameter:75];
-    [self addSubview:self.buttonNine];
-    [self setRoundedView:self.buttonNine toDiameter:75];
+    CGFloat selectionViewOneLeft = 100;
+    CGFloat selectionViewTwoLeft = selectionViewOneLeft + ABPinSelectionViewWidth + pinPadding;
+    CGFloat selectionViewThreeLeft = selectionViewTwoLeft + ABPinSelectionViewWidth + pinPadding;
+    CGFloat selectionViewFourLeft = selectionViewThreeLeft + ABPinSelectionViewWidth + pinPadding;
     
-    [self addSubview:self.buttonZero];
-    [self setRoundedView:self.buttonZero toDiameter:75];
+    [self setUpPinSelectionView:self.pinOneSelectionView left:selectionViewOneLeft];
+    [self setUpPinSelectionView:self.pinTwoSelectionView left:selectionViewTwoLeft];
+    [self setUpPinSelectionView:self.pinThreeSelectionView left:selectionViewThreeLeft];
+    [self setUpPinSelectionView:self.pinFourSelectionView left:selectionViewFourLeft];
+}
+
+- (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top
+{
+    button.frame = CGRectMake(left, top, ABPadButtonWidth, ABPadButtonHeight);
+    [self addSubview:button];
+    [self setRoundedView:button toDiameter:75];
+}
+
+- (void)setUpPinSelectionView:(ABPinSelectionView *)selectionView left:(CGFloat)left;
+{
+    selectionView.frame = CGRectMake(left,
+                                     self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 10,
+                                     ABPinSelectionViewWidth,
+                                     ABPinSelectionViewHeight);
+    [self addSubview:selectionView];
+    [self setRoundedView:selectionView toDiameter:15];
 }
 
 #pragma mark -

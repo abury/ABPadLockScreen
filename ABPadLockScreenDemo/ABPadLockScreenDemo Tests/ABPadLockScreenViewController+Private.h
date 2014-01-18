@@ -10,6 +10,11 @@
 
 @interface ABPadLockScreenViewController (Private)
 
+@property (nonatomic, strong) NSString *currentPin;
+
+- (void)setUpButtonMapping;
 - (BOOL)isPinValid:(NSString *)pin;
+- (void)buttonSelected:(UIButton *)sender;
+- (void)cancelButtonSelected:(UIButton *)sender;
 
 @end

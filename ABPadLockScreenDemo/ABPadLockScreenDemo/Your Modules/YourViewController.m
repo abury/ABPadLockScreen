@@ -51,21 +51,21 @@
 
 #pragma mark -
 #pragma mark - ABLockScreenDelegate Methods
-- (void)unlockWasSuccessful
+- (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     NSLog(@"Pin entry successfull");
 }
 
-- (void)unlockWasCancelled
+- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     NSLog(@"Pin entry cancelled");
 }
 
-- (void)unlockWasUnsuccessful:(NSString *)falseEntryCode afterAttemptNumber:(NSInteger)attemptNumber
+- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
-    NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falseEntryCode);
+    NSLog(@"Failed attempt number %ld with pin: %@", (long)attemptNumber, falsePin);
 }
 
 @end

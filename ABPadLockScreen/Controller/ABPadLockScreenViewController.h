@@ -13,6 +13,7 @@
  When a pin has been enteres successfully, unsuccessfully or when the entry has been cancelled.
  */
 
+@class ABPadLockScreenViewController;
 @protocol ABPadLockScreenViewControllerDelegate;
 
 @interface ABPadLockScreenViewController : UIViewController
@@ -33,30 +34,24 @@
 @required
 /**
  Called when the unlock was completed successfully
- @required
  */
-- (void)unlockWasSuccessful;
+- (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
 
 /**
  Called when an unlock was unsuccessfully, providing the entry code and the attempt number
- @param falsePin The entry code that prompted the unssuccessful entry
- @param attemptNumber The attempt number
- @required
  */
-- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber;
+- (void)unlockWasUnsuccessful:(NSString *)falsePin afterAttemptNumber:(NSInteger)attemptNumber padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
 
 /**
- Called when the user canclles the unlock
- @required
+ Called when the user cancels the unlock
  */
-- (void)unlockWasCancelled;
+- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
 
 @optional
 
 /**
  Called when the user has expired their attempts
- @optional
  */
-- (void)attemptsExpired;
+- (void)attemptsExpiredForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
 
 @end

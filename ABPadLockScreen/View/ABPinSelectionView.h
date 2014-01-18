@@ -13,4 +13,9 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
+@property (nonatomic, strong) UIColor *selectedColor UI_APPEARANCE_SELECTOR;
+
 @end
+
+extern CGFloat const ABPinSelectionViewWidth;
+extern CGFloat const ABPinSelectionViewHeight;

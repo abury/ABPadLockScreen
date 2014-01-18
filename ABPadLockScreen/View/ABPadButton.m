@@ -9,6 +9,8 @@
 #import "ABPadButton.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define animationLength 0.15
+
 @interface ABPadButton()
 
 @property (nonatomic, strong) UIView *selectedView;
@@ -19,20 +21,19 @@
 
 @end
 
-@implementation ABPadButton {
-    BOOL _isInitializing;
-}
+@implementation ABPadButton
 
 #pragma mark -
 #pragma mark - Init Methods
 - (instancetype)initWithFrame:(CGRect)frame number:(NSInteger)number letters:(NSString *)letters
 {
     self = [super initWithFrame:frame];
-    _isInitializing = YES;
     if (self)
     {
         [self setDefaultStyles];
         
+        self.accessibilityValue = [NSString stringWithFormat:@"PinButton%ld", (long)number];
+        self.tag = number;
         self.layer.borderWidth = 1.5f;
         _numberLabel = ({
             UILabel *label = [self standardLabel];
@@ -46,7 +47,6 @@
             label.font = _letterLabelFont;
             label;
         });
-        self.accessibilityValue = [NSString stringWithFormat:@"%ld", (long)number];
         
         _selectedView = ({
             UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
@@ -55,7 +55,6 @@
             view;
         });
     }
-    _isInitializing = NO;
     return self;
 }
 
@@ -111,7 +110,7 @@
 {
     [super touchesBegan:touches withEvent:event];
     
-    [UIView animateWithDuration:0.15 delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:animationLength delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.selectedView.alpha = 1.0f;
     } completion:nil];
 }
@@ -120,7 +119,7 @@
 {
     [super touchesEnded:touches withEvent:event];
     
-    [UIView animateWithDuration:0.15 delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:animationLength delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.selectedView.alpha = 0.0f;
     } completion:nil];
 }

@@ -6,10 +6,17 @@
 //  Copyright (c) 2014 Aron Bury. All rights reserved.
 //
 
+@class ABPinSelectionView;
+
 @interface ABPadLockScreenView : UIView
 
 @property (nonatomic, strong) UIFont *labelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *labelColour UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, strong, readonly) ABPinSelectionView *pinOneSelectionView;
+@property (nonatomic, strong, readonly) ABPinSelectionView *pinTwoSelectionView;
+@property (nonatomic, strong, readonly) ABPinSelectionView *pinThreeSelectionView;
+@property (nonatomic, strong, readonly) ABPinSelectionView *pinFourSelectionView;
 
 @property (nonatomic, strong, readonly) UILabel *enterPasscodeLabel;
 
@@ -26,5 +33,9 @@
 @property (nonatomic, strong, readonly) UIButton *buttonNine;
 
 @property (nonatomic, strong, readonly) UIButton *buttonZero;
+
+@property (nonatomic, strong, readonly) UIButton *cancelButton;
+
+- (NSArray *)buttonArray; //Lazy loaded array that returns all the buttons ordered from 0-9
 
 @end

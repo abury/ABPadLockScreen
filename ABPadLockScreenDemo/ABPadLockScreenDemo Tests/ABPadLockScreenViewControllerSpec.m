@@ -28,6 +28,7 @@
     XCTAssert(padLockScreenVC.delegate == yourViewController, @"Pad Lock Screen delegate is not correct type");
     XCTAssert([padLockScreenVC.pin isEqualToString:pinValue], @"Pad Lock screen pin isnt set correctly");
     XCTAssert(padLockScreenVC.totalAttempts == 0, @"Total attempts do not start at 0");
+    XCTAssert([padLockScreenVC.currentPin isEqualToString:@""], @"Current pin starts off as null");
 }
 
 - (void)testSettingAllowedAttempts
