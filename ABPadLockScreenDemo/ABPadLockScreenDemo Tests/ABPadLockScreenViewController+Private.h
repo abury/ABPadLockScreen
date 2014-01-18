@@ -24,5 +24,5 @@
 
 - (void)unlockScreen;
 - (void)processFailure;
-
+- (void)lockScreen;
 @end

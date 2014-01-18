@@ -30,8 +30,13 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        _enterPasscodeLabelFont = [UIFont systemFontOfSize:18];
+        _detailLabelFont = [UIFont systemFontOfSize:14];
+        
         _enterPasscodeLabel = [self standardLabel];
         _enterPasscodeLabel.text = @"Enter Passcode";
+        
+        _detailLabel = [self standardLabel];
         
         _buttonOne = [[ABPadButton alloc] initWithFrame:CGRectZero number:1 letters:nil];
         _buttonTwo = [[ABPadButton alloc] initWithFrame:CGRectZero number:2 letters:@"ABC"];
@@ -102,11 +107,48 @@
     } animated:animated completion:completion];
 }
 
+- (void)updateDetailLabelWithString:(NSString *)string animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+{
+    CGFloat length = (animated) ? animationLength : 0.0;
+    CGFloat labelWidth = [string sizeWithAttributes:@{NSFontAttributeName:self.detailLabelFont}].width + 15; //Padding
+    
+    CATransition *animation = [CATransition animation];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.type = kCATransitionFade;
+    animation.duration = length;
+    [self.detailLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
+    
+    // This will fade:
+    self.detailLabel.text = string;
+    self.detailLabel.frame = CGRectMake((self.frame.size.width/2) - 100, 80, labelWidth, 23);
+}
+
+- (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+{
+    [self performAnimations:^{
+        for (UIButton *button in [self buttonArray])
+        {
+            button.alpha = 0.2f;
+            button.userInteractionEnabled = NO;
+        }
+        self.cancelButton.alpha = 0.0f;
+        self.pinOneSelectionView.alpha = 0.0f;
+        self.pinTwoSelectionView.alpha = 0.0f;
+        self.pinThreeSelectionView.alpha = 0.0f;
+        self.pinFourSelectionView.alpha = 0.0f;
+    } animated:animated completion:completion];
+}
+
 #pragma mark -
 #pragma mark - Helper Methods
 - (void)prepareApperance
 {
     self.enterPasscodeLabel.textColor = self.labelColour;
+    self.enterPasscodeLabel.font = self.enterPasscodeLabelFont;
+    
+    self.detailLabel.textColor = self.labelColour;
+    self.detailLabel.font = self.detailLabelFont;
+    
     [self.cancelButton setTitleColor:self.labelColour forState:UIControlStateNormal];
     [self.deleteButton setTitleColor:self.labelColour forState:UIControlStateNormal];
 }
@@ -161,6 +203,9 @@
     [self setUpPinSelectionView:self.pinTwoSelectionView left:selectionViewTwoLeft];
     [self setUpPinSelectionView:self.pinThreeSelectionView left:selectionViewThreeLeft];
     [self setUpPinSelectionView:self.pinFourSelectionView left:selectionViewFourLeft];
+    
+    self.detailLabel.frame = CGRectMake((self.frame.size.width/2) - 100, 100, 200, 23);
+    [self addSubview:self.detailLabel];
 }
 
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top
@@ -194,7 +239,6 @@
 - (UILabel *)standardLabel
 {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.font = _labelFont;
     label.textColor = _labelColour;
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = NSTextAlignmentCenter;

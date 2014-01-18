@@ -28,6 +28,7 @@
 
 - (void)unlockScreen;
 - (void)processFailure;
+- (void)lockScreen;
 
 @end
 
@@ -42,6 +43,7 @@
         _delegate = delegate;
         _pin = pin;
         _currentPin = @"";
+        _remainingAttempts = -1;
     }
     return self;
 }
@@ -127,6 +129,10 @@
     [lockScreenView.pinThreeSelectionView setSelected:NO animated:YES completion:nil];
     [lockScreenView.pinFourSelectionView setSelected:NO animated:YES completion:nil];
     [lockScreenView showCancelButtonAnimated:YES completion:nil];
+    
+    if (self.remainingAttempts > 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempts left", (long)self.remainingAttempts] animated:YES completion:nil];
+    else if (self.remainingAttempts == 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempt left", (long)self.remainingAttempts] animated:YES completion:nil];
+    else if (self.remainingAttempts == 0) [self lockScreen];
 }
 
 - (BOOL)isPinValid:(NSString *)pin
@@ -188,6 +194,12 @@
         [lockScreenView.pinOneSelectionView setSelected:NO animated:YES completion:nil];
         [lockScreenView showCancelButtonAnimated:YES completion:nil];
     }
+}
+
+- (void)lockScreen
+{
+    [lockScreenView updateDetailLabelWithString:@"You have been locked out" animated:YES completion:nil];
+    [lockScreenView lockViewAnimated:YES completion:nil];
 }
 
 #pragma mark -

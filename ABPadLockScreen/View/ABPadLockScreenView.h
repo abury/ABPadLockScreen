@@ -10,7 +10,8 @@
 
 @interface ABPadLockScreenView : UIView
 
-@property (nonatomic, strong) UIFont *labelFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *enterPasscodeLabelFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *detailLabelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *labelColour UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic, assign) BOOL cancelButtonDisabled;
@@ -21,6 +22,7 @@
 @property (nonatomic, strong, readonly) ABPinSelectionView *pinFourSelectionView;
 
 @property (nonatomic, strong, readonly) UILabel *enterPasscodeLabel;
+@property (nonatomic, strong, readonly) UILabel *detailLabel;
 
 @property (nonatomic, strong, readonly) UIButton *buttonOne;
 @property (nonatomic, strong, readonly) UIButton *buttonTwo;
@@ -42,5 +44,9 @@
 - (NSArray *)buttonArray; //Lazy loaded array that returns all the buttons ordered from 0-9
 - (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)showDeleteButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+
+- (void)updateDetailLabelWithString:(NSString *)string animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+
+- (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 @end
