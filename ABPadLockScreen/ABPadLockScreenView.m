@@ -14,6 +14,8 @@
 
 @interface ABPadLockScreenView()
 
+@property (nonatomic, assign) BOOL requiresRotationCorrection;
+
 - (void)prepareApperance;
 - (void)performLayout;
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top;
@@ -33,6 +35,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        _requiresRotationCorrection = NO;
         _enterPasscodeLabelFont = [UIFont systemFontOfSize:18];
         _detailLabelFont = [UIFont systemFontOfSize:14];
         
@@ -171,6 +174,7 @@
 {
     [self layoutTitleArea];
     [self layoutButtonArea];
+    _requiresRotationCorrection = YES;
 }
 
 - (void)layoutTitleArea
@@ -267,16 +271,22 @@
 #pragma mark - Orientation height helpers
 - (CGFloat)correctWidth
 {
-    UIInterfaceOrientation realOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (UIInterfaceOrientationIsLandscape(realOrientation)) return self.frame.size.height;
+    if (self.requiresRotationCorrection)
+    {
+        UIInterfaceOrientation realOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+        if (UIInterfaceOrientationIsLandscape(realOrientation)) return self.frame.size.height;
+    }
     
     return self.frame.size.width;
 }
 
 - (CGFloat)correctHeight
 {
-    UIInterfaceOrientation realOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (UIInterfaceOrientationIsLandscape(realOrientation)) return self.frame.size.width;
+    if (self.requiresRotationCorrection)
+    {
+        UIInterfaceOrientation realOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+        if (UIInterfaceOrientationIsLandscape(realOrientation)) return self.frame.size.width;
+    }
     
     return self.frame.size.height;
 }
