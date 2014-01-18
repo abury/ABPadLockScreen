@@ -11,6 +11,7 @@
 #import "ABPadLockScreenView.h"
 #import "ABPadButton.h"
 #import "ABPinSelectionView.h"
+#import "UIColor+HexValue.h"
 
 @interface YourViewController () <ABPadLockScreenViewControllerDelegate>
 
@@ -25,10 +26,13 @@
     [super viewDidLoad];
     
     [[ABPadLockScreenView appearance] setLabelColour:[UIColor whiteColor]];
-    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor blackColor]];
+    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"4B67A1"]];
     
     [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
-    [[ABPinSelectionView appearance] setSelectedColor:[UIColor grayColor]];
+    [[ABPadButton appearance] setBorderColor:[UIColor colorWithHexValue:@"282B35"]];
+    [[ABPadButton appearance] setSelectedColor:[UIColor colorWithHexValue:@"282B35"]];
+    
+    [[ABPinSelectionView appearance] setSelectedColor:[UIColor colorWithHexValue:@"282B35"]];
     
     UIButton *lockButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [lockButton setTitle:@"Enter Pin" forState:UIControlStateNormal];

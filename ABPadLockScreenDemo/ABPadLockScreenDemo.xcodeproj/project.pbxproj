@@ -30,6 +30,7 @@
 		9C9F7AB4188A35A1004B0B6D /* ABPadButtonSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9F7AB3188A35A1004B0B6D /* ABPadButtonSpec.m */; };
 		9C9F7AB6188A40A1004B0B6D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C9F7AB5188A40A1004B0B6D /* QuartzCore.framework */; };
 		9CC50D1A188A499F00DBC969 /* ABPinSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D19188A499F00DBC969 /* ABPinSelectionView.m */; };
+		9CC50D1D188A73D100DBC969 /* UIColor+HexValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC50D1C188A73D100DBC969 /* UIColor+HexValue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		9C9F7AB5188A40A1004B0B6D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9CC50D18188A499F00DBC969 /* ABPinSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPinSelectionView.h; sourceTree = "<group>"; };
 		9CC50D19188A499F00DBC969 /* ABPinSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPinSelectionView.m; sourceTree = "<group>"; };
+		9CC50D1B188A73D100DBC969 /* UIColor+HexValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexValue.h"; sourceTree = "<group>"; };
+		9CC50D1C188A73D100DBC969 /* UIColor+HexValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexValue.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +171,8 @@
 			children = (
 				9C79B10A188A18A100D465D8 /* YourViewController.h */,
 				9C79B10B188A18A100D465D8 /* YourViewController.m */,
+				9CC50D1B188A73D100DBC969 /* UIColor+HexValue.h */,
+				9CC50D1C188A73D100DBC969 /* UIColor+HexValue.m */,
 			);
 			path = "Your Modules";
 			sourceTree = "<group>";
@@ -328,6 +333,7 @@
 				9C79B0E4188A184A00D465D8 /* main.m in Sources */,
 				9C9F7AB2188A3548004B0B6D /* ABPadButton.m in Sources */,
 				9C79B10D188A18A100D465D8 /* YourViewController.m in Sources */,
+				9CC50D1D188A73D100DBC969 /* UIColor+HexValue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
