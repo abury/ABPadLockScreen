@@ -35,7 +35,7 @@
 {
     ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
     [padLockScreenVC setAllowedAttempts:attempts];
-    XCTAssert(padLockScreenVC.totalAttempts == attempts, @"Allowed attempts not set properly");
+    XCTAssert(padLockScreenVC.totalAttempts == 0, @"Allowed attempts not set properly");
     XCTAssert(padLockScreenVC.remainingAttempts == attempts, @"Remaining attempts not set properly");
 }
 
@@ -85,7 +85,7 @@
 - (void)testPinProcessing
 {
     ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
-    padLockScreenVC.currentPin = pinValue;
+    padLockScreenVC.currentPin = @"1222";
     [padLockScreenVC processPin];
     XCTAssert([padLockScreenVC.currentPin isEqualToString:@""], @"Current Pin doesnt reset after processing");
 }

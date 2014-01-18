@@ -83,7 +83,7 @@
 #pragma mark - Attempts
 - (void)setAllowedAttempts:(NSInteger)allowedAttempts
 {
-    _totalAttempts = allowedAttempts;
+    _totalAttempts = 0;
     _remainingAttempts = allowedAttempts;
 }
 
@@ -110,7 +110,6 @@
     {
         [self processFailure];
     }
-    self.currentPin = @"";
 }
 
 - (void)unlockScreen
@@ -124,6 +123,7 @@
 - (void)processFailure
 {
     _remainingAttempts --;
+    _totalAttempts ++;
     [lockScreenView.pinOneSelectionView setSelected:NO animated:YES completion:nil];
     [lockScreenView.pinTwoSelectionView setSelected:NO animated:YES completion:nil];
     [lockScreenView.pinThreeSelectionView setSelected:NO animated:YES completion:nil];
@@ -133,6 +133,12 @@
     if (self.remainingAttempts > 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempts left", (long)self.remainingAttempts] animated:YES completion:nil];
     else if (self.remainingAttempts == 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempt left", (long)self.remainingAttempts] animated:YES completion:nil];
     else if (self.remainingAttempts == 0) [self lockScreen];
+    
+    if ([self.delegate respondsToSelector:@selector(unlockWasUnsuccessful:afterAttemptNumber:padLockScreenViewController:)])
+    {
+        [self.delegate unlockWasUnsuccessful:self.currentPin afterAttemptNumber:self.totalAttempts padLockScreenViewController:self];
+    }
+    self.currentPin = @"";
 }
 
 - (BOOL)isPinValid:(NSString *)pin
@@ -200,6 +206,11 @@
 {
     [lockScreenView updateDetailLabelWithString:@"You have been locked out" animated:YES completion:nil];
     [lockScreenView lockViewAnimated:YES completion:nil];
+    
+    if ([self.delegate respondsToSelector:@selector(attemptsExpiredForPadLockScreenViewController:)])
+    {
+        [self.delegate attemptsExpiredForPadLockScreenViewController:self];
+    }
 }
 
 #pragma mark -

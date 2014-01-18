@@ -41,7 +41,7 @@
 - (void)lockScreenSelected:(id)sender
 {
     ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self pin:@"1234"];
-    [lockScreen setAllowedAttempts:1];
+    [lockScreen setAllowedAttempts:2];
 
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
