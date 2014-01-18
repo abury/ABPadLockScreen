@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString *currentPin;
 
 - (void)setUpButtonMapping;
+- (void)processPin;
 - (BOOL)isPinValid:(NSString *)pin;
 - (void)newPinSelected:(NSInteger)pinNumber;
 - (void)deleteFromPin;
@@ -20,5 +21,8 @@
 - (void)buttonSelected:(UIButton *)sender;
 - (void)cancelButtonSelected:(UIButton *)sender;
 - (void)deleteButtonSeleted:(UIButton *)sender;
+
+- (void)unlockScreen;
+- (void)processFailure;
 
 @end

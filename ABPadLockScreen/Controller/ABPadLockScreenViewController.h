@@ -27,6 +27,7 @@
 
 - (void)setAllowedAttempts:(NSInteger)allowedAttempts;
 - (void)setLockScreenTitle:(NSString *)title;
+- (void)cancelButtonDisabled:(BOOL)disabled;
 
 @end
 

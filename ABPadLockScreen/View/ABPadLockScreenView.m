@@ -17,6 +17,7 @@
 - (void)prepareApperance;
 - (void)performLayout;
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top;
+- (void)performAnimations:(void (^)(void))animations animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 @end
 
@@ -101,15 +102,6 @@
     } animated:animated completion:completion];
 }
 
-- (void)performAnimations:(void (^)(void))animations animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
-{
-    CGFloat length = (animated) ? animationLength : 0.0f;
-    
-    [UIView animateWithDuration:length delay:0.0f options:UIViewAnimationOptionCurveEaseIn
-                     animations:animations
-                     completion:completion];
-}
-
 #pragma mark -
 #pragma mark - Helper Methods
 - (void)prepareApperance
@@ -149,8 +141,11 @@
     
     [self setUpButton:self.buttonZero left:centerButtonLeft top:zeroRowTop];
     
-    self.cancelButton.frame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight/3), ABPadButtonWidth, 20);
-    [self addSubview:self.cancelButton];
+    if (!self.cancelButtonDisabled)
+    {
+        self.cancelButton.frame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight/3), ABPadButtonWidth, 20);
+        [self addSubview:self.cancelButton];
+    }
     
     self.deleteButton.frame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight/3), ABPadButtonWidth, 20);
     [self addSubview:self.deleteButton];
@@ -183,6 +178,15 @@
                                      ABPinSelectionViewHeight);
     [self addSubview:selectionView];
     [self setRoundedView:selectionView toDiameter:15];
+}
+
+- (void)performAnimations:(void (^)(void))animations animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+{
+    CGFloat length = (animated) ? animationLength : 0.0f;
+    
+    [UIView animateWithDuration:length delay:0.0f options:UIViewAnimationOptionCurveEaseIn
+                     animations:animations
+                     completion:completion];
 }
 
 #pragma mark -

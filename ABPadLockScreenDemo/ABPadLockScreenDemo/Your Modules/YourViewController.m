@@ -24,6 +24,12 @@
 {
     [super viewDidLoad];
     
+    [[ABPadLockScreenView appearance] setLabelColour:[UIColor whiteColor]];
+    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor blackColor]];
+    
+    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
+    [[ABPinSelectionView appearance] setSelectedColor:[UIColor grayColor]];
+    
     UIButton *lockButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [lockButton setTitle:@"Enter Pin" forState:UIControlStateNormal];
     [lockButton addTarget:self action:@selector(lockScreenSelected:) forControlEvents:UIControlEventTouchUpInside];
@@ -34,21 +40,12 @@
 
 - (void)lockScreenSelected:(id)sender
 {
-    if (!self.pinScreen)
-    {
-        self.pinScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self pin:@"1234"];
-    }
-    
-    [[ABPadLockScreenView appearance] setLabelColour:[UIColor whiteColor]];
-    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor blackColor]];
-    
-    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
-    [[ABPinSelectionView appearance] setSelectedColor:[UIColor grayColor]];
+    ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self pin:@"1234"];
 
-    self.pinScreen.modalPresentationStyle = UIModalPresentationFullScreen;
-    self.pinScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
+    lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
-    [self presentViewController:self.pinScreen animated:YES completion:nil];
+    [self presentViewController:lockScreen animated:YES completion:nil];
 }
 
 #pragma mark -
@@ -62,7 +59,6 @@
 - (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    self.pinScreen = nil;
     
     NSLog(@"Pin entry cancelled");
 }

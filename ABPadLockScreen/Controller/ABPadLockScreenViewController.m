@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *currentPin;
 
 - (void)setUpButtonMapping;
+- (void)processPin;
 - (BOOL)isPinValid:(NSString *)pin;
 - (void)newPinSelected:(NSInteger)pinNumber;
 - (void)deleteFromPin;
@@ -24,6 +25,9 @@
 - (void)buttonSelected:(UIButton *)sender;
 - (void)cancelButtonSelected:(UIButton *)sender;
 - (void)deleteButtonSeleted:(UIButton *)sender;
+
+- (void)unlockScreen;
+- (void)processFailure;
 
 @end
 
@@ -87,18 +91,47 @@
     lockScreenView.enterPasscodeLabel.text = title;
 }
 
+- (void)cancelButtonDisabled:(BOOL)disabled
+{
+    lockScreenView.cancelButtonDisabled = disabled;
+}
+
 #pragma mark -
 #pragma mark - Pin Validation
 - (void)processPin
 {
-    
+    if ([self isPinValid:self.currentPin])
+    {
+        [self unlockScreen];
+    }
+    else
+    {
+        [self processFailure];
+    }
+    self.currentPin = @"";
+}
+
+- (void)unlockScreen
+{
+    if ([self.delegate respondsToSelector:@selector(unlockWasSuccessfulForPadLockScreenViewController:)])
+    {
+        [self.delegate unlockWasSuccessfulForPadLockScreenViewController:self];
+    }
+}
+
+- (void)processFailure
+{
+    _remainingAttempts --;
+    [lockScreenView.pinOneSelectionView setSelected:NO animated:YES completion:nil];
+    [lockScreenView.pinTwoSelectionView setSelected:NO animated:YES completion:nil];
+    [lockScreenView.pinThreeSelectionView setSelected:NO animated:YES completion:nil];
+    [lockScreenView.pinFourSelectionView setSelected:NO animated:YES completion:nil];
+    [lockScreenView showCancelButtonAnimated:YES completion:nil];
 }
 
 - (BOOL)isPinValid:(NSString *)pin
 {
     if ([_pin isEqualToString:pin]) return YES;
-    
-    _remainingAttempts --;
     return NO;
 }
 

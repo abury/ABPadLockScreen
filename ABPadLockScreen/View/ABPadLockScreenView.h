@@ -13,6 +13,8 @@
 @property (nonatomic, strong) UIFont *labelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *labelColour UI_APPEARANCE_SELECTOR;
 
+@property (nonatomic, assign) BOOL cancelButtonDisabled;
+
 @property (nonatomic, strong, readonly) ABPinSelectionView *pinOneSelectionView;
 @property (nonatomic, strong, readonly) ABPinSelectionView *pinTwoSelectionView;
 @property (nonatomic, strong, readonly) ABPinSelectionView *pinThreeSelectionView;

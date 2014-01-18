@@ -45,7 +45,7 @@
 {
     ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
     [padLockScreenVC setAllowedAttempts:attempts];
-    [padLockScreenVC isPinValid:@"1234"];
+    [padLockScreenVC processPin];
     XCTAssert(padLockScreenVC.remainingAttempts == attempts - 1, @"Pad lock screen remaining attempts did not decrease");
 }
 
@@ -65,8 +65,8 @@
     XCTAssert([padLockScreenVC.currentPin isEqualToString:@"1"], @"First pin entry failed");
     [padLockScreenVC newPinSelected:2];
     [padLockScreenVC newPinSelected:3];
+    XCTAssert([padLockScreenVC.currentPin isEqualToString:@"123"], @"Pin Entry failed");
     [padLockScreenVC newPinSelected:4];
-    XCTAssert([padLockScreenVC.currentPin isEqualToString:@"1234"], @"Pin Entry failed");
     [padLockScreenVC newPinSelected:4];
     XCTAssert([padLockScreenVC.currentPin length] != 5, @"Pin was able to get past a length of 4");
 }
@@ -82,4 +82,11 @@
     XCTAssert([padLockScreenVC.currentPin isEqualToString:@""], @"Last pin values wernt deleted");
 }
 
+- (void)testPinProcessing
+{
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
+    padLockScreenVC.currentPin = pinValue;
+    [padLockScreenVC processPin];
+    XCTAssert([padLockScreenVC.currentPin isEqualToString:@""], @"Current Pin doesnt reset after processing");
+}
 @end
