@@ -12,7 +12,7 @@ ABPadLockScreen aims to provide a universal solution to providing a  secure keyp
 - Optional PIN entry limit
 - Optional cancel button limit
 - Optional title modification
-- Full apperance customisation
+- Full appearance customisation
 
 <img src="http://www.aronbury.com/assets/images/abpadlockscreen/fb-blue.png" width=50% alt="screenshot" title="screenshot">
 
@@ -27,8 +27,8 @@ pod "ABPadLockScreen", "~> 3.0"
 ```
 The earliest version of this framework that supports cocoapods is 3.0.
 
-## Customising the Apperance
-The module is entirely customisable through UIAppearance. All colours and fonts used within the module can be set using the UIAppearance proxy. The example project shows how to do this, but for a more in depth look at UIAppearance check out the docs [check out the docs](https://developer.apple.com/library/ios/documentation/uikit/reference/UIAppearance_Protocol/Reference/Reference.html) or check out [Matt Thompsons article on NSHipster](http://nshipster.com/uiappearance/)
+## Customising the Appearance
+The module is entirely customisable through UIAppearance. All colours and fonts used within the module can be set using the UIAppearance proxy. The example project shows how to do this, but for a more in depth look at UIAppearance check out the docs [check out the docs](https://developer.apple.com/library/ios/documentation/uikit/reference/UIAppearance_Protocol/Reference/Reference.html) or check out [Matt Thompson’s article on NSHipster](http://nshipster.com/uiappearance/)
 
 <img src="http://www.aronbury.com/assets/images/abpadlockscreen/attempt-pink.png" width=50% alt="Attempts left" title="Attempts left">
 <img src="http://www.aronbury.com/assets/images/abpadlockscreen/gray-locked.png" width=50% alt="Locked out" title="Locked out">
