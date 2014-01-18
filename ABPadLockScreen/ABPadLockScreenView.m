@@ -11,6 +11,7 @@
 #import "ABPinSelectionView.h"
 
 #define animationLength 0.15
+#define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
 
 @interface ABPadLockScreenView()
 
@@ -18,6 +19,9 @@
 
 - (void)prepareApperance;
 - (void)performLayout;
+- (void)layoutTitleArea;
+- (void)layoutButtonArea;
+
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top;
 - (void)setUpPinSelectionView:(ABPinSelectionView *)selectionView left:(CGFloat)left top:(CGFloat)top;
 - (void)performAnimations:(void (^)(void))animations animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
@@ -205,17 +209,23 @@
 
 - (void)layoutButtonArea
 {
-    CGFloat buttonPadding = 20;
-    CGFloat buttonRowWidth = (ABPadButtonWidth * 3) + (buttonPadding * 2);
+    CGFloat horizontalButtonPadding = 20;
+    CGFloat verticalButtonPadding = 10;
+    
+    CGFloat buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
     
     CGFloat lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
-    CGFloat centerButtonLeft = lefButtonLeft + ABPadButtonWidth + buttonPadding;
-    CGFloat rightButtonLeft = centerButtonLeft + ABPadButtonWidth + buttonPadding;
+    CGFloat centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
+    CGFloat rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
     
     CGFloat topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 50;
-    CGFloat middleRowTop = topRowTop + ABPadButtonHeight + buttonPadding;
-    CGFloat bottomRowTop = middleRowTop + ABPadButtonHeight + buttonPadding;
-    CGFloat zeroRowTop = bottomRowTop + ABPadButtonHeight + buttonPadding;
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        if (!IS_IPHONE5) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
+    
+    CGFloat middleRowTop = topRowTop + ABPadButtonHeight + verticalButtonPadding;
+    CGFloat bottomRowTop = middleRowTop + ABPadButtonHeight + verticalButtonPadding;
+    CGFloat zeroRowTop = bottomRowTop + ABPadButtonHeight + verticalButtonPadding;
     
     [self setUpButton:self.buttonOne left:lefButtonLeft top:topRowTop];
     [self setUpButton:self.buttonTwo left:centerButtonLeft top:topRowTop];
