@@ -263,9 +263,9 @@
 			productReference = 9C79B0D4188A184A00D465D8 /* ABPadLockScreenDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9C79B189188A1A7100D465D8 /* ABPadLockScreenDemo Tests */ = {
+		9C79B189188A1A7100D465D8 /* ABPadLockScreenDemoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9C79B199188A1A7100D465D8 /* Build configuration list for PBXNativeTarget "ABPadLockScreenDemo Tests" */;
+			buildConfigurationList = 9C79B199188A1A7100D465D8 /* Build configuration list for PBXNativeTarget "ABPadLockScreenDemoTests" */;
 			buildPhases = (
 				9C79B186188A1A7100D465D8 /* Sources */,
 				9C79B187188A1A7100D465D8 /* Frameworks */,
@@ -276,7 +276,7 @@
 			dependencies = (
 				9C79B198188A1A7100D465D8 /* PBXTargetDependency */,
 			);
-			name = "ABPadLockScreenDemo Tests";
+			name = ABPadLockScreenDemoTests;
 			productName = "ABPadLockScreenDemo Tests";
 			productReference = 9C79B18A188A1A7100D465D8 /* ABPadLockScreenDemo Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -309,7 +309,7 @@
 			projectRoot = "";
 			targets = (
 				9C79B0D3188A184A00D465D8 /* ABPadLockScreenDemo */,
-				9C79B189188A1A7100D465D8 /* ABPadLockScreenDemo Tests */,
+				9C79B189188A1A7100D465D8 /* ABPadLockScreenDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -563,7 +563,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9C79B199188A1A7100D465D8 /* Build configuration list for PBXNativeTarget "ABPadLockScreenDemo Tests" */ = {
+		9C79B199188A1A7100D465D8 /* Build configuration list for PBXNativeTarget "ABPadLockScreenDemoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9C79B19A188A1A7100D465D8 /* Debug */,
