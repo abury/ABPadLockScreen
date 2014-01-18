@@ -57,7 +57,7 @@
 		9C79B0F0188A184A00D465D8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		9C79B107188A18A100D465D8 /* ABPadLockScreenAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenAppDelegate.h; sourceTree = "<group>"; };
 		9C79B108188A18A100D465D8 /* ABPadLockScreenAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenAppDelegate.m; sourceTree = "<group>"; };
-		9C79B18A188A1A7100D465D8 /* ABPadLockScreenDemo Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ABPadLockScreenDemo Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C79B18A188A1A7100D465D8 /* ABPadLockScreenDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ABPadLockScreenDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C79B190188A1A7100D465D8 /* ABPadLockScreenDemo Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ABPadLockScreenDemo Tests-Info.plist"; sourceTree = "<group>"; };
 		9C79B192188A1A7100D465D8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9C79B196188A1A7100D465D8 /* ABPadLockScreenDemo Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ABPadLockScreenDemo Tests-Prefix.pch"; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				9C79B0D4188A184A00D465D8 /* ABPadLockScreenDemo.app */,
-				9C79B18A188A1A7100D465D8 /* ABPadLockScreenDemo Tests.xctest */,
+				9C79B18A188A1A7100D465D8 /* ABPadLockScreenDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -278,7 +278,7 @@
 			);
 			name = ABPadLockScreenDemoTests;
 			productName = "ABPadLockScreenDemo Tests";
-			productReference = 9C79B18A188A1A7100D465D8 /* ABPadLockScreenDemo Tests.xctest */;
+			productReference = 9C79B18A188A1A7100D465D8 /* ABPadLockScreenDemoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
