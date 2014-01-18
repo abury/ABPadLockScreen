@@ -17,7 +17,10 @@
 - (void)prepareApperance;
 - (void)performLayout;
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top;
+- (void)setUpPinSelectionView:(ABPinSelectionView *)selectionView left:(CGFloat)left top:(CGFloat)top;
 - (void)performAnimations:(void (^)(void))animations animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (CGFloat)correctWidth;
+- (CGFloat)correctHeight;
 
 @end
 
@@ -162,18 +165,50 @@
     [self.deleteButton setTitleColor:self.labelColour forState:UIControlStateNormal];
 }
 
+#pragma mark -
+#pragma mark - Leyout Methods
 - (void)performLayout
 {
-    self.enterPasscodeLabel.frame = CGRectMake((self.frame.size.width/2) - 100, 40, 200, 23);
+    [self layoutTitleArea];
+    [self layoutButtonArea];
+}
+
+- (void)layoutTitleArea
+{
+    CGFloat top = ([self correctHeight]/2) - 300;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) top = 40;
+    self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 100, top, 200, 23);
     [self addSubview:self.enterPasscodeLabel];
     
-    CGFloat buttonPadding = 19;
+    CGFloat pinPadding = 25;
+    CGFloat pinRowWidth = (ABPinSelectionViewWidth * 4) + (pinPadding * 3);
     
-    CGFloat lefButtonLeft = 29;
+    CGFloat selectionViewOneLeft = ([self correctWidth]/2) - (pinRowWidth/2);
+    CGFloat selectionViewTwoLeft = selectionViewOneLeft + ABPinSelectionViewWidth + pinPadding;
+    CGFloat selectionViewThreeLeft = selectionViewTwoLeft + ABPinSelectionViewWidth + pinPadding;
+    CGFloat selectionViewFourLeft = selectionViewThreeLeft + ABPinSelectionViewWidth + pinPadding;
+    
+    CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 10;
+    
+    [self setUpPinSelectionView:self.pinOneSelectionView left:selectionViewOneLeft top:pinSelectionTop];
+    [self setUpPinSelectionView:self.pinTwoSelectionView left:selectionViewTwoLeft top:pinSelectionTop];
+    [self setUpPinSelectionView:self.pinThreeSelectionView left:selectionViewThreeLeft top:pinSelectionTop];
+    [self setUpPinSelectionView:self.pinFourSelectionView left:selectionViewFourLeft top:pinSelectionTop];
+    
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 100, pinSelectionTop + 30, 200, 23);
+    [self addSubview:self.detailLabel];
+}
+
+- (void)layoutButtonArea
+{
+    CGFloat buttonPadding = 20;
+    CGFloat buttonRowWidth = (ABPadButtonWidth * 3) + (buttonPadding * 2);
+    
+    CGFloat lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
     CGFloat centerButtonLeft = lefButtonLeft + ABPadButtonWidth + buttonPadding;
     CGFloat rightButtonLeft = centerButtonLeft + ABPadButtonWidth + buttonPadding;
     
-    CGFloat topRowTop = 150;
+    CGFloat topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 50;
     CGFloat middleRowTop = topRowTop + ABPadButtonHeight + buttonPadding;
     CGFloat bottomRowTop = middleRowTop + ABPadButtonHeight + buttonPadding;
     CGFloat zeroRowTop = bottomRowTop + ABPadButtonHeight + buttonPadding;
@@ -200,21 +235,6 @@
     
     self.deleteButton.frame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight/3), ABPadButtonWidth, 20);
     [self addSubview:self.deleteButton];
-    
-    CGFloat pinPadding = 25;
-    
-    CGFloat selectionViewOneLeft = 100;
-    CGFloat selectionViewTwoLeft = selectionViewOneLeft + ABPinSelectionViewWidth + pinPadding;
-    CGFloat selectionViewThreeLeft = selectionViewTwoLeft + ABPinSelectionViewWidth + pinPadding;
-    CGFloat selectionViewFourLeft = selectionViewThreeLeft + ABPinSelectionViewWidth + pinPadding;
-    
-    [self setUpPinSelectionView:self.pinOneSelectionView left:selectionViewOneLeft];
-    [self setUpPinSelectionView:self.pinTwoSelectionView left:selectionViewTwoLeft];
-    [self setUpPinSelectionView:self.pinThreeSelectionView left:selectionViewThreeLeft];
-    [self setUpPinSelectionView:self.pinFourSelectionView left:selectionViewFourLeft];
-    
-    self.detailLabel.frame = CGRectMake((self.frame.size.width/2) - 100, 100, 200, 23);
-    [self addSubview:self.detailLabel];
 }
 
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top
@@ -224,10 +244,10 @@
     [self setRoundedView:button toDiameter:75];
 }
 
-- (void)setUpPinSelectionView:(ABPinSelectionView *)selectionView left:(CGFloat)left;
+- (void)setUpPinSelectionView:(ABPinSelectionView *)selectionView left:(CGFloat)left top:(CGFloat)top
 {
     selectionView.frame = CGRectMake(left,
-                                     self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 10,
+                                     top,
                                      ABPinSelectionViewWidth,
                                      ABPinSelectionViewHeight);
     [self addSubview:selectionView];
@@ -244,7 +264,25 @@
 }
 
 #pragma mark -
-#pragma mark - Default View Methods
+#pragma mark - Orientation height helpers
+- (CGFloat)correctWidth
+{
+    UIInterfaceOrientation realOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (UIInterfaceOrientationIsLandscape(realOrientation)) return self.frame.size.height;
+    
+    return self.frame.size.width;
+}
+
+- (CGFloat)correctHeight
+{
+    UIInterfaceOrientation realOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (UIInterfaceOrientationIsLandscape(realOrientation)) return self.frame.size.width;
+    
+    return self.frame.size.height;
+}
+
+#pragma mark -
+#pragma mark -  View Methods
 - (UILabel *)standardLabel
 {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];

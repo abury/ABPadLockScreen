@@ -14,7 +14,8 @@
 
 @interface YourViewController ()
 
-@property (nonatomic, strong) ABPadLockScreenViewController *pinScreen;
+@property (nonatomic, strong) NSString *pin;
+
 
 - (void)lockScreenSelected:(id)sender;
 - (void)setUpLockScreenSelected:(id)sender;
@@ -51,7 +52,13 @@
 
 - (void)lockScreenSelected:(id)sender
 {
-    ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self pin:@"1234"];
+    if (!self.pin)
+    {
+        [[[UIAlertView alloc] initWithTitle:@"No Pin" message:@"Please Set a pin before trying to unlock" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        return;
+    }
+    
+    ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self pin:self.pin];
     [lockScreen setAllowedAttempts:2];
 
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -94,6 +101,7 @@
 - (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    self.pin = pin;
     NSLog(@"Pin Set to pin");
 }
 
