@@ -1,0 +1,4 @@
+language: objective-c
+xcode_project: ABPadLockScreenDemo/ABPadLockScreenDemo.xcodeproj
+xcode_scheme: ABPadLockScreenDemo
+xcode_sdk: iphonesimulator

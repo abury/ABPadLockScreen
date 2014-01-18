@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9C79B0EE188A184A00D465D8"
+               BlueprintIdentifier = "9C79B189188A1A7100D465D8"
                BuildableName = "ABPadLockScreenDemoTests.xctest"
                BlueprintName = "ABPadLockScreenDemoTests"
                ReferencedContainer = "container:ABPadLockScreenDemo.xcodeproj">
@@ -44,7 +44,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9C79B189188A1A7100D465D8"
                BuildableName = "ABPadLockScreenDemo Tests.xctest"
-               BlueprintName = "ABPadLockScreenDemo Tests"
+               BlueprintName = "ABPadLockScreenDemoTests"
                ReferencedContainer = "container:ABPadLockScreenDemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
