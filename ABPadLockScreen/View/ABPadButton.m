@@ -13,33 +13,37 @@
 
 @property (nonatomic, strong) UIView *selectedView;
 
+- (void)setDefaultStyles;
 - (void)prepareApperance;
 - (void)performLayout;
 
 @end
 
-@implementation ABPadButton
+@implementation ABPadButton {
+    BOOL _isInitializing;
+}
 
 #pragma mark -
 #pragma mark - Init Methods
 - (instancetype)initWithFrame:(CGRect)frame number:(NSInteger)number letters:(NSString *)letters
 {
     self = [super initWithFrame:frame];
+    _isInitializing = YES;
     if (self)
     {
-        self.backgroundColor = [UIColor clearColor];
-        self.layer.borderColor = [[UIColor whiteColor] CGColor];
-        self.layer.borderWidth = 1.0f;
+        [self setDefaultStyles];
+        
+        self.layer.borderWidth = 1.5f;
         _numberLabel = ({
             UILabel *label = [self standardLabel];
             label.text = [NSString stringWithFormat:@"%ld", (long)number];
-            label.font = [UIFont systemFontOfSize:30];
+            label.font = _numberLabelFont;
             label;
         });
         _lettersLabel = ({
             UILabel *label = [self standardLabel];
             label.text = letters;
-            label.font = [UIFont systemFontOfSize:12];
+            label.font = _letterLabelFont;
             label;
         });
         self.accessibilityValue = [NSString stringWithFormat:@"%ld", (long)number];
@@ -47,10 +51,11 @@
         _selectedView = ({
             UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
             view.alpha = 0.0f;
-            view.backgroundColor = [UIColor blueColor];
+            view.backgroundColor = _selectedColor;
             view;
         });
     }
+    _isInitializing = NO;
     return self;
 }
 
@@ -63,11 +68,29 @@
     [self performLayout];
 }
 
+- (void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    [self prepareApperance];
+}
+
 #pragma mark -
 #pragma mark - Helper Methods
+- (void)setDefaultStyles
+{
+    _borderColor = [UIColor whiteColor];
+    _selectedColor = [UIColor grayColor];
+    _textColor = [UIColor whiteColor];
+    _numberLabelFont = [UIFont systemFontOfSize:30];
+    _letterLabelFont = [UIFont systemFontOfSize:10];
+}
+
 - (void)prepareApperance
 {
-
+    self.selectedView.backgroundColor = self.selectedColor;
+    self.layer.borderColor = [self.borderColor CGColor];
+    self.numberLabel.textColor = self.textColor;
+    self.lettersLabel.textColor = self.textColor;
 }
 
 - (void)performLayout
@@ -75,10 +98,10 @@
     self.selectedView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [self addSubview:self.selectedView];
     
-    self.numberLabel.frame = CGRectMake(0, 10, self.frame.size.width, self.frame.size.height/2.5);
+    self.numberLabel.frame = CGRectMake(0, 15, self.frame.size.width, self.frame.size.height/2.5);
     [self addSubview:self.numberLabel];
     
-    self.lettersLabel.frame = CGRectMake(0, self.numberLabel.frame.origin.y + self.numberLabel.frame.size.height + 5, self.frame.size.width, 10);
+    self.lettersLabel.frame = CGRectMake(0, self.numberLabel.frame.origin.y + self.numberLabel.frame.size.height, self.frame.size.width, 10);
     [self addSubview:self.lettersLabel];
 }
 

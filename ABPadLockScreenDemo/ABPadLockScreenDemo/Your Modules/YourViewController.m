@@ -9,6 +9,7 @@
 #import "YourViewController.h"
 #import "ABPadLockScreenViewController.h"
 #import "ABPadLockScreenView.h"
+#import "ABPadButton.h"
 
 @interface YourViewController () <ABPadLockScreenViewControllerDelegate>
 
@@ -38,6 +39,9 @@
     }
     
     [[ABPadLockScreenView appearance] setLabelColour:[UIColor whiteColor]];
+    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor blackColor]];
+    
+    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
 
     self.pinScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     self.pinScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

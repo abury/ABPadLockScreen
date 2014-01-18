@@ -25,7 +25,6 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        _pinBackgroundColor = [UIColor blackColor];
         _enterPasscodeLabel = [self standardLabel];
         _enterPasscodeLabel.text = @"Enter Passcode";
         
@@ -51,15 +50,18 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [self prepareApperance];
     [self performLayout];
 }
 
+- (void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    [self prepareApperance];
+}
 #pragma mark -
 #pragma mark - Helper Methods
 - (void)prepareApperance
 {
-    self.backgroundColor = _pinBackgroundColor;
     self.enterPasscodeLabel.textColor = self.labelColour;
 }
 

@@ -8,7 +8,6 @@
 
 @interface ABPadLockScreenView : UIView
 
-@property (nonatomic, strong) UIColor *pinBackgroundColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIFont *labelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *labelColour UI_APPEARANCE_SELECTOR;
 

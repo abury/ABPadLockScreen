@@ -59,6 +59,12 @@
     _remainingAttempts = allowedAttempts;
 }
 
+- (void)setLockScreenTitle:(NSString *)title
+{
+    self.title = title;
+    lockScreenView.enterPasscodeLabel.text = title;
+}
+
 #pragma mark -
 #pragma mark - Pin Validation
 - (BOOL)isPinValid:(NSString *)pin

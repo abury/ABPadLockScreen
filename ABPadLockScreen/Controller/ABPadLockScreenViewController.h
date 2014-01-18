@@ -25,6 +25,7 @@
 @property (nonatomic, assign, readonly) NSInteger remainingAttempts;
 
 - (void)setAllowedAttempts:(NSInteger)allowedAttempts;
+- (void)setLockScreenTitle:(NSString *)title;
 
 @end
 
