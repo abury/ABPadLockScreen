@@ -133,7 +133,10 @@
 {
     [super touchesEnded:touches withEvent:event];
     
-    [UIView animateWithDuration:animationLength delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:animationLength
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseIn |      UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
         self.selectedView.alpha = 0.0f;
     } completion:nil];
 }
