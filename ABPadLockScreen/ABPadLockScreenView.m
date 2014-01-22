@@ -223,7 +223,7 @@
     [self addSubview:self.enterPasscodeLabel];
     
     CGFloat pinPadding = 25;
-    CGFloat pinRowWidth = (ABPinSelectionViewWidth * self.pinLength) + (pinPadding * self.pinLength-1);
+    CGFloat pinRowWidth = (ABPinSelectionViewWidth * self.pinLength) + (pinPadding * (self.pinLength-1));
     
     
     CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 10;
