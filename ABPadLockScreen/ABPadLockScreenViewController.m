@@ -41,7 +41,7 @@
 #pragma mark - Init Methods
 - (instancetype)initWithDelegate:(id<ABPadLockScreenViewControllerDelegate>)delegate pin:(NSString *)pin
 {
-    self = [super init];
+    self = [super initWithPinLength:pin.length];
     if (self)
     {
         self.delegate = delegate;

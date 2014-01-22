@@ -30,11 +30,6 @@
 
 @property (nonatomic, assign) BOOL cancelButtonDisabled;
 
-@property (nonatomic, strong, readonly) ABPinSelectionView *pinOneSelectionView;
-@property (nonatomic, strong, readonly) ABPinSelectionView *pinTwoSelectionView;
-@property (nonatomic, strong, readonly) ABPinSelectionView *pinThreeSelectionView;
-@property (nonatomic, strong, readonly) ABPinSelectionView *pinFourSelectionView;
-
 @property (nonatomic, strong, readonly) UILabel *enterPasscodeLabel;
 @property (nonatomic, strong, readonly) UILabel *detailLabel;
 
@@ -56,6 +51,9 @@
 @property (nonatomic, strong, readonly) UIButton *deleteButton;
 
 - (NSArray *)buttonArray; //Lazy loaded array that returns all the buttons ordered from 0-9
+@property (nonatomic, strong) NSArray *digitsArray; //Lazy loaded array that returns all the buttons ordered from 0-9
+@property (readonly) int pinLength; //Lazy loaded array that returns all the buttons ordered
+
 - (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)showDeleteButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
@@ -64,5 +62,7 @@
 - (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 - (void)resetAnimated:(BOOL)animated;
+
+- (id)initWithFrame:(CGRect)frame pinLength: (NSUInteger)digits;
 
 @end

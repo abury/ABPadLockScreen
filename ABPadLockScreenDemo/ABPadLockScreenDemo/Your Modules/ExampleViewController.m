@@ -40,8 +40,8 @@
 #pragma mark - Button Methods
 - (IBAction)setPin:(id)sender
 {
-    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self];
-    
+    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self pinLength: 5];
+    ABPadLockScreenView * view = (ABPadLockScreenView *)     lockScreen.view;
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
