@@ -45,6 +45,15 @@
     if (self)
     {
         _currentPin = @"";
+        _pinLength = 4; //default to 4
+    }
+    return self;
+}
+
+- (id) initWithPinLength: (int) pinLength {
+    self = [self init];
+    if (self) {
+        _pinLength = pinLength;
     }
     return self;
 }
@@ -55,7 +64,7 @@
 {
     [super viewDidLoad];
     
-    self.view = [[ABPadLockScreenView alloc] initWithFrame:self.view.frame];
+    self.view = [[ABPadLockScreenView alloc] initWithFrame:self.view.frame pinLength: self.pinLength];
     [self setUpButtonMapping];
     [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
     [lockScreenView.deleteButton addTarget:self action:@selector(deleteButtonSeleted:) forControlEvents:UIControlEventTouchUpInside];
@@ -100,29 +109,23 @@
 #pragma mark - Button Methods
 - (void)newPinSelected:(NSInteger)pinNumber
 {
-    if ([self.currentPin length] >= 4)
+    if ([self.currentPin length] >= self.pinLength)
     {
         return;
     }
     
     self.currentPin = [NSString stringWithFormat:@"%@%ld", self.currentPin, (long)pinNumber];
     
+    int curSelected = [self.currentPin length] - 1;
+    [lockScreenView.digitsArray[curSelected]  setSelected:YES animated:YES completion:nil];
+    
     if ([self.currentPin length] == 1)
     {
-        [lockScreenView.pinOneSelectionView setSelected:YES animated:YES completion:nil];
         [lockScreenView showDeleteButtonAnimated:YES completion:nil];
     }
-    else if ([self.currentPin length] == 2)
+    else if ([self.currentPin length] == self.pinLength)
     {
-        [lockScreenView.pinTwoSelectionView setSelected:YES animated:YES completion:nil];
-    }
-    else if ([self.currentPin length] == 3)
-    {
-        [lockScreenView.pinThreeSelectionView setSelected:YES animated:YES completion:nil];
-    }
-    else if ([self.currentPin length] == 4)
-    {
-        [lockScreenView.pinFourSelectionView setSelected:YES animated:YES completion:nil];
+        [lockScreenView.digitsArray.lastObject setSelected:YES animated:YES completion:nil];
         [self processPin];
     }
 }
@@ -136,17 +139,11 @@
     
     self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, [self.currentPin length] - 1)];
     
-    if ([self.currentPin length] == 2)
+    int pinToDeselect = [self.currentPin length];
+    [lockScreenView.digitsArray[pinToDeselect] setSelected:NO animated:YES completion:nil];
+    
+    if ([self.currentPin length] == 0)
     {
-        [lockScreenView.pinThreeSelectionView setSelected:NO animated:YES completion:nil];
-    }
-    else if ([self.currentPin length] == 1)
-    {
-        [lockScreenView.pinTwoSelectionView setSelected:NO animated:YES completion:nil];
-    }
-    else if ([self.currentPin length] == 0)
-    {
-        [lockScreenView.pinOneSelectionView setSelected:NO animated:YES completion:nil];
         [lockScreenView showCancelButtonAnimated:YES completion:nil];
     }
 }

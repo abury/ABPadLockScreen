@@ -48,6 +48,15 @@
 
 #pragma mark -
 #pragma mark - Init Methods
+
+- (id)initWithFrame:(CGRect)frame pinLength: (NSUInteger)digits {
+    self = [self initWithFrame:frame];
+    if (self) {
+        _pinLength = digits;
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -83,10 +92,8 @@
         [_deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
         _deleteButton.alpha = 0.0f;
         
-        _pinOneSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
-        _pinTwoSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
-        _pinThreeSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
-        _pinFourSelectionView = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
+        // default to 4
+                _pinLength = 4;
     }
     return self;
 }
@@ -113,6 +120,20 @@
              self.buttonOne, self.buttonTwo, self.buttonThree,
              self.buttonFour, self.buttonFive, self.buttonSix,
              self.buttonSeven, self.buttonEight, self.buttonNine];
+}
+
+- (NSArray *)digitsArray
+{
+    if (_digitsArray == nil) {
+        NSMutableArray*array = [NSMutableArray array];
+        for (int i=0;i<self.pinLength;i++) {
+            ABPinSelectionView *view = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
+            [array addObject: view];
+        }
+        _digitsArray = [array copy];
+        
+    }
+    return _digitsArray;
 }
 
 - (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
@@ -156,19 +177,18 @@
             button.userInteractionEnabled = NO;
         }
         self.cancelButton.alpha = 0.0f;
-        self.pinOneSelectionView.alpha = 0.0f;
-        self.pinTwoSelectionView.alpha = 0.0f;
-        self.pinThreeSelectionView.alpha = 0.0f;
-        self.pinFourSelectionView.alpha = 0.0f;
+        
+        for (ABPinSelectionView *view in self.digitsArray) {
+            view.alpha = 0.0f;
+        }
     } animated:animated completion:completion];
 }
 
 - (void)resetAnimated:(BOOL)animated
 {
-    [self.pinOneSelectionView setSelected:NO animated:animated completion:nil];
-    [self.pinTwoSelectionView setSelected:NO animated:animated completion:nil];
-    [self.pinThreeSelectionView setSelected:NO animated:animated completion:nil];
-    [self.pinFourSelectionView setSelected:NO animated:animated completion:nil];
+    for (ABPinSelectionView *view in self.digitsArray) {
+        [view setSelected:NO animated:animated completion:nil];
+    }
     [self showCancelButtonAnimated:animated completion:nil];
 }
 
@@ -203,19 +223,17 @@
     [self addSubview:self.enterPasscodeLabel];
     
     CGFloat pinPadding = 25;
-    CGFloat pinRowWidth = (ABPinSelectionViewWidth * 4) + (pinPadding * 3);
+    CGFloat pinRowWidth = (ABPinSelectionViewWidth * self.pinLength) + (pinPadding * (self.pinLength-1));
     
-    CGFloat selectionViewOneLeft = ([self correctWidth]/2) - (pinRowWidth/2);
-    CGFloat selectionViewTwoLeft = selectionViewOneLeft + ABPinSelectionViewWidth + pinPadding;
-    CGFloat selectionViewThreeLeft = selectionViewTwoLeft + ABPinSelectionViewWidth + pinPadding;
-    CGFloat selectionViewFourLeft = selectionViewThreeLeft + ABPinSelectionViewWidth + pinPadding;
     
     CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 10;
     
-    [self setUpPinSelectionView:self.pinOneSelectionView left:selectionViewOneLeft top:pinSelectionTop];
-    [self setUpPinSelectionView:self.pinTwoSelectionView left:selectionViewTwoLeft top:pinSelectionTop];
-    [self setUpPinSelectionView:self.pinThreeSelectionView left:selectionViewThreeLeft top:pinSelectionTop];
-    [self setUpPinSelectionView:self.pinFourSelectionView left:selectionViewFourLeft top:pinSelectionTop];
+    CGFloat selectionViewLeft = ([self correctWidth]/2) - (pinRowWidth/2);
+
+    for (ABPinSelectionView *view in self.digitsArray) {
+        [self setUpPinSelectionView:view  left:selectionViewLeft top:pinSelectionTop];
+        selectionViewLeft+=ABPinSelectionViewWidth + pinPadding;
+    }
     
     self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 100, pinSelectionTop + 30, 200, 23);
     [self addSubview:self.detailLabel];

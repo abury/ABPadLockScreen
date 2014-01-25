@@ -30,6 +30,7 @@
 
 @property (nonatomic, strong) NSString *currentPin;
 @property (nonatomic, weak) id<ABPadLockScreenDelegate> delegate;
+@property (readonly) int pinLength;
 
 - (void)newPinSelected:(NSInteger)pinNumber;
 - (void)deleteFromPin;
@@ -38,6 +39,8 @@
 - (void)cancelButtonDisabled:(BOOL)disabled;
 
 - (void)processPin; //Called when the pin has reached 4 digits 
+
+- (id) initWithPinLength: (int) pinLength;
 
 @end
 
