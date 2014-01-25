@@ -26,22 +26,21 @@
     [super viewDidLoad];
     
     self.title = @"Your Amazing App";
-    [[ABPadLockScreenView appearance] setLabelColour:[UIColor whiteColor]];
-    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"4B67A1"]];
-    
-    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
-    [[ABPadButton appearance] setBorderColor:[UIColor colorWithHexValue:@"282B35"]];
-    [[ABPadButton appearance] setSelectedColor:[UIColor colorWithHexValue:@"282B35"]];
-    
-    [[ABPinSelectionView appearance] setSelectedColor:[UIColor colorWithHexValue:@"282B35"]];
+//    [[ABPadLockScreenView appearance] setLabelColour:[UIColor whiteColor]];
+//    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"4B67A1"]];
+//    
+//    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
+//    [[ABPadButton appearance] setBorderColor:[UIColor colorWithHexValue:@"282B35"]];
+//    [[ABPadButton appearance] setSelectedColor:[UIColor colorWithHexValue:@"282B35"]];
+//    
+//    [[ABPinSelectionView appearance] setSelectedColor:[UIColor colorWithHexValue:@"282B35"]];
 }
 
 #pragma mark -
 #pragma mark - Button Methods
 - (IBAction)setPin:(id)sender
 {
-    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self pinLength: 5];
-    ABPadLockScreenView * view = (ABPadLockScreenView *)     lockScreen.view;
+    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self];
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     

@@ -62,8 +62,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [self prepareApperance];
     [self performLayout];
+    [self prepareApperance];
 }
 
 - (void)drawRect:(CGRect)rect

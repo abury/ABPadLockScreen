@@ -44,11 +44,13 @@
     self = [self initWithDelegate:delegate pinLength:4];
     if (self)
     {
+        
     }
     return self;
 }
 
-- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate pinLength: (int) pinLength {
+- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate pinLength:(NSUInteger)pinLength
+{
     self = [super initWithPinLength:pinLength];
     if (self)
     {

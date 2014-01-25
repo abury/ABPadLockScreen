@@ -50,9 +50,11 @@
     return self;
 }
 
-- (id) initWithPinLength: (int) pinLength {
+- (id)initWithPinLength:(NSUInteger)pinLength
+{
     self = [self init];
-    if (self) {
+    if (self)
+    {
         _pinLength = pinLength;
     }
     return self;
@@ -116,7 +118,7 @@
     
     self.currentPin = [NSString stringWithFormat:@"%@%ld", self.currentPin, (long)pinNumber];
     
-    int curSelected = [self.currentPin length] - 1;
+    NSUInteger curSelected = [self.currentPin length] - 1;
     [lockScreenView.digitsArray[curSelected]  setSelected:YES animated:YES completion:nil];
     
     if ([self.currentPin length] == 1)
@@ -139,7 +141,7 @@
     
     self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, [self.currentPin length] - 1)];
     
-    int pinToDeselect = [self.currentPin length];
+    NSUInteger pinToDeselect = [self.currentPin length];
     [lockScreenView.digitsArray[pinToDeselect] setSelected:NO animated:YES completion:nil];
     
     if ([self.currentPin length] == 0)

@@ -10,7 +10,7 @@ ABPadLockScreen aims to provide a universal solution to providing a  secure keyp
 - Supports iPhone and iPad
 - Allows the user to set their PIN
 - Optional PIN entry limit
-- Optional cancel button limit
+- Optional cancel button
 - Optional title modification
 - Full appearance customisation
 
@@ -23,9 +23,9 @@ If you have cocoapods setup on your machine, simply set the spec like this:
 #### Podfile
 ```ruby
 platform :ios, '6.0'
-pod "ABPadLockScreen", "~> 3.0"
+pod "ABPadLockScreen", "~> 3.0.0"
 ```
-The earliest version of this framework that supports cocoapods is 3.0.
+The earliest version of this framework that supports cocoapods is 3.0.0
 
 ## Customising the Appearance
 The module is entirely customisable through UIAppearance. All colours and fonts used within the module can be set using the UIAppearance proxy. The example project shows how to do this, but for a more in depth look at UIAppearance check out the docs [check out the docs](https://developer.apple.com/library/ios/documentation/uikit/reference/UIAppearance_Protocol/Reference/Reference.html) or check out [Matt Thompson’s article on NSHipster](http://nshipster.com/uiappearance/)

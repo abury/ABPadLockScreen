@@ -38,9 +38,9 @@
 - (void)setLockScreenTitle:(NSString *)title;
 - (void)cancelButtonDisabled:(BOOL)disabled;
 
-- (void)processPin; //Called when the pin has reached 4 digits 
+- (void)processPin; //Called when the pin has reached maximum digits 
 
-- (id) initWithPinLength: (int) pinLength;
+- (id)initWithPinLength:(NSUInteger)pinLength;
 
 @end
 

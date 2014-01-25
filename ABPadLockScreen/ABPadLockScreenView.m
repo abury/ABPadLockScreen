@@ -31,6 +31,7 @@
 
 @property (nonatomic, assign) BOOL requiresRotationCorrection;
 
+- (void)setDefaultStyles;
 - (void)prepareApperance;
 - (void)performLayout;
 - (void)layoutTitleArea;
@@ -48,10 +49,11 @@
 
 #pragma mark -
 #pragma mark - Init Methods
-
-- (id)initWithFrame:(CGRect)frame pinLength: (NSUInteger)digits {
+- (id)initWithFrame:(CGRect)frame pinLength: (NSUInteger)digits
+{
     self = [self initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         _pinLength = digits;
     }
     return self;
@@ -62,9 +64,9 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        [self setDefaultStyles];
+        
         _requiresRotationCorrection = NO;
-        _enterPasscodeLabelFont = [UIFont systemFontOfSize:18];
-        _detailLabelFont = [UIFont systemFontOfSize:14];
         
         _enterPasscodeLabel = [self standardLabel];
         _enterPasscodeLabel.text = @"Enter Passcode";
@@ -93,7 +95,7 @@
         _deleteButton.alpha = 0.0f;
         
         // default to 4
-                _pinLength = 4;
+        _pinLength = 4;
     }
     return self;
 }
@@ -124,31 +126,37 @@
 
 - (NSArray *)digitsArray
 {
-    if (_digitsArray == nil) {
-        NSMutableArray*array = [NSMutableArray array];
-        for (int i=0;i<self.pinLength;i++) {
-            ABPinSelectionView *view = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
-            [array addObject: view];
-        }
-        _digitsArray = [array copy];
+    if (!_digitsArray)
+    {
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.pinLength];
         
+        for (NSInteger i = 0; i < self.pinLength; i++)
+        {
+            ABPinSelectionView *view = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
+            [array addObject:view];
+        }
+        
+        _digitsArray = [array copy];
     }
+    
     return _digitsArray;
 }
 
 - (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
+    __weak ABPadLockScreenView *weakSelf = self;
     [self performAnimations:^{
-        self.cancelButton.alpha = 1.0f;
-        self.deleteButton.alpha = 0.0f;
+        weakSelf.cancelButton.alpha = 1.0f;
+        weakSelf.deleteButton.alpha = 0.0f;
     } animated:animated completion:completion];
 }
 
 - (void)showDeleteButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
+    __weak ABPadLockScreenView *weakSelf = self;
     [self performAnimations:^{
-        self.cancelButton.alpha = 0.0f;
-        self.deleteButton.alpha = 1.0f;
+        weakSelf.cancelButton.alpha = 0.0f;
+        weakSelf.deleteButton.alpha = 1.0f;
     } animated:animated completion:completion];
 }
 
@@ -163,7 +171,6 @@
     animation.duration = length;
     [self.detailLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
     
-    // This will fade:
     self.detailLabel.text = string;
     self.detailLabel.frame = CGRectMake((self.frame.size.width/2) - 100, 80, labelWidth, 23);
 }
@@ -186,14 +193,24 @@
 
 - (void)resetAnimated:(BOOL)animated
 {
-    for (ABPinSelectionView *view in self.digitsArray) {
+    for (ABPinSelectionView *view in self.digitsArray)
+    {
         [view setSelected:NO animated:animated completion:nil];
     }
+    
     [self showCancelButtonAnimated:animated completion:nil];
 }
 
 #pragma mark -
 #pragma mark - Helper Methods
+- (void)setDefaultStyles
+{
+    _enterPasscodeLabelFont = [UIFont systemFontOfSize:18];
+    _detailLabelFont = [UIFont systemFontOfSize:14];
+    
+    _labelColour = [UIColor whiteColor];
+}
+
 - (void)prepareApperance
 {
     self.enterPasscodeLabel.textColor = self.labelColour;
