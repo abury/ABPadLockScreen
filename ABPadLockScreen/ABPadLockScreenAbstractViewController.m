@@ -50,9 +50,11 @@
     return self;
 }
 
-- (id) initWithPinLength: (int) pinLength {
+- (id)initWithPinLength:(NSUInteger)pinLength
+{
     self = [self init];
-    if (self) {
+    if (self)
+    {
         _pinLength = pinLength;
     }
     return self;
@@ -80,6 +82,31 @@
 }
 
 #pragma mark -
+#pragma mark - Localisation Methods
+- (void)setLockScreenTitle:(NSString *)title
+{
+    self.title = title;
+    lockScreenView.enterPasscodeLabel.text = title;
+}
+
+- (void)setSubtitleText:(NSString *)text
+{
+    lockScreenView.detailLabel.text = text;
+}
+
+- (void)setCancelButtonText:(NSString *)text
+{
+    [lockScreenView.cancelButton setTitle:text forState:UIControlStateNormal];
+    [lockScreenView.cancelButton sizeToFit];
+}
+
+- (void)setDeleteButtonText:(NSString *)text
+{
+    [lockScreenView.deleteButton setTitle:text forState:UIControlStateNormal];
+    [lockScreenView.deleteButton sizeToFit];
+}
+
+#pragma mark -
 #pragma mark - Helper Methods
 - (void)setUpButtonMapping
 {
@@ -87,12 +114,6 @@
     {
         [button addTarget:self action:@selector(buttonSelected:) forControlEvents:UIControlEventTouchUpInside];
     }
-}
-
-- (void)setLockScreenTitle:(NSString *)title
-{
-    self.title = title;
-    lockScreenView.enterPasscodeLabel.text = title;
 }
 
 - (void)cancelButtonDisabled:(BOOL)disabled
@@ -116,7 +137,7 @@
     
     self.currentPin = [NSString stringWithFormat:@"%@%ld", self.currentPin, (long)pinNumber];
     
-    int curSelected = [self.currentPin length] - 1;
+    NSUInteger curSelected = [self.currentPin length] - 1;
     [lockScreenView.digitsArray[curSelected]  setSelected:YES animated:YES completion:nil];
     
     if ([self.currentPin length] == 1)
@@ -139,7 +160,7 @@
     
     self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, [self.currentPin length] - 1)];
     
-    int pinToDeselect = [self.currentPin length];
+    NSUInteger pinToDeselect = [self.currentPin length];
     [lockScreenView.digitsArray[pinToDeselect] setSelected:NO animated:YES completion:nil];
     
     if ([self.currentPin length] == 0)

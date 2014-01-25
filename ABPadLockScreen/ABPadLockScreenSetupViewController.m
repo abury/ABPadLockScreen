@@ -44,11 +44,13 @@
     self = [self initWithDelegate:delegate pinLength:4];
     if (self)
     {
+        
     }
     return self;
 }
 
-- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate pinLength: (int) pinLength {
+- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate pinLength:(NSUInteger)pinLength
+{
     self = [super initWithPinLength:pinLength];
     if (self)
     {
@@ -57,11 +59,10 @@
         _enteredPin = nil;
     }
     return self;
-    
 }
 
 #pragma mark -
-#pragma mark - Init Methods
+#pragma mark - View Controller Lifecycle Methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];

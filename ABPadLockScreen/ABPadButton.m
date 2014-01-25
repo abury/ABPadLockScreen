@@ -132,12 +132,12 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
-    
+    __weak ABPadButton *weakSelf = self;
     [UIView animateWithDuration:animationLength
                           delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseIn |      UIViewAnimationOptionAllowUserInteraction
+                        options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-        self.selectedView.alpha = 0.0f;
+        weakSelf.selectedView.alpha = 0.0f;
     } completion:nil];
 }
 

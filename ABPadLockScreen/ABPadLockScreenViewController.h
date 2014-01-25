@@ -29,7 +29,6 @@
  
  You are responsible for storing the pin securely (use the keychain or some other form of secure storage, DO NOT STORE IN PLAINTEXT. If you need the user to set a pin, please use ABPadLockScreenSetupViewController
  */
-
 @class ABPadLockScreenViewController;
 @protocol ABPadLockScreenViewControllerDelegate;
 
@@ -43,6 +42,10 @@
 @property (nonatomic, assign, readonly) NSInteger remainingAttempts;
 
 - (void)setAllowedAttempts:(NSInteger)allowedAttempts;
+
+- (void)setLockedOutText:(NSString *)title;
+- (void)setPluralAttemptsLeftText:(NSString *)title;
+- (void)setSingleAttemptLeftText:(NSString *)title;
 
 @end
 
