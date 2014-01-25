@@ -26,21 +26,21 @@
     [super viewDidLoad];
     
     self.title = @"Your Amazing App";
-//    [[ABPadLockScreenView appearance] setLabelColour:[UIColor whiteColor]];
-//    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"4B67A1"]];
-//    
-//    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
-//    [[ABPadButton appearance] setBorderColor:[UIColor colorWithHexValue:@"282B35"]];
-//    [[ABPadButton appearance] setSelectedColor:[UIColor colorWithHexValue:@"282B35"]];
-//    
-//    [[ABPinSelectionView appearance] setSelectedColor:[UIColor colorWithHexValue:@"282B35"]];
+    [[ABPadLockScreenView appearance] setLabelColour:[UIColor colorWithHexValue:@"DB4631"]];
+    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"282B35"]];
+    
+    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
+    [[ABPadButton appearance] setBorderColor:[UIColor colorWithHexValue:@"DB4631"]];
+    [[ABPadButton appearance] setSelectedColor:[UIColor colorWithHexValue:@"DB4631"]];
+    
+    [[ABPinSelectionView appearance] setSelectedColor:[UIColor colorWithHexValue:@"DB4631"]];
 }
 
 #pragma mark -
 #pragma mark - Button Methods
 - (IBAction)setPin:(id)sender
 {
-    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self];
+    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self pinLength:5];
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
@@ -56,7 +56,7 @@
     }
     
     ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self pin:self.thePin];
-    [lockScreen setAllowedAttempts:2];
+    [lockScreen setAllowedAttempts:3];;
     
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

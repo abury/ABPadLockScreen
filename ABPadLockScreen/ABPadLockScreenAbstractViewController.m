@@ -82,6 +82,31 @@
 }
 
 #pragma mark -
+#pragma mark - Localisation Methods
+- (void)setLockScreenTitle:(NSString *)title
+{
+    self.title = title;
+    lockScreenView.enterPasscodeLabel.text = title;
+}
+
+- (void)setSubtitleText:(NSString *)text
+{
+    lockScreenView.detailLabel.text = text;
+}
+
+- (void)setCancelButtonText:(NSString *)text
+{
+    [lockScreenView.cancelButton setTitle:text forState:UIControlStateNormal];
+    [lockScreenView.cancelButton sizeToFit];
+}
+
+- (void)setDeleteButtonText:(NSString *)text
+{
+    [lockScreenView.deleteButton setTitle:text forState:UIControlStateNormal];
+    [lockScreenView.deleteButton sizeToFit];
+}
+
+#pragma mark -
 #pragma mark - Helper Methods
 - (void)setUpButtonMapping
 {
@@ -89,12 +114,6 @@
     {
         [button addTarget:self action:@selector(buttonSelected:) forControlEvents:UIControlEventTouchUpInside];
     }
-}
-
-- (void)setLockScreenTitle:(NSString *)title
-{
-    self.title = title;
-    lockScreenView.enterPasscodeLabel.text = title;
 }
 
 - (void)cancelButtonDisabled:(BOOL)disabled

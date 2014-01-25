@@ -59,11 +59,10 @@
         _enteredPin = nil;
     }
     return self;
-    
 }
 
 #pragma mark -
-#pragma mark - Init Methods
+#pragma mark - View Controller Lifecycle Methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];

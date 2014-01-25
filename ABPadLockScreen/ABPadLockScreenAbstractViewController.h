@@ -32,15 +32,19 @@
 @property (nonatomic, weak) id<ABPadLockScreenDelegate> delegate;
 @property (readonly) int pinLength;
 
+- (id)initWithPinLength:(NSUInteger)pinLength;
+
 - (void)newPinSelected:(NSInteger)pinNumber;
 - (void)deleteFromPin;
 
 - (void)setLockScreenTitle:(NSString *)title;
+- (void)setSubtitleText:(NSString *)text;
+- (void)setCancelButtonText:(NSString *)text;
+- (void)setDeleteButtonText:(NSString *)text;
+
 - (void)cancelButtonDisabled:(BOOL)disabled;
 
-- (void)processPin; //Called when the pin has reached maximum digits 
-
-- (id)initWithPinLength:(NSUInteger)pinLength;
+- (void)processPin; //Called when the pin has reached maximum digits
 
 @end
 

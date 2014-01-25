@@ -28,6 +28,10 @@
 
 @interface ABPadLockScreenViewController ()
 
+@property (nonatomic, strong) NSString *lockedOutString;
+@property (nonatomic, strong) NSString *pluralAttemptsLeftString;
+@property (nonatomic, strong) NSString *singleAttemptLeftString;
+
 - (BOOL)isPinValid:(NSString *)pin;
 
 - (void)unlockScreen;
@@ -48,6 +52,10 @@
         _lockScreenDelegate = delegate;
         _pin = pin;
         _remainingAttempts = -1;
+        
+        _lockedOutString = @"You have been locked out";
+        _pluralAttemptsLeftString = @"attempts left";
+        _singleAttemptLeftString = @"attempt left";
     }
     return self;
 }
@@ -58,6 +66,23 @@
 {
     _totalAttempts = 0;
     _remainingAttempts = allowedAttempts;
+}
+
+#pragma mark -
+#pragma mark - Localisation Methods
+- (void)setLockedOutText:(NSString *)title
+{
+    _lockedOutString = title;
+}
+
+- (void)setPluralAttemptsLeftText:(NSString *)title
+{
+    _pluralAttemptsLeftString = title;
+}
+
+- (void)setSingleAttemptLeftText:(NSString *)title
+{
+    _singleAttemptLeftString = title;
 }
 
 #pragma mark -
@@ -88,9 +113,20 @@
     _totalAttempts ++;
     [lockScreenView resetAnimated:YES];
     
-    if (self.remainingAttempts > 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempts left", (long)self.remainingAttempts] animated:YES completion:nil];
-    else if (self.remainingAttempts == 1) [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld attempt left", (long)self.remainingAttempts] animated:YES completion:nil];
-    else if (self.remainingAttempts == 0) [self lockScreen];
+    if (self.remainingAttempts > 1)
+    {
+        [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld %@", (long)self.remainingAttempts, self.pluralAttemptsLeftString]
+                                           animated:YES completion:nil];
+    }
+    else if (self.remainingAttempts == 1)
+    {
+        [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld %@", (long)self.remainingAttempts, self.singleAttemptLeftString]
+                                           animated:YES completion:nil];
+    }
+    else if (self.remainingAttempts == 0)
+    {
+        [self lockScreen];
+    }
     
     if ([self.lockScreenDelegate respondsToSelector:@selector(unlockWasUnsuccessful:afterAttemptNumber:padLockScreenViewController:)])
     {
@@ -109,7 +145,7 @@
 #pragma mark - Pin Selection
 - (void)lockScreen
 {
-    [lockScreenView updateDetailLabelWithString:@"You have been locked out" animated:YES completion:nil];
+    [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%@", self.lockedOutString] animated:YES completion:nil];
     [lockScreenView lockViewAnimated:YES completion:nil];
     
     if ([self.lockScreenDelegate respondsToSelector:@selector(attemptsExpiredForPadLockScreenViewController:)])
