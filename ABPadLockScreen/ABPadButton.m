@@ -94,6 +94,7 @@
     _borderColor = [UIColor whiteColor];
     _selectedColor = [UIColor grayColor];
     _textColor = [UIColor whiteColor];
+    _hightlightedTextColor = [UIColor whiteColor];
     _numberLabelFont = [UIFont systemFontOfSize:30];
     _letterLabelFont = [UIFont systemFontOfSize:10];
 }
@@ -103,7 +104,9 @@
     self.selectedView.backgroundColor = self.selectedColor;
     self.layer.borderColor = [self.borderColor CGColor];
     self.numberLabel.textColor = self.textColor;
+    self.numberLabel.highlightedTextColor = self.hightlightedTextColor;
     self.lettersLabel.textColor = self.textColor;
+    self.lettersLabel.highlightedTextColor = self.hightlightedTextColor;
 }
 
 - (void)performLayout
@@ -123,9 +126,11 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-    
+
+    __weak ABPadButton *weakSelf = self;
     [UIView animateWithDuration:animationLength delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
-        self.selectedView.alpha = 1.0f;
+        weakSelf.selectedView.alpha = 1.0f;
+        [weakSelf setHighlighted:YES];
     } completion:nil];
 }
 
@@ -137,13 +142,17 @@
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-        weakSelf.selectedView.alpha = 0.0f;
+                         weakSelf.selectedView.alpha = 0.0f;
+                         [weakSelf setHighlighted:NO];
     } completion:nil];
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
     [super setHighlighted:highlighted];
+
+    self.numberLabel.highlighted = highlighted;
+    self.lettersLabel.highlighted = highlighted;
 }
 
 #pragma mark -
