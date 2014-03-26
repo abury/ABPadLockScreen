@@ -34,6 +34,7 @@
 @property (nonatomic, strong) UIColor *borderColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *selectedColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *hightlightedTextColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIFont *numberLabelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIFont *letterLabelFont UI_APPEARANCE_SELECTOR;
 
