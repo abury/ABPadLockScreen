@@ -51,6 +51,12 @@
 
 @protocol ABPadLockScreenViewControllerDelegate <ABPadLockScreenDelegate>
 @required
+
+/**
+ Called when pin validation is needed
+ */
+- (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin;
+
 /**
  Called when the unlock was completed successfully
  */

@@ -137,8 +137,7 @@
 
 - (BOOL)isPinValid:(NSString *)pin
 {
-    if ([_pin isEqualToString:pin]) return YES;
-    return NO;
+    return [self.lockScreenDelegate padLockScreenViewController:self validatePin:pin];
 }
 
 #pragma mark -

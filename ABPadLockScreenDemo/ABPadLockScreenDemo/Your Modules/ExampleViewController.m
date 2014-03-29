@@ -66,6 +66,14 @@
 
 #pragma mark -
 #pragma mark - ABLockScreenDelegate Methods
+
+- (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin;
+{
+	NSLog(@"Validating pin %@", pin);
+	
+	return [self.thePin isEqualToString:pin];
+}
+
 - (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
