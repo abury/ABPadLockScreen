@@ -31,7 +31,8 @@
 - (void)setUpButtonMapping;
 - (void)buttonSelected:(UIButton *)sender;
 - (void)cancelButtonSelected:(UIButton *)sender;
-- (void)deleteButtonSeleted:(UIButton *)sender;
+- (void)deleteButtonSelected:(UIButton *)sender;
+- (void)okButtonSelected:(UIButton *)sender;
 
 @end
 
@@ -45,17 +46,17 @@
     if (self)
     {
         _currentPin = @"";
-        _pinLength = 4; //default to 4
+        _complexPin = NO; //default to NO
     }
     return self;
 }
 
-- (id)initWithPinLength:(NSUInteger)pinLength
+- (id)initWithComplexPin:(BOOL)complexPin
 {
     self = [self init];
     if (self)
     {
-        _pinLength = pinLength;
+        _complexPin = complexPin;
     }
     return self;
 }
@@ -66,10 +67,11 @@
 {
     [super viewDidLoad];
     
-    self.view = [[ABPadLockScreenView alloc] initWithFrame:self.view.frame pinLength: self.pinLength];
+    self.view = [[ABPadLockScreenView alloc] initWithFrame:self.view.frame complexPin:self.isComplexPin];
     [self setUpButtonMapping];
     [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
-    [lockScreenView.deleteButton addTarget:self action:@selector(deleteButtonSeleted:) forControlEvents:UIControlEventTouchUpInside];
+    [lockScreenView.deleteButton addTarget:self action:@selector(deleteButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
+	[lockScreenView.okButton addTarget:self action:@selector(okButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -130,21 +132,33 @@
 #pragma mark - Button Methods
 - (void)newPinSelected:(NSInteger)pinNumber
 {
-    if ([self.currentPin length] >= self.pinLength)
+    if (!self.isComplexPin && [self.currentPin length] >= 4)
     {
         return;
     }
     
     self.currentPin = [NSString stringWithFormat:@"%@%ld", self.currentPin, (long)pinNumber];
     
-    NSUInteger curSelected = [self.currentPin length] - 1;
-    [lockScreenView.digitsArray[curSelected]  setSelected:YES animated:YES completion:nil];
-    
+	if(self.isComplexPin)
+	{
+		[lockScreenView updatePinTextfieldWithLength:self.currentPin.length];
+	}
+	else
+	{
+		NSUInteger curSelected = [self.currentPin length] - 1;
+		[lockScreenView.digitsArray[curSelected]  setSelected:YES animated:YES completion:nil];
+    }
+		
     if ([self.currentPin length] == 1)
     {
         [lockScreenView showDeleteButtonAnimated:YES completion:nil];
+		
+		if(self.complexPin)
+		{
+			[lockScreenView showOKButton:YES animated:YES completion:nil];
+		}
     }
-    else if ([self.currentPin length] == self.pinLength)
+    else if (!self.isComplexPin && [self.currentPin length] == 4)
     {
         [lockScreenView.digitsArray.lastObject setSelected:YES animated:YES completion:nil];
         [self processPin];
@@ -160,12 +174,20 @@
     
     self.currentPin = [self.currentPin substringWithRange:NSMakeRange(0, [self.currentPin length] - 1)];
     
-    NSUInteger pinToDeselect = [self.currentPin length];
-    [lockScreenView.digitsArray[pinToDeselect] setSelected:NO animated:YES completion:nil];
+	if(self.isComplexPin)
+	{
+		[lockScreenView updatePinTextfieldWithLength:self.currentPin.length];
+	}
+	else
+	{
+		NSUInteger pinToDeselect = [self.currentPin length];
+		[lockScreenView.digitsArray[pinToDeselect] setSelected:NO animated:YES completion:nil];
+	}
     
     if ([self.currentPin length] == 0)
     {
         [lockScreenView showCancelButtonAnimated:YES completion:nil];
+		[lockScreenView showOKButton:NO animated:YES completion:nil];
     }
 }
 
@@ -183,9 +205,14 @@
     }
 }
 
-- (void)deleteButtonSeleted:(UIButton *)sender
+- (void)deleteButtonSelected:(UIButton *)sender
 {
     [self deleteFromPin];
+}
+
+- (void)okButtonSelected:(UIButton *)sender
+{
+	[self processPin];
 }
 
 @end

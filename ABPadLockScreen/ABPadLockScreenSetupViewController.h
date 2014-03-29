@@ -36,7 +36,7 @@
 @property (nonatomic, weak, readonly) id<ABPadLockScreenSetupViewControllerDelegate> setupScreenDelegate;
 
 - (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate;
-- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate pinLength:(NSUInteger)pinLength;
+- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate complexPin:(BOOL)complexPin;
 
 @end
 

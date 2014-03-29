@@ -41,7 +41,7 @@
 #pragma mark - Init Methods
 - (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate
 {
-    self = [self initWithDelegate:delegate pinLength:4];
+    self = [self initWithComplexPin:NO];
     if (self)
     {
         
@@ -49,9 +49,9 @@
     return self;
 }
 
-- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate pinLength:(NSUInteger)pinLength
+- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate complexPin:(BOOL)complexPin
 {
-    self = [super initWithPinLength:pinLength];
+    self = [super initWithComplexPin:complexPin];
     if (self)
     {
         self.delegate = delegate;
@@ -66,7 +66,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [lockScreenView updateDetailLabelWithString:@"Please Enter your pin" animated:NO completion:nil];
 }
 
 #pragma mark -
@@ -87,7 +86,7 @@
 {
     self.enteredPin = self.currentPin;
     self.currentPin = @"";
-    [lockScreenView updateDetailLabelWithString:@"Please confirm your pin" animated:YES completion:nil];
+    [lockScreenView updateDetailLabelWithString:NSLocalizedString(@"Re-enter your new pincode", @"") animated:YES completion:nil];
     [lockScreenView resetAnimated:YES];
 }
          
@@ -102,7 +101,8 @@
     }
     else
     {
-        [lockScreenView updateDetailLabelWithString:@"Not a match. Please try again" animated:YES completion:nil];
+        [lockScreenView updateDetailLabelWithString:NSLocalizedString(@"Pincode did not match.", @"") animated:YES completion:nil];
+		[lockScreenView animateFailureNotification];
         [lockScreenView resetAnimated:YES];
         self.enteredPin = nil;
         self.currentPin = @"";

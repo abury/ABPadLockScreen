@@ -43,19 +43,18 @@
 @implementation ABPadLockScreenViewController
 #pragma mark -
 #pragma mark - Init Methods
-- (instancetype)initWithDelegate:(id<ABPadLockScreenViewControllerDelegate>)delegate pin:(NSString *)pin
+- (instancetype)initWithDelegate:(id<ABPadLockScreenViewControllerDelegate>)delegate complexPin:(BOOL)complexPin
 {
-    self = [super initWithPinLength:pin.length];
+    self = [super initWithComplexPin:complexPin];
     if (self)
     {
         self.delegate = delegate;
         _lockScreenDelegate = delegate;
-        _pin = pin;
         _remainingAttempts = -1;
         
-        _lockedOutString = @"You have been locked out";
-        _pluralAttemptsLeftString = @"attempts left";
-        _singleAttemptLeftString = @"attempt left";
+        _lockedOutString = NSLocalizedString(@"You have been locked out.", @"");
+        _pluralAttemptsLeftString = NSLocalizedString(@"attempts left", @"");
+        _singleAttemptLeftString = NSLocalizedString(@"attempt left", @"");
     }
     return self;
 }
@@ -112,6 +111,7 @@
     _remainingAttempts --;
     _totalAttempts ++;
     [lockScreenView resetAnimated:YES];
+	[lockScreenView animateFailureNotification];
     
     if (self.remainingAttempts > 1)
     {
@@ -151,27 +151,6 @@
     {
         [self.lockScreenDelegate attemptsExpiredForPadLockScreenViewController:self];
     }
-}
-
-#pragma mark -
-#pragma mark - Button Selection
-- (void)buttonSelected:(UIButton *)sender
-{
-    NSInteger tag = sender.tag;
-    [self newPinSelected:tag];
-}
-
-- (void)cancelButtonSelected:(UIButton *)sender
-{
-    if ([self.delegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
-    {
-        [self.delegate unlockWasCancelledForPadLockScreenViewController:self];
-    }
-}
-
-- (void)deleteButtonSeleted:(UIButton *)sender
-{
-    [self deleteFromPin];
 }
 
 @end

@@ -26,7 +26,7 @@
 
 @property (nonatomic, strong) UIFont *enterPasscodeLabelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIFont *detailLabelFont UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *labelColour UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *labelColor UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic, assign) BOOL cancelButtonDisabled;
 
@@ -50,19 +50,33 @@
 @property (nonatomic, strong, readonly) UIButton *cancelButton;
 @property (nonatomic, strong, readonly) UIButton *deleteButton;
 
-- (NSArray *)buttonArray; //Lazy loaded array that returns all the buttons ordered from 0-9
-@property (nonatomic, strong) NSArray *digitsArray; //Lazy loaded array that returns all the buttons ordered from 0-9
-@property (nonatomic, assign, readonly) NSUInteger pinLength; //Lazy loaded array that returns all the buttons ordered
+@property (nonatomic, strong, readonly) UIButton *okButton;
+
+/*
+ Lazy loaded array that returns all the buttons ordered from 0-9
+ */
+- (NSArray *)buttonArray;
+
+/*
+ The following are used to decide how to display the padlock view - complex (text field) or simple (digits)
+ */
+@property (nonatomic, assign, readonly, getter = isComplexPin) BOOL complexPin;
+@property (nonatomic, strong, readonly) NSArray *digitsArray;
+@property (nonatomic, strong, readonly) UITextField *digitsTextField;
 
 - (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)showDeleteButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (void)showOKButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 - (void)updateDetailLabelWithString:(NSString *)string animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 - (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
+- (void)animateFailureNotification;
 - (void)resetAnimated:(BOOL)animated;
 
-- (id)initWithFrame:(CGRect)frame pinLength:(NSUInteger)digits;
+- (void)updatePinTextfieldWithLength:(NSUInteger)length;
+
+- (id)initWithFrame:(CGRect)frame complexPin:(BOOL)complexPin;
 
 @end
