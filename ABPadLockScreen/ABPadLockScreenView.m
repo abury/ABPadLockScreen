@@ -87,10 +87,10 @@
         
         _buttonZero = [[ABPadButton alloc] initWithFrame:CGRectZero number:0 letters:nil];
         
-        _cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _cancelButton = [UIButton buttonWithType: UIButtonTypeCustom];
         [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
         
-        _deleteButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _deleteButton = [UIButton buttonWithType: UIButtonTypeCustom];
         [_deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
         _deleteButton.alpha = 0.0f;
         
@@ -163,7 +163,11 @@
 - (void)updateDetailLabelWithString:(NSString *)string animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
     CGFloat length = (animated) ? animationLength : 0.0;
-    CGFloat labelWidth = [string sizeWithAttributes:@{NSFontAttributeName:self.detailLabelFont}].width + 15; //Padding
+    CGFloat labelWidth = 15; // padding
+	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
+		labelWidth += [string sizeWithAttributes:@{NSFontAttributeName:self.detailLabelFont}].width;
+	else
+		labelWidth += [string sizeWithFont: self.detailLabelFont].width;
     
     CATransition *animation = [CATransition animation];
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];

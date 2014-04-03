@@ -23,7 +23,7 @@ If you have cocoapods setup on your machine, simply set the spec like this:
 
 #### Podfile
 ```ruby
-platform :ios, '7.0'
+platform :ios, '6.0'
 pod "ABPadLockScreen", "~> 3.0.1"
 ```
 The earliest version of this framework that supports cocoapods is 3.0.0
