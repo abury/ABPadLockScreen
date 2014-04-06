@@ -34,7 +34,7 @@
 
 @interface ABPadLockScreenViewController : ABPadLockScreenAbstractViewController
 
-- (instancetype)initWithDelegate:(id<ABPadLockScreenViewControllerDelegate>)delegate pin:(NSString *)pin; //designated init
+- (instancetype)initWithDelegate:(id<ABPadLockScreenViewControllerDelegate>)delegate complexPin:(BOOL)complexPin;
 
 @property (nonatomic, weak, readonly) id<ABPadLockScreenViewControllerDelegate> lockScreenDelegate;
 @property (nonatomic, strong, readonly) NSString *pin;
@@ -51,6 +51,12 @@
 
 @protocol ABPadLockScreenViewControllerDelegate <ABPadLockScreenDelegate>
 @required
+
+/**
+ Called when pin validation is needed
+ */
+- (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin;
+
 /**
  Called when the unlock was completed successfully
  */

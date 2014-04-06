@@ -30,9 +30,10 @@
 @interface ABPadLockScreenView()
 
 @property (nonatomic, assign) BOOL requiresRotationCorrection;
+@property (nonatomic, strong) UIView* contentView;
 
 - (void)setDefaultStyles;
-- (void)prepareApperance;
+- (void)prepareAppearance;
 - (void)performLayout;
 - (void)layoutTitleArea;
 - (void)layoutButtonArea;
@@ -47,14 +48,27 @@
 
 @implementation ABPadLockScreenView
 
+@synthesize digitsArray = _digitsArray;
+
 #pragma mark -
 #pragma mark - Init Methods
-- (id)initWithFrame:(CGRect)frame pinLength: (NSUInteger)digits
+- (id)initWithFrame:(CGRect)frame complexPin:(BOOL)complexPin
 {
     self = [self initWithFrame:frame];
     if (self)
     {
-        _pinLength = digits;
+        _complexPin = complexPin;
+		
+		if(complexPin)
+		{
+			_digitsTextField = [UITextField new];
+			_digitsTextField.enabled = NO;
+			_digitsTextField.secureTextEntry = YES;
+			_digitsTextField.textAlignment = NSTextAlignmentCenter;
+			_digitsTextField.borderStyle = UITextBorderStyleNone;
+			_digitsTextField.layer.borderWidth = 1.0f;
+			_digitsTextField.layer.cornerRadius = 5.0f;
+		}
     }
     return self;
 }
@@ -65,11 +79,16 @@
     if (self)
     {
         [self setDefaultStyles];
+		
+		_contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, MIN(frame.size.height, 568.0f))];
+		_contentView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+		_contentView.center = self.center;
+		[self addSubview:_contentView];
         
         _requiresRotationCorrection = NO;
         
         _enterPasscodeLabel = [self standardLabel];
-        _enterPasscodeLabel.text = @"Enter Passcode";
+        _enterPasscodeLabel.text = NSLocalizedString(@"Enter Passcode", @"");
         
         _detailLabel = [self standardLabel];
         
@@ -88,14 +107,19 @@
         _buttonZero = [[ABPadButton alloc] initWithFrame:CGRectZero number:0 letters:nil];
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        [_cancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
         
         _deleteButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+        [_deleteButton setTitle:NSLocalizedString(@"Delete", @"") forState:UIControlStateNormal];
         _deleteButton.alpha = 0.0f;
         
-        // default to 4
-        _pinLength = 4;
+		_okButton = [UIButton buttonWithType:UIButtonTypeSystem];
+		[_okButton setTitle:NSLocalizedString(@"OK", @"") forState:UIControlStateNormal];
+		_okButton.alpha = 0.0f;
+		_okButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+		
+        // default to NO
+        _complexPin = NO;
     }
     return self;
 }
@@ -111,7 +135,7 @@
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
-    [self prepareApperance];
+    [self prepareAppearance];
 }
 
 #pragma mark -
@@ -126,11 +150,17 @@
 
 - (NSArray *)digitsArray
 {
+	if(self.isComplexPin)
+	{
+		return nil; //If complex, no digit views are available.
+	}
+	
     if (!_digitsArray)
     {
-        NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.pinLength];
+		//Simple pin code is always 4 characters.
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:4];
         
-        for (NSInteger i = 0; i < self.pinLength; i++)
+        for (NSInteger i = 0; i < 4; i++)
         {
             ABPinSelectionView *view = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
             [array addObject:view];
@@ -160,11 +190,17 @@
     } animated:animated completion:completion];
 }
 
+- (void)showOKButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+{
+	__weak ABPadLockScreenView *weakSelf = self;
+    [self performAnimations:^{
+        weakSelf.okButton.alpha = show ? 1.0f : 0.0f;
+    } animated:animated completion:completion];
+}
+
 - (void)updateDetailLabelWithString:(NSString *)string animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
     CGFloat length = (animated) ? animationLength : 0.0;
-    CGFloat labelWidth = [string sizeWithAttributes:@{NSFontAttributeName:self.detailLabelFont}].width + 15; //Padding
-    
     CATransition *animation = [CATransition animation];
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     animation.type = kCATransitionFade;
@@ -172,7 +208,10 @@
     [self.detailLabel.layer addAnimation:animation forKey:@"kCATransitionFade"];
     
     self.detailLabel.text = string;
-    self.detailLabel.frame = CGRectMake((self.frame.size.width/2) - 100, 80, labelWidth, 23);
+
+	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
+	
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 100, pinSelectionTop + 30, 200, 23);
 }
 
 - (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
@@ -191,6 +230,47 @@
     } animated:animated completion:completion];
 }
 
+- (void)animateFailureNotification
+{
+	[self _animateFailureNotificationDirection:-35];
+}
+
+- (void)_animateFailureNotificationDirection:(CGFloat)direction
+{
+	[UIView animateWithDuration:0.08 animations:^{
+		
+		CGAffineTransform transform = CGAffineTransformMakeTranslation(direction, 0);
+		
+		if(self.isComplexPin)
+		{
+			self.digitsTextField.layer.affineTransform = transform;
+		}
+		else
+		{
+			for (ABPinSelectionView *view in self.digitsArray)
+			{
+				view.layer.affineTransform = transform;
+			}
+		}
+	} completion:^(BOOL finished) {
+		if(fabs(direction) < 1) {
+			if(self.isComplexPin)
+			{
+				self.digitsTextField.layer.affineTransform = CGAffineTransformIdentity;
+			}
+			else
+			{
+				for (ABPinSelectionView *view in self.digitsArray)
+				{
+					view.layer.affineTransform = CGAffineTransformIdentity;
+				}
+			}
+			return;
+		}
+		[self _animateFailureNotificationDirection:-1 * direction / 2];
+	}];
+}
+
 - (void)resetAnimated:(BOOL)animated
 {
     for (ABPinSelectionView *view in self.digitsArray)
@@ -199,6 +279,21 @@
     }
     
     [self showCancelButtonAnimated:animated completion:nil];
+	[self showOKButton:NO animated:animated completion:nil];
+	
+	[self updatePinTextfieldWithLength:0];
+}
+
+- (void)updatePinTextfieldWithLength:(NSUInteger)length
+{
+	NSAttributedString* digitsTextFieldAttrStr = [[NSAttributedString alloc] initWithString:[@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0]
+																				 attributes:@{NSKernAttributeName: @4,
+																							  NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
+	[UIView transitionWithView:self.digitsTextField duration:animationLength options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+		self.digitsTextField.attributedText = digitsTextFieldAttrStr;
+	} completion:nil];
+	
+	
 }
 
 #pragma mark -
@@ -208,19 +303,25 @@
     _enterPasscodeLabelFont = [UIFont systemFontOfSize:18];
     _detailLabelFont = [UIFont systemFontOfSize:14];
     
-    _labelColour = [UIColor whiteColor];
+    _labelColor = [UIColor whiteColor];
 }
 
-- (void)prepareApperance
+- (void)prepareAppearance
 {
-    self.enterPasscodeLabel.textColor = self.labelColour;
+    self.enterPasscodeLabel.textColor = self.labelColor;
     self.enterPasscodeLabel.font = self.enterPasscodeLabelFont;
     
-    self.detailLabel.textColor = self.labelColour;
+	self.digitsTextField.textColor = self.labelColor;
+	self.digitsTextField.layer.borderColor = self.labelColor.CGColor;
+	
+	[self updatePinTextfieldWithLength:0];
+	
+    self.detailLabel.textColor = self.labelColor;
     self.detailLabel.font = self.detailLabelFont;
     
-    [self.cancelButton setTitleColor:self.labelColour forState:UIControlStateNormal];
-    [self.deleteButton setTitleColor:self.labelColour forState:UIControlStateNormal];
+    [self.cancelButton setTitleColor:self.labelColor forState:UIControlStateNormal];
+    [self.deleteButton setTitleColor:self.labelColor forState:UIControlStateNormal];
+	[self.okButton setTitleColor:self.labelColor forState:UIControlStateNormal];
 }
 
 #pragma mark -
@@ -234,26 +335,42 @@
 
 - (void)layoutTitleArea
 {
-    CGFloat top = ([self correctHeight]/2) - 300;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) top = 40;
+    CGFloat top = 75;
+	if(!IS_IPHONE5)
+	{
+		top = 20;
+	}
     self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 100, top, 200, 23);
-    [self addSubview:self.enterPasscodeLabel];
-    
-    CGFloat pinPadding = 25;
-    CGFloat pinRowWidth = (ABPinSelectionViewWidth * self.pinLength) + (pinPadding * (self.pinLength-1));
-    
-    
-    CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 10;
-    
-    CGFloat selectionViewLeft = ([self correctWidth]/2) - (pinRowWidth/2);
+    [self.contentView addSubview:self.enterPasscodeLabel];
+	
+	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
 
-    for (ABPinSelectionView *view in self.digitsArray) {
-        [self setUpPinSelectionView:view  left:selectionViewLeft top:pinSelectionTop];
-        selectionViewLeft+=ABPinSelectionViewWidth + pinPadding;
-    }
-    
+	if(self.isComplexPin)
+	{
+		CGFloat textFieldWidth = 152;
+		_digitsTextField.frame = CGRectMake((self.correctWidth / 2) - (textFieldWidth / 2), pinSelectionTop - 7.5f, textFieldWidth, 30);
+		
+		[self.contentView addSubview:_digitsTextField];
+		
+		_okButton.frame = CGRectMake(_digitsTextField.frame.origin.x + _digitsTextField.frame.size.width + 10, pinSelectionTop - 7.5f, (self.correctWidth - _digitsTextField.frame.size.width) / 2 - 10, 30);
+		
+		[self.contentView addSubview:_okButton];
+	}
+	else
+	{
+		CGFloat pinPadding = 25;
+		CGFloat pinRowWidth = (ABPinSelectionViewWidth * 4) + (pinPadding * 3);
+		
+		CGFloat selectionViewLeft = ([self correctWidth]/2) - (pinRowWidth/2);
+		
+		for (ABPinSelectionView *view in self.digitsArray) {
+			[self setUpPinSelectionView:view  left:selectionViewLeft top:pinSelectionTop];
+			selectionViewLeft+=ABPinSelectionViewWidth + pinPadding;
+		}
+	}
+	
     self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 100, pinSelectionTop + 30, 200, 23);
-    [self addSubview:self.detailLabel];
+    [self.contentView addSubview:self.detailLabel];
 }
 
 - (void)layoutButtonArea
@@ -267,10 +384,9 @@
     CGFloat centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
     CGFloat rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
     
-    CGFloat topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 50;
+    CGFloat topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 15;
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        if (!IS_IPHONE5) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
+    if (!IS_IPHONE5) topRowTop = self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 10;
     
     CGFloat middleRowTop = topRowTop + ABPadButtonHeight + verticalButtonPadding;
     CGFloat bottomRowTop = middleRowTop + ABPadButtonHeight + verticalButtonPadding;
@@ -290,20 +406,26 @@
     
     [self setUpButton:self.buttonZero left:centerButtonLeft top:zeroRowTop];
     
+	CGRect deleteCancelButtonFrame = CGRectMake(rightButtonLeft, zeroRowTop + ABPadButtonHeight, ABPadButtonWidth, 20);
+	if(!IS_IPHONE5)
+	{
+		deleteCancelButtonFrame = CGRectMake(rightButtonLeft, zeroRowTop + ABPadButtonHeight - 20, ABPadButtonWidth, 20);
+	}
+	
     if (!self.cancelButtonDisabled)
     {
-        self.cancelButton.frame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight/3), ABPadButtonWidth, 20);
-        [self addSubview:self.cancelButton];
+        self.cancelButton.frame = deleteCancelButtonFrame;
+        [self.contentView addSubview:self.cancelButton];
     }
     
-    self.deleteButton.frame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight/3), ABPadButtonWidth, 20);
-    [self addSubview:self.deleteButton];
+    self.deleteButton.frame = deleteCancelButtonFrame;
+    [self.contentView addSubview:self.deleteButton];
 }
 
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top
 {
     button.frame = CGRectMake(left, top, ABPadButtonWidth, ABPadButtonHeight);
-    [self addSubview:button];
+    [self.contentView addSubview:button];
     [self setRoundedView:button toDiameter:75];
 }
 
@@ -313,7 +435,7 @@
                                      top,
                                      ABPinSelectionViewWidth,
                                      ABPinSelectionViewHeight);
-    [self addSubview:selectionView];
+    [self.contentView addSubview:selectionView];
     [self setRoundedView:selectionView toDiameter:15];
 }
 
@@ -330,24 +452,12 @@
 #pragma mark - Orientation height helpers
 - (CGFloat)correctWidth
 {
-    if (self.requiresRotationCorrection)
-    {
-        UIInterfaceOrientation realOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-        if (UIInterfaceOrientationIsLandscape(realOrientation)) return self.frame.size.height;
-    }
-    
-    return self.frame.size.width;
+	return _contentView.bounds.size.width;
 }
 
 - (CGFloat)correctHeight
 {
-    if (self.requiresRotationCorrection)
-    {
-        UIInterfaceOrientation realOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-        if (UIInterfaceOrientationIsLandscape(realOrientation)) return self.frame.size.width;
-    }
-    
-    return self.frame.size.height;
+    return _contentView.bounds.size.height;
 }
 
 #pragma mark -
@@ -355,7 +465,7 @@
 - (UILabel *)standardLabel
 {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.textColor = _labelColour;
+    label.textColor = _labelColor;
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = NSTextAlignmentCenter;
     

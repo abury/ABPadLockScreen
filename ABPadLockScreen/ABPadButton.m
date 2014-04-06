@@ -57,8 +57,7 @@
         });
         _lettersLabel = ({
             UILabel *label = [self standardLabel];
-            label.text = letters;
-            label.font = _letterLabelFont;
+            label.attributedText = [[NSAttributedString alloc] initWithString:letters ? letters : @"" attributes:@{NSFontAttributeName: _letterLabelFont, NSKernAttributeName: @2}];
             label;
         });
         
@@ -95,8 +94,8 @@
     _selectedColor = [UIColor grayColor];
     _textColor = [UIColor whiteColor];
     _hightlightedTextColor = [UIColor whiteColor];
-    _numberLabelFont = [UIFont systemFontOfSize:30];
-    _letterLabelFont = [UIFont systemFontOfSize:10];
+    _numberLabelFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:35];
+    _letterLabelFont = [UIFont fontWithName:@"HelveticaNeue" size:10];
 }
 
 - (void)prepareApperance
@@ -114,10 +113,17 @@
     self.selectedView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [self addSubview:self.selectedView];
     
-    self.numberLabel.frame = CGRectMake(0, 15, self.frame.size.width, self.frame.size.height/2.5);
+    self.numberLabel.frame = CGRectMake(0, self.frame.size.height / 5, self.frame.size.width, self.frame.size.height/2.5);
     [self addSubview:self.numberLabel];
+	
+	if(self.tag == 0)
+	{
+		CGPoint center = self.numberLabel.center;
+		center.y = self.bounds.size.height / 2 - 1;
+		self.numberLabel.center = center;
+	}
     
-    self.lettersLabel.frame = CGRectMake(0, self.numberLabel.frame.origin.y + self.numberLabel.frame.size.height, self.frame.size.width, 10);
+    self.lettersLabel.frame = CGRectMake(0, self.numberLabel.frame.origin.y + self.numberLabel.frame.size.height + 3, self.frame.size.width, 10);
     [self addSubview:self.lettersLabel];
 }
 
@@ -163,6 +169,7 @@
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = NSTextAlignmentCenter;
+	label.minimumScaleFactor = 1.0;
     
     return label;
 }

@@ -23,7 +23,7 @@
 - (void)testInit
 {
     ExampleViewController *yourViewController = [[ExampleViewController alloc] init];
-    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:yourViewController pin:pinValue];
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:yourViewController complexPin:NO];
     XCTAssert([padLockScreenVC isKindOfClass:[padLockScreenVC class]], @"Pad Lock Screen VC is not correct type");
     XCTAssert(padLockScreenVC.delegate == yourViewController, @"Pad Lock Screen delegate is not correct type");
     XCTAssert([padLockScreenVC.pin isEqualToString:pinValue], @"Pad Lock screen pin isnt set correctly");
@@ -33,7 +33,7 @@
 
 - (void)testSettingAllowedAttempts
 {
-    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil complexPin:NO];
     [padLockScreenVC setAllowedAttempts:attempts];
     XCTAssert(padLockScreenVC.totalAttempts == 0, @"Allowed attempts not set properly");
     XCTAssert(padLockScreenVC.remainingAttempts == attempts, @"Remaining attempts not set properly");
@@ -43,7 +43,7 @@
 #pragma mark - Private Methods
 - (void)testThatAllowedAttemptsDecrease
 {
-    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil complexPin:NO];
     [padLockScreenVC setAllowedAttempts:attempts];
     [padLockScreenVC processPin];
     XCTAssert(padLockScreenVC.remainingAttempts == attempts - 1, @"Pad lock screen remaining attempts did not decrease");
@@ -51,7 +51,7 @@
 
 - (void)testThatPinCanValidate
 {
-    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil complexPin:NO];
     BOOL isPinValid = [padLockScreenVC isPinValid:pinValue];
     XCTAssertTrue(isPinValid, @"Pin does not correctly report YES");
     isPinValid = [padLockScreenVC isPinValid:@"1234"];
@@ -60,7 +60,7 @@
 
 - (void)testPinSelection
 {
-    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil complexPin:NO];
     [padLockScreenVC newPinSelected:1];
     XCTAssert([padLockScreenVC.currentPin isEqualToString:@"1"], @"First pin entry failed");
     [padLockScreenVC newPinSelected:2];
@@ -73,7 +73,7 @@
 
 - (void)testPinDeletion
 {
-    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil complexPin:NO];
     padLockScreenVC.currentPin = @"123";
     [padLockScreenVC deleteFromPin];
     XCTAssert([padLockScreenVC.currentPin isEqualToString:@"12"], @"Pin value wasnt deleted");
@@ -84,7 +84,7 @@
 
 - (void)testPinProcessing
 {
-    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil pin:pinValue];
+    ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:nil complexPin:NO];
     padLockScreenVC.currentPin = @"1222";
     [padLockScreenVC processPin];
     XCTAssert([padLockScreenVC.currentPin isEqualToString:@""], @"Current Pin doesnt reset after processing");

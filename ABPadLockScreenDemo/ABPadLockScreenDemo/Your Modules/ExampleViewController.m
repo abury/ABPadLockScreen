@@ -26,9 +26,9 @@
     [super viewDidLoad];
     
     self.title = @"Your Amazing App";
-    [[ABPadLockScreenView appearance] setLabelColour:[UIColor colorWithHexValue:@"DB4631"]];
+    [[ABPadLockScreenView appearance] setLabelColor:[UIColor colorWithHexValue:@"DB4631"]];
     [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"282B35"]];
-    
+
     [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
     [[ABPadButton appearance] setBorderColor:[UIColor colorWithHexValue:@"DB4631"]];
     [[ABPadButton appearance] setSelectedColor:[UIColor colorWithHexValue:@"DB4631"]];
@@ -40,7 +40,7 @@
 #pragma mark - Button Methods
 - (IBAction)setPin:(id)sender
 {
-    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self pinLength:5];
+    ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES];
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
@@ -55,7 +55,7 @@
         return;
     }
     
-    ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self pin:self.thePin];
+    ABPadLockScreenViewController *lockScreen = [[ABPadLockScreenViewController alloc] initWithDelegate:self complexPin:YES];
     [lockScreen setAllowedAttempts:3];;
     
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -66,6 +66,14 @@
 
 #pragma mark -
 #pragma mark - ABLockScreenDelegate Methods
+
+- (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin;
+{
+	NSLog(@"Validating pin %@", pin);
+	
+	return [self.thePin isEqualToString:pin];
+}
+
 - (void)unlockWasSuccessfulForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -89,6 +97,6 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     self.thePin = pin;
-    NSLog(@"Pin Set to pin");
+    NSLog(@"Pin set to pin %@", self.thePin);
 }
 @end
