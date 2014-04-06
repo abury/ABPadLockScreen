@@ -44,7 +44,7 @@
     self = [self initWithComplexPin:NO];
     if (self)
     {
-        
+        self.delegate = delegate;
     }
     return self;
 }

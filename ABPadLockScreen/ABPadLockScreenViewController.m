@@ -137,7 +137,11 @@
 
 - (BOOL)isPinValid:(NSString *)pin
 {
-    return [self.lockScreenDelegate padLockScreenViewController:self validatePin:pin];
+    if ([self.lockScreenDelegate respondsToSelector:@selector(padLockScreenViewController:validatePin:)])
+    {
+        return [self.lockScreenDelegate padLockScreenViewController:self validatePin:pin];
+    }
+    return NO;
 }
 
 #pragma mark -
