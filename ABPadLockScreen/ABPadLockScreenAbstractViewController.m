@@ -152,7 +152,10 @@
 {
 	[lockScreenView setBackgroundView:backgroundView];
 	
-	[self setNeedsStatusBarAppearanceUpdate];
+	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
+	{
+		[self setNeedsStatusBarAppearanceUpdate];
+	}
 }
 
 #pragma mark -
