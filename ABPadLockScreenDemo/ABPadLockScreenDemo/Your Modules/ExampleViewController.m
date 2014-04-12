@@ -21,19 +21,27 @@
 @end
 
 @implementation ExampleViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.title = @"Your Amazing App";
-    [[ABPadLockScreenView appearance] setLabelColor:[UIColor colorWithHexValue:@"DB4631"]];
-    [[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"282B35"]];
+	
+	//Remove comment to modify the apperance
 
-    [[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
-    [[ABPadButton appearance] setBorderColor:[UIColor colorWithHexValue:@"DB4631"]];
-    [[ABPadButton appearance] setSelectedColor:[UIColor colorWithHexValue:@"DB4631"]];
+	/*
+	[[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"282B35"]];
+	
+	UIColor* color = [UIColor colorWithRed:229.0f/255.0f green:180.0f/255.0f blue:46.0f/255.0f alpha:1.0f];
+
+	[[ABPadLockScreenView appearance] setLabelColor:[UIColor whiteColor]];
+	[[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
+    [[ABPadButton appearance] setBorderColor:color];
+    [[ABPadButton appearance] setSelectedColor:color];
     
-    [[ABPinSelectionView appearance] setSelectedColor:[UIColor colorWithHexValue:@"DB4631"]];
+    [[ABPinSelectionView appearance] setSelectedColor:color];
+	 */
 }
 
 #pragma mark -
@@ -41,8 +49,15 @@
 - (IBAction)setPin:(id)sender
 {
     ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES];
+	
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+	
+	//Example using an image
+	UIImageView* backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallpaper"]];
+	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+	backgroundView.clipsToBounds = YES;
+	[lockScreen setBackgroundView:backgroundView];
     
     [self presentViewController:lockScreen animated:YES completion:nil];
 }
@@ -51,7 +66,7 @@
 {
     if (!self.thePin)
     {
-        [[[UIAlertView alloc] initWithTitle:@"No Pin" message:@"Please Set a pin before trying to unlock" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"No Pin" message:@"Please Set a pin before trying to unlock" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
     
@@ -60,6 +75,12 @@
     
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+	
+	//Example using an image
+	UIImageView* backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallpaper"]];
+	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+	backgroundView.clipsToBounds = YES;
+	[lockScreen setBackgroundView:backgroundView];
     
     [self presentViewController:lockScreen animated:YES completion:nil];
 }

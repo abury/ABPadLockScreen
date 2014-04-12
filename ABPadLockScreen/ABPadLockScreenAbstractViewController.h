@@ -34,7 +34,7 @@
 
 @property (nonatomic, strong) NSString *currentPin;
 @property (nonatomic, weak) id<ABPadLockScreenDelegate> delegate;
-@property (readonly, getter = isComplexPin) BOOL complexPin;
+@property (nonatomic, readonly, getter = isComplexPin) BOOL complexPin;
 
 - (id)initWithComplexPin:(BOOL)complexPin;
 
@@ -47,6 +47,8 @@
 - (void)setDeleteButtonText:(NSString *)text;
 
 - (void)cancelButtonDisabled:(BOOL)disabled;
+
+- (void)setBackgroundView:(UIView*)backgroundView;
 
 - (void)processPin; //Called when the pin has reached maximum digits
 

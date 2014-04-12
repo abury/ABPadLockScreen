@@ -76,7 +76,7 @@
 #pragma mark - Helper Methods
 - (void)setDefaultStyles
 {
-    _selectedColor = [UIColor grayColor];
+    _selectedColor = [UIColor whiteColor];
 }
 
 - (void)prepareApperance

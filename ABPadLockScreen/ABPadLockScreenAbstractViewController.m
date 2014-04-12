@@ -83,6 +83,46 @@
     return UIInterfaceOrientationMaskAll;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+	if(lockScreenView.backgroundView != nil)
+	{
+		//Background view is shown - need light content status bar.
+		return UIStatusBarStyleLightContent;
+	}
+	
+	//Check background color if light or dark.
+	UIColor* color = lockScreenView.backgroundColor;
+	
+	if(color == nil)
+	{
+		color = lockScreenView.backgroundColor = [UIColor blackColor];
+	}
+	
+	const CGFloat *componentColors = CGColorGetComponents(color.CGColor);
+	
+	//Determine brightness
+    CGFloat colorBrightness = (CGColorGetNumberOfComponents(color.CGColor) == 2 ?
+							   //Black and white color
+							   componentColors[0] :
+							   //RGB color
+							   ((componentColors[0] * 299) + (componentColors[1] * 587) + (componentColors[2] * 114)) / 1000);
+    
+	if (colorBrightness < 0.5)
+    {
+        return UIStatusBarStyleLightContent;
+    }
+    else
+    {
+        return UIStatusBarStyleDefault;
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+}
+
 #pragma mark -
 #pragma mark - Localisation Methods
 - (void)setLockScreenTitle:(NSString *)title
@@ -106,6 +146,13 @@
 {
     [lockScreenView.deleteButton setTitle:text forState:UIControlStateNormal];
     [lockScreenView.deleteButton sizeToFit];
+}
+
+- (void)setBackgroundView:(UIView *)backgroundView
+{
+	[lockScreenView setBackgroundView:backgroundView];
+	
+	[self setNeedsStatusBarAppearanceUpdate];
 }
 
 #pragma mark -

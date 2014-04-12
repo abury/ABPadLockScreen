@@ -28,6 +28,8 @@
 @property (nonatomic, strong) UIFont *detailLabelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *labelColor UI_APPEARANCE_SELECTOR;
 
+@property (nonatomic, strong) UIView* backgroundView;
+
 @property (nonatomic, assign) BOOL cancelButtonDisabled;
 
 @property (nonatomic, strong, readonly) UILabel *enterPasscodeLabel;

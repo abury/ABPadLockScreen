@@ -91,10 +91,21 @@
 - (void)setDefaultStyles
 {
     _borderColor = [UIColor whiteColor];
-    _selectedColor = [UIColor grayColor];
+    _selectedColor = [UIColor lightGrayColor];
     _textColor = [UIColor whiteColor];
     _hightlightedTextColor = [UIColor whiteColor];
-    _numberLabelFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:35];
+	
+	static NSString* fontName = @"HelveticaNeue-Thin";
+	
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		if(NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1)
+		{
+			fontName = @"HelveticaNeue";
+		}
+	});
+	
+    _numberLabelFont = [UIFont fontWithName:fontName size:35];
     _letterLabelFont = [UIFont fontWithName:@"HelveticaNeue" size:10];
 }
 

@@ -31,6 +31,7 @@
 
 @property (nonatomic, assign) BOOL requiresRotationCorrection;
 @property (nonatomic, strong) UIView* contentView;
+@property (nonatomic, strong) UIView* backgroundBlurringView;
 
 - (void)setDefaultStyles;
 - (void)prepareAppearance;
@@ -106,14 +107,22 @@
         
         _buttonZero = [[ABPadButton alloc] initWithFrame:CGRectZero number:0 letters:nil];
         
-        _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		UIButtonType buttonType = UIButtonTypeSystem;
+		if(NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1)
+		{
+			buttonType = UIButtonTypeCustom;
+		}
+		
+		_cancelButton = [UIButton buttonWithType:buttonType];
         [_cancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
+		_cancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         
-        _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _deleteButton = [UIButton buttonWithType:buttonType];
         [_deleteButton setTitle:NSLocalizedString(@"Delete", @"") forState:UIControlStateNormal];
+		_deleteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _deleteButton.alpha = 0.0f;
         
-		_okButton = [UIButton buttonWithType:UIButtonTypeSystem];
+		_okButton = [UIButton buttonWithType:buttonType];
 		[_okButton setTitle:NSLocalizedString(@"OK", @"") forState:UIControlStateNormal];
 		_okButton.alpha = 0.0f;
 		_okButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -130,12 +139,7 @@
 {
     [super layoutSubviews];
     [self performLayout];
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    [super drawRect:rect];
-    [self prepareAppearance];
+	[self prepareAppearance];
 }
 
 #pragma mark -
@@ -292,14 +296,54 @@
 
 - (void)updatePinTextfieldWithLength:(NSUInteger)length
 {
-	NSAttributedString* digitsTextFieldAttrStr = [[NSAttributedString alloc] initWithString:[@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0]
-																				 attributes:@{NSKernAttributeName: @4,
-																							  NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
-	[UIView transitionWithView:self.digitsTextField duration:animationLength options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-		self.digitsTextField.attributedText = digitsTextFieldAttrStr;
-	} completion:nil];
-	
-	
+	if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
+	{
+		NSAttributedString* digitsTextFieldAttrStr = [[NSAttributedString alloc] initWithString:[@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0]
+																					 attributes:@{NSKernAttributeName: @4,
+																								  NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
+		[UIView transitionWithView:self.digitsTextField duration:animationLength options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+			self.digitsTextField.attributedText = digitsTextFieldAttrStr;
+		} completion:nil];
+	}
+	else
+	{
+		self.digitsTextField.text = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0];
+	}
+}
+
+- (void)setBackgroundView:(UIView *)backgroundView
+{
+	[_backgroundView removeFromSuperview];
+	_backgroundView = backgroundView;
+
+	if(_backgroundView == nil)
+	{
+		[_backgroundBlurringView setHidden:YES];
+	}
+	else
+	{
+		if(_backgroundBlurringView == nil)
+		{
+			if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
+			{
+				_backgroundBlurringView = [[UINavigationBar alloc] initWithFrame:self.bounds];
+				[(UINavigationBar*)_backgroundBlurringView setBarStyle: UIBarStyleBlack];
+			}
+			else
+			{
+				_backgroundBlurringView = [[UIView alloc] initWithFrame:self.bounds];
+				_backgroundBlurringView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
+			}
+			_backgroundBlurringView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+			[self insertSubview:_backgroundBlurringView belowSubview:_contentView];
+		}
+		
+		[_backgroundBlurringView setHidden:NO];
+
+		[_backgroundView setFrame:self.bounds];
+		[_backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+		[self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
+	}
 }
 
 #pragma mark -
@@ -317,8 +361,8 @@
     self.enterPasscodeLabel.textColor = self.labelColor;
     self.enterPasscodeLabel.font = self.enterPasscodeLabelFont;
     
-	self.digitsTextField.textColor = self.labelColor;
-	self.digitsTextField.layer.borderColor = self.labelColor.CGColor;
+	self.digitsTextField.textColor = [(ABPadButton*)self.buttonZero borderColor];
+	self.digitsTextField.layer.borderColor = [(ABPadButton*)self.buttonZero borderColor].CGColor;
 	
 	[self updatePinTextfieldWithLength:0];
 	
@@ -341,11 +385,18 @@
 
 - (void)layoutTitleArea
 {
-    CGFloat top = 75;
+    CGFloat top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 15 : 65;
+	
 	if(!IS_IPHONE5)
 	{
-		top = 20;
+		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? -10 : 20;
 	}
+	
+	if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+	{
+		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 30 : 80;;
+	}
+	
     self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 100, top, 200, 23);
     [self.contentView addSubview:self.enterPasscodeLabel];
 	
@@ -412,10 +463,17 @@
     
     [self setUpButton:self.buttonZero left:centerButtonLeft top:zeroRowTop];
     
-	CGRect deleteCancelButtonFrame = CGRectMake(rightButtonLeft, zeroRowTop + ABPadButtonHeight, ABPadButtonWidth, 20);
+	CGRect deleteCancelButtonFrame = CGRectMake(rightButtonLeft, zeroRowTop + ABPadButtonHeight + 25, ABPadButtonWidth, 20);
 	if(!IS_IPHONE5)
 	{
+		//Bring it higher for small device screens
 		deleteCancelButtonFrame = CGRectMake(rightButtonLeft, zeroRowTop + ABPadButtonHeight - 20, ABPadButtonWidth, 20);
+	}
+	
+	if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+	{
+		//Center it with zero button
+		deleteCancelButtonFrame = CGRectMake(rightButtonLeft, zeroRowTop + (ABPadButtonHeight / 2 - 10), ABPadButtonWidth, 20);
 	}
 	
     if (!self.cancelButtonDisabled)
