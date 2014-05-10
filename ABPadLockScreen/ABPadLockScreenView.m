@@ -26,6 +26,7 @@
 
 #define animationLength 0.15
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
+#define IS_IOS6_OR_LOWER (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
 
 @interface ABPadLockScreenView()
 
@@ -341,10 +342,10 @@
 
 - (void)layoutTitleArea
 {
-    CGFloat top = 75;
+    CGFloat top = 65;
 	if(!IS_IPHONE5)
 	{
-		top = 20;
+		top = IS_IOS6_OR_LOWER ? 10 : 25;
 	}
     self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 100, top, 200, 23);
     [self.contentView addSubview:self.enterPasscodeLabel];
