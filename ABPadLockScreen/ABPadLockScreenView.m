@@ -26,6 +26,7 @@
 
 #define animationLength 0.15
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
+#define IS_IOS6_OR_LOWER (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
 
 @interface ABPadLockScreenView()
 
@@ -389,7 +390,7 @@
 	
 	if(!IS_IPHONE5)
 	{
-		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? -10 : 20;
+		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 5 : 20;
 	}
 	
 	if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
