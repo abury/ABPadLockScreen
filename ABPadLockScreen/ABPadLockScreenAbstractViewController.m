@@ -67,7 +67,7 @@
 {
     [super viewDidLoad];
     
-    self.view = [[ABPadLockScreenView alloc] initWithFrame:self.view.frame complexPin:self.isComplexPin];
+    self.view = [[ABPadLockScreenView alloc] initWithFrame:self.view.bounds complexPin:self.isComplexPin];
     [self setUpButtonMapping];
     [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
     [lockScreenView.deleteButton addTarget:self action:@selector(deleteButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
