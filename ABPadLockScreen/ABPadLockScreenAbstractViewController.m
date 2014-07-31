@@ -182,7 +182,7 @@
 #pragma mark - Button Methods
 - (void)newPinSelected:(NSInteger)pinNumber
 {
-    if (!self.isComplexPin && [self.currentPin length] >= 4)
+    if (!self.isComplexPin && [self.currentPin length] >= SIMPLE_PIN_LENGTH)
     {
         return;
     }
@@ -208,7 +208,7 @@
 			[lockScreenView showOKButton:YES animated:YES completion:nil];
 		}
     }
-    else if (!self.isComplexPin && [self.currentPin length] == 4)
+    else if (!self.isComplexPin && [self.currentPin length] == SIMPLE_PIN_LENGTH)
     {
         [lockScreenView.digitsArray.lastObject setSelected:YES animated:YES completion:nil];
         [self processPin];

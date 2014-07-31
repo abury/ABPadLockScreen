@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#define SIMPLE_PIN_LENGTH 4
+
 @class ABPinSelectionView;
 
 @interface ABPadLockScreenView : UIView

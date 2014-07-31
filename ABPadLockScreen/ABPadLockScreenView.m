@@ -162,10 +162,10 @@
 	
     if (!_digitsArray)
     {
-		//Simple pin code is always 4 characters.
-        NSMutableArray *array = [NSMutableArray arrayWithCapacity:4];
+		//Simple pin code is always (SIMPLE_PIN_LENGTH) characters.
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:SIMPLE_PIN_LENGTH];
         
-        for (NSInteger i = 0; i < 4; i++)
+        for (NSInteger i = 0; i < SIMPLE_PIN_LENGTH; i++)
         {
             ABPinSelectionView *view = [[ABPinSelectionView alloc] initWithFrame:CGRectZero];
             [array addObject:view];
@@ -417,7 +417,7 @@
 	else
 	{
 		CGFloat pinPadding = 25;
-		CGFloat pinRowWidth = (ABPinSelectionViewWidth * 4) + (pinPadding * 3);
+		CGFloat pinRowWidth = (ABPinSelectionViewWidth * SIMPLE_PIN_LENGTH) + (pinPadding * (SIMPLE_PIN_LENGTH - 1));
 		
 		CGFloat selectionViewLeft = ([self correctWidth]/2) - (pinRowWidth/2);
 		
