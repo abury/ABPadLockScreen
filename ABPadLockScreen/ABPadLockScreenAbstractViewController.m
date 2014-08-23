@@ -178,6 +178,17 @@
     //Subclass to provide concrete implementation
 }
 
+- (void)setEnableSound:(BOOL)enableSound
+{
+    [[NSUserDefaults standardUserDefaults] setBool:enableSound forKey:@"ABPadLockScreen.enableSound"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)enableSound
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ABPadLockScreen.enableSound"];
+}
+
 #pragma mark -
 #pragma mark - Button Methods
 - (void)newPinSelected:(NSInteger)pinNumber

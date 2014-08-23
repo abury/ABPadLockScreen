@@ -23,6 +23,7 @@
 #import "ABPadLockScreenViewController.h"
 #import "ABPadLockScreenView.h"
 #import "ABPinSelectionView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 #define lockScreenView ((ABPadLockScreenView *) [self view])
 
@@ -100,6 +101,10 @@
 
 - (void)unlockScreen
 {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ABPadLockScreen.enableSound"]) {
+        AudioServicesPlaySystemSound(1101); // play unlock sound
+    }
+    
     if ([self.lockScreenDelegate respondsToSelector:@selector(unlockWasSuccessfulForPadLockScreenViewController:)])
     {
         [self.lockScreenDelegate unlockWasSuccessfulForPadLockScreenViewController:self];
@@ -133,6 +138,9 @@
         [self.lockScreenDelegate unlockWasUnsuccessful:self.currentPin afterAttemptNumber:self.totalAttempts padLockScreenViewController:self];
     }
     self.currentPin = @"";
+    
+    // viberate feedback
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
 - (BOOL)isPinValid:(NSString *)pin
