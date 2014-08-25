@@ -101,10 +101,6 @@
 
 - (void)unlockScreen
 {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ABPadLockScreen.enableSound"]) {
-        AudioServicesPlaySystemSound(1101); // play unlock sound
-    }
-    
     if ([self.lockScreenDelegate respondsToSelector:@selector(unlockWasSuccessfulForPadLockScreenViewController:)])
     {
         [self.lockScreenDelegate unlockWasSuccessfulForPadLockScreenViewController:self];
