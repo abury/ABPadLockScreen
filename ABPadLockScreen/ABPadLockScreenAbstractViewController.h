@@ -35,7 +35,8 @@
 @property (nonatomic, strong) NSString *currentPin;
 @property (nonatomic, weak) id<ABPadLockScreenDelegate> delegate;
 @property (nonatomic, readonly, getter = isComplexPin) BOOL complexPin;
-@property (nonatomic) BOOL enableSound;
+@property (nonatomic, assign) BOOL tapSoundEnabled; //No by Default
+@property (nonatomic, assign) BOOL errorVibrateEnabled; //No by Default
 
 - (id)initWithComplexPin:(BOOL)complexPin;
 

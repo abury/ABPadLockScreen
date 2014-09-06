@@ -49,6 +49,8 @@
 - (IBAction)setPin:(id)sender
 {
     ABPadLockScreenSetupViewController *lockScreen = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:self complexPin:YES];
+    lockScreen.tapSoundEnabled = YES;
+    lockScreen.errorVibrateEnabled = YES;
 	
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
