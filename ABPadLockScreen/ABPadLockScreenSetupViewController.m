@@ -58,6 +58,9 @@
         self.delegate = delegate;
         _setupScreenDelegate = delegate;
         _enteredPin = nil;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [lockScreenView updateDetailLabelWithString:NSLocalizedString(@"Enter a new pincode", @"") animated:YES completion:nil];
+        });
     }
     return self;
 }
