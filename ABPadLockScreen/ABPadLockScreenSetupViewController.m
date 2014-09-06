@@ -23,6 +23,7 @@
 #import "ABPadLockScreenSetupViewController.h"
 #import "ABPadLockScreenView.h"
 #import "ABPinSelectionView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 #define lockScreenView ((ABPadLockScreenView *) [self view])
 
@@ -106,6 +107,9 @@
         [lockScreenView resetAnimated:YES];
         self.enteredPin = nil;
         self.currentPin = @"";
+        
+        // viberate feedback
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
 }
 

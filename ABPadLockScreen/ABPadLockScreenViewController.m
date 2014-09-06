@@ -23,6 +23,7 @@
 #import "ABPadLockScreenViewController.h"
 #import "ABPadLockScreenView.h"
 #import "ABPinSelectionView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 #define lockScreenView ((ABPadLockScreenView *) [self view])
 
@@ -133,6 +134,9 @@
         [self.lockScreenDelegate unlockWasUnsuccessful:self.currentPin afterAttemptNumber:self.totalAttempts padLockScreenViewController:self];
     }
     self.currentPin = @"";
+    
+    // viberate feedback
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
 - (BOOL)isPinValid:(NSString *)pin
