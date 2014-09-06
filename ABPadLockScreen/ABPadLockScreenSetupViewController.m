@@ -58,8 +58,18 @@
         self.delegate = delegate;
         _setupScreenDelegate = delegate;
         _enteredPin = nil;
+    }
+    return self;
+}
+
+- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate complexPin:(BOOL)complexPin subtitleLabelText:(NSString *)subtitleLabelText
+{
+    self = [self initWithDelegate:delegate complexPin:complexPin];
+    if (self)
+    {
+        _subtitleLabelText = subtitleLabelText;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [lockScreenView updateDetailLabelWithString:NSLocalizedString(@"Enter a new pincode", @"") animated:YES completion:nil];
+            [lockScreenView updateDetailLabelWithString:_subtitleLabelText animated:NO completion:nil];
         });
     }
     return self;
