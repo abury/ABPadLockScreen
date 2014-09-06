@@ -22,7 +22,6 @@
 
 #import "ABPadButton.h"
 #import <QuartzCore/QuartzCore.h>
-#import <AudioToolbox/AudioToolbox.h>
 
 #define animationLength 0.15
 
@@ -143,10 +142,6 @@
 #pragma mark - Button Overides
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ABPadLockScreen.enableSound"]) {
-        AudioServicesPlaySystemSound(1105); // play tap sound if needed
-    }
-
     [super touchesBegan:touches withEvent:event];
 
     __weak ABPadButton *weakSelf = self;

@@ -23,6 +23,7 @@
 #import "ABPadLockScreenAbstractViewController.h"
 #import "ABPadLockScreenView.h"
 #import "ABPinSelectionView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 #define lockScreenView ((ABPadLockScreenView *) [self view])
 
@@ -45,6 +46,8 @@
     self = [super init];
     if (self)
     {
+        _tapSoundEnabled = NO;
+        _errorVibrateEnabled = NO;
         _currentPin = @"";
         _complexPin = NO; //default to NO
     }
@@ -178,17 +181,6 @@
     //Subclass to provide concrete implementation
 }
 
-- (void)setEnableSound:(BOOL)enableSound
-{
-    [[NSUserDefaults standardUserDefaults] setBool:enableSound forKey:@"ABPadLockScreen.enableSound"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (BOOL)enableSound
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ABPadLockScreen.enableSound"];
-}
-
 #pragma mark -
 #pragma mark - Button Methods
 - (void)newPinSelected:(NSInteger)pinNumber
@@ -255,6 +247,10 @@
 - (void)buttonSelected:(UIButton *)sender
 {
     NSInteger tag = sender.tag;
+    if (self.tapSoundEnabled)
+    {
+        AudioServicesPlaySystemSound(1105);
+    }
     [self newPinSelected:tag];
 }
 

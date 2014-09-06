@@ -62,6 +62,19 @@
     return self;
 }
 
+- (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate complexPin:(BOOL)complexPin subtitleLabelText:(NSString *)subtitleLabelText
+{
+    self = [self initWithDelegate:delegate complexPin:complexPin];
+    if (self)
+    {
+        _subtitleLabelText = subtitleLabelText;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [lockScreenView updateDetailLabelWithString:_subtitleLabelText animated:NO completion:nil];
+        });
+    }
+    return self;
+}
+
 #pragma mark -
 #pragma mark - View Controller Lifecycle Methods
 - (void)viewDidLoad
@@ -109,7 +122,10 @@
         self.currentPin = @"";
         
         // viberate feedback
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        if (self.errorVibrateEnabled)
+        {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
     }
 }
 

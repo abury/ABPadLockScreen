@@ -135,8 +135,10 @@
     }
     self.currentPin = @"";
     
-    // viberate feedback
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    if (self.errorVibrateEnabled)
+    {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
 }
 
 - (BOOL)isPinValid:(NSString *)pin
