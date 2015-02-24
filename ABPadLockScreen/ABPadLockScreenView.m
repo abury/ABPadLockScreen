@@ -371,6 +371,8 @@
     self.detailLabel.font = self.detailLabelFont;
     
     [self.cancelButton setTitleColor:self.labelColor forState:UIControlStateNormal];
+    self.cancelButton.titleLabel.font = self.cancelLabelFont;
+    
     [self.deleteButton setTitleColor:self.labelColor forState:UIControlStateNormal];
 	[self.okButton setTitleColor:self.labelColor forState:UIControlStateNormal];
 }
@@ -398,7 +400,7 @@
 		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 30 : 80;;
 	}
 	
-    self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 100, top, 200, 23);
+    self.enterPasscodeLabel.frame = CGRectMake(50, top, [self correctWidth] - 100, 23);
     [self.contentView addSubview:self.enterPasscodeLabel];
 	
 	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
