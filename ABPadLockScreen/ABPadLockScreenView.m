@@ -371,9 +371,11 @@
     self.detailLabel.font = self.detailLabelFont;
     
     [self.cancelButton setTitleColor:self.labelColor forState:UIControlStateNormal];
-    self.cancelButton.titleLabel.font = self.cancelLabelFont;
+    self.cancelButton.titleLabel.font = self.deleteCancelLabelFont;
     
     [self.deleteButton setTitleColor:self.labelColor forState:UIControlStateNormal];
+    self.deleteButton.titleLabel.font = self.deleteCancelLabelFont;
+
 	[self.okButton setTitleColor:self.labelColor forState:UIControlStateNormal];
 }
 
