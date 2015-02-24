@@ -151,6 +151,11 @@
     [lockScreenView.deleteButton sizeToFit];
 }
 
+- (void)setEnterPasscodeLabelText:(NSString *)text
+{
+    lockScreenView.enterPasscodeLabel.text = text;
+}
+
 - (void)setBackgroundView:(UIView *)backgroundView
 {
 	[lockScreenView setBackgroundView:backgroundView];
