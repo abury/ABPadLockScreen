@@ -46,6 +46,7 @@
     if (self)
     {
         self.delegate = delegate;
+        [self setDefaultTexts];
     }
     return self;
 }
@@ -58,6 +59,7 @@
         self.delegate = delegate;
         _setupScreenDelegate = delegate;
         _enteredPin = nil;
+        [self setDefaultTexts];
     }
     return self;
 }
@@ -73,6 +75,12 @@
         });
     }
     return self;
+}
+
+- (void)setDefaultTexts
+{
+    _pinNotMatchedText = NSLocalizedString(@"Pincode did not match.", @"");
+    _pinConfirmationText = NSLocalizedString(@"Re-enter your new pincode", @"");
 }
 
 #pragma mark -
@@ -100,7 +108,7 @@
 {
     self.enteredPin = self.currentPin;
     self.currentPin = @"";
-    [lockScreenView updateDetailLabelWithString:NSLocalizedString(@"Re-enter your new pincode", @"") animated:YES completion:nil];
+    [lockScreenView updateDetailLabelWithString:self.pinConfirmationText animated:YES completion:nil];
     [lockScreenView resetAnimated:YES];
 }
          
@@ -115,7 +123,7 @@
     }
     else
     {
-        [lockScreenView updateDetailLabelWithString:NSLocalizedString(@"Pincode did not match.", @"") animated:YES completion:nil];
+        [lockScreenView updateDetailLabelWithString:self.pinNotMatchedText animated:YES completion:nil];
 		[lockScreenView animateFailureNotification];
         [lockScreenView resetAnimated:YES];
         self.enteredPin = nil;
