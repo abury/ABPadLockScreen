@@ -222,7 +222,7 @@
 
 	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
 	
-    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 100, pinSelectionTop + 30, 200, 23);
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, pinSelectionTop + 30, 300, 23);
 }
 
 - (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
@@ -402,7 +402,7 @@
 		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 30 : 80;;
 	}
 	
-    self.enterPasscodeLabel.frame = CGRectMake(50, top, [self correctWidth] - 100, 23);
+    self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 150, top, 300, 23);
     [self.contentView addSubview:self.enterPasscodeLabel];
 	
 	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
@@ -431,7 +431,7 @@
 		}
 	}
 	
-    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 100, pinSelectionTop + 30, 200, 23);
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, pinSelectionTop + 30, 300, 23);
     [self.contentView addSubview:self.detailLabel];
 }
 
