@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+@import UIKit;
+
 /**
  A pin button designed to look like a telephone number button displaying the number, letters and handling it's
  own animation
