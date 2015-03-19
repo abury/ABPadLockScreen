@@ -210,8 +210,11 @@
 	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
 		labelWidth += [string sizeWithAttributes:@{NSFontAttributeName:self.detailLabelFont}].width;
 	else
-		labelWidth += [string sizeWithFont: self.detailLabelFont].width;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        labelWidth += [string sizeWithFont: self.detailLabelFont].width;
+#pragma clang diagnostic pop
+    
     CATransition *animation = [CATransition animation];
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     animation.type = kCATransitionFade;
@@ -325,7 +328,11 @@
 	{
 		if(_backgroundBlurringView == nil)
 		{
-			if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
+            if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) { // iOS 8
+                UIBlurEffect *blur = [UIBlurEffect effectWithStyle: UIBlurEffectStyleLight];
+                _backgroundBlurringView = [[UIVisualEffectView alloc] initWithEffect: blur];
+            }
+            else if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
 			{
 				_backgroundBlurringView = [[UINavigationBar alloc] initWithFrame:self.bounds];
 				[(UINavigationBar*)_backgroundBlurringView setBarStyle: UIBarStyleBlack];
@@ -335,6 +342,7 @@
 				_backgroundBlurringView = [[UIView alloc] initWithFrame:self.bounds];
 				_backgroundBlurringView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
 			}
+            _backgroundBlurringView.frame = _contentView.frame;
 			_backgroundBlurringView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			[self insertSubview:_backgroundBlurringView belowSubview:_contentView];
 		}
@@ -343,7 +351,12 @@
 
 		[_backgroundView setFrame:self.bounds];
 		[_backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-		[self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
+        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+            //[_backgroundView addSubview:_backgroundBlurringView];
+            [self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
+        } else {
+            [self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
+        }
 	}
 }
 
