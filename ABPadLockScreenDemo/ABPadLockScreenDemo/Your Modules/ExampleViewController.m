@@ -27,10 +27,7 @@
     [super viewDidLoad];
     
     self.title = @"Your Amazing App";
-	
-	//Remove comment to modify the apperance
 
-	/*
 	[[ABPadLockScreenView appearance] setBackgroundColor:[UIColor colorWithHexValue:@"282B35"]];
 	
 	UIColor* color = [UIColor colorWithRed:229.0f/255.0f green:180.0f/255.0f blue:46.0f/255.0f alpha:1.0f];
@@ -41,7 +38,6 @@
     [[ABPadButton appearance] setSelectedColor:color];
     
     [[ABPinSelectionView appearance] setSelectedColor:color];
-	 */
 }
 
 #pragma mark -
@@ -55,11 +51,11 @@
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 	
-	//Example using an image
-	UIImageView* backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallpaper"]];
-	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
-	backgroundView.clipsToBounds = YES;
-	[lockScreen setBackgroundView:backgroundView];
+//	Example using an image
+//	UIImageView* backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallpaper"]];
+//	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+//	backgroundView.clipsToBounds = YES;
+//	[lockScreen setBackgroundView:backgroundView];
     
     [self presentViewController:lockScreen animated:YES completion:nil];
 }
@@ -78,11 +74,11 @@
     lockScreen.modalPresentationStyle = UIModalPresentationFullScreen;
     lockScreen.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 	
-	//Example using an image
-	UIImageView* backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallpaper"]];
-	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
-	backgroundView.clipsToBounds = YES;
-	[lockScreen setBackgroundView:backgroundView];
+//	Example using an image
+//	UIImageView* backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallpaper"]];
+//	backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+//	backgroundView.clipsToBounds = YES;
+//	[lockScreen setBackgroundView:backgroundView];
     
     [self presentViewController:lockScreen animated:YES completion:nil];
 }
