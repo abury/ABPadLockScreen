@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/abury/ABPadLockScreen"
-  s.screenshots  = "http://aronbury.com/assets/images/abpadlockscreen/fb-blue.png", "http://aronbury.com/assets/images/abpadlockscreen/yellow-ipad.png"
+  s.screenshots  = "http://aronbury.com/assets/images/abpadlockscreen/fb-blue.png", "http://aronbury.com/assets/images/abpadlockscreen/custom_red.jpg"
 
   s.license      = 'MIT'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
