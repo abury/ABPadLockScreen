@@ -210,8 +210,11 @@
 	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
 		labelWidth += [string sizeWithAttributes:@{NSFontAttributeName:self.detailLabelFont}].width;
 	else
-		labelWidth += [string sizeWithFont: self.detailLabelFont].width;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        labelWidth += [string sizeWithFont: self.detailLabelFont].width;
+#pragma clang diagnostic pop
+    
     CATransition *animation = [CATransition animation];
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     animation.type = kCATransitionFade;
@@ -222,7 +225,7 @@
 
 	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
 	
-    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 100, pinSelectionTop + 30, 200, 23);
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, pinSelectionTop + 30, 300, 23);
 }
 
 - (void)lockViewAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion
@@ -325,7 +328,11 @@
 	{
 		if(_backgroundBlurringView == nil)
 		{
-			if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
+            if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) { // iOS 8
+                UIBlurEffect *blur = [UIBlurEffect effectWithStyle: UIBlurEffectStyleLight];
+                _backgroundBlurringView = [[UIVisualEffectView alloc] initWithEffect: blur];
+            }
+            else if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
 			{
 				_backgroundBlurringView = [[UINavigationBar alloc] initWithFrame:self.bounds];
 				[(UINavigationBar*)_backgroundBlurringView setBarStyle: UIBarStyleBlack];
@@ -335,6 +342,7 @@
 				_backgroundBlurringView = [[UIView alloc] initWithFrame:self.bounds];
 				_backgroundBlurringView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
 			}
+            _backgroundBlurringView.frame = _contentView.frame;
 			_backgroundBlurringView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			[self insertSubview:_backgroundBlurringView belowSubview:_contentView];
 		}
@@ -343,7 +351,12 @@
 
 		[_backgroundView setFrame:self.bounds];
 		[_backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-		[self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
+        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+            //[_backgroundView addSubview:_backgroundBlurringView];
+            [self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
+        } else {
+            [self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
+        }
 	}
 }
 
@@ -371,7 +384,11 @@
     self.detailLabel.font = self.detailLabelFont;
     
     [self.cancelButton setTitleColor:self.labelColor forState:UIControlStateNormal];
+    self.cancelButton.titleLabel.font = self.deleteCancelLabelFont;
+    
     [self.deleteButton setTitleColor:self.labelColor forState:UIControlStateNormal];
+    self.deleteButton.titleLabel.font = self.deleteCancelLabelFont;
+
 	[self.okButton setTitleColor:self.labelColor forState:UIControlStateNormal];
 }
 
@@ -398,7 +415,7 @@
 		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 30 : 80;;
 	}
 	
-    self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 100, top, 200, 23);
+    self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 150, top, 300, 23);
     [self.contentView addSubview:self.enterPasscodeLabel];
 	
 	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
@@ -427,7 +444,7 @@
 		}
 	}
 	
-    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 100, pinSelectionTop + 30, 200, 23);
+    self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, pinSelectionTop + 30, 300, 23);
     [self.contentView addSubview:self.detailLabel];
 }
 

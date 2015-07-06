@@ -115,8 +115,10 @@
     self.layer.borderColor = [self.borderColor CGColor];
     self.numberLabel.textColor = self.textColor;
     self.numberLabel.highlightedTextColor = self.hightlightedTextColor;
+    self.numberLabel.font = self.numberLabelFont;
     self.lettersLabel.textColor = self.textColor;
     self.lettersLabel.highlightedTextColor = self.hightlightedTextColor;
+    self.lettersLabel.font = self.letterLabelFont;
 }
 
 - (void)performLayout
