@@ -35,6 +35,8 @@
 
 @property (nonatomic, weak, readonly) id<ABPadLockScreenSetupViewControllerDelegate> setupScreenDelegate;
 @property (nonatomic, strong, readonly) NSString *subtitleLabelText;
+@property (nonatomic, strong) NSString *pinNotMatchedText;
+@property (nonatomic, strong) NSString *pinConfirmationText;
 
 - (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate;
 - (instancetype)initWithDelegate:(id<ABPadLockScreenSetupViewControllerDelegate>)delegate complexPin:(BOOL)complexPin;

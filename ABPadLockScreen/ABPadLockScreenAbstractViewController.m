@@ -70,7 +70,18 @@
 {
     [super viewDidLoad];
     
-    self.view = [[ABPadLockScreenView alloc] initWithFrame:self.view.bounds complexPin:self.isComplexPin];
+    CGRect bounds = self.view.bounds;
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        if (bounds.size.width > bounds.size.height) {
+            CGFloat height = bounds.size.width;
+            CGFloat width = bounds.size.height;
+            bounds.size.height = height;
+            bounds.size.width = width;
+        }
+    }
+    
+    self.view = [[ABPadLockScreenView alloc] initWithFrame:bounds complexPin:self.isComplexPin];
+    
     [self setUpButtonMapping];
     [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
     [lockScreenView.deleteButton addTarget:self action:@selector(deleteButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
@@ -149,6 +160,11 @@
 {
     [lockScreenView.deleteButton setTitle:text forState:UIControlStateNormal];
     [lockScreenView.deleteButton sizeToFit];
+}
+
+- (void)setEnterPasscodeLabelText:(NSString *)text
+{
+    lockScreenView.enterPasscodeLabel.text = text;
 }
 
 - (void)setBackgroundView:(UIView *)backgroundView
