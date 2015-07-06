@@ -60,7 +60,8 @@
 @end
 
 @protocol ABPadLockScreenDelegate <NSObject>
-@required
-- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController;
+// Breaks conforming to protocol due to duplicate methods
+//@required
+//- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController;
 
 @end
