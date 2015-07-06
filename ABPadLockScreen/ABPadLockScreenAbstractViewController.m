@@ -272,10 +272,11 @@
 
 - (void)cancelButtonSelected:(UIButton *)sender
 {
-    if ([self.delegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
-    {
-        [self.delegate unlockWasCancelledForPadLockScreenViewController:self];
-    }
+    // This seems to be declared by the abstract delegate which is broken
+    //if ([self.delegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
+    //{
+    //    [self.delegate unlockWasCancelledForPadLockScreenViewController:self];
+    //}
 }
 
 - (void)deleteButtonSelected:(UIButton *)sender
