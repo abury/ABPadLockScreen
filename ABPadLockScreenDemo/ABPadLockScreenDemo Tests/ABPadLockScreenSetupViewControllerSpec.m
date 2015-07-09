@@ -22,7 +22,7 @@
     ExampleViewController *vc = [[ExampleViewController alloc] init];
     ABPadLockScreenSetupViewController *setupLockVC = [[ABPadLockScreenSetupViewController alloc] initWithDelegate:vc];
     XCTAssert([setupLockVC isKindOfClass:[ABPadLockScreenSetupViewController class]], @"Init Method didnt return the right class");
-    XCTAssert(setupLockVC.delegate == vc, @"Init Method assign delegate correctly");
+    XCTAssert(setupLockVC.setupScreenDelegate == vc, @"Init Method assign delegate correctly");
 }
 
 @end

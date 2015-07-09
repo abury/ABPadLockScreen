@@ -25,7 +25,7 @@
     ExampleViewController *yourViewController = [[ExampleViewController alloc] init];
     ABPadLockScreenViewController *padLockScreenVC = [[ABPadLockScreenViewController alloc] initWithDelegate:yourViewController complexPin:NO];
     XCTAssert([padLockScreenVC isKindOfClass:[padLockScreenVC class]], @"Pad Lock Screen VC is not correct type");
-    XCTAssert(padLockScreenVC.delegate == yourViewController, @"Pad Lock Screen delegate is not correct type");
+    XCTAssert(padLockScreenVC.lockScreenDelegate == yourViewController, @"Pad Lock Screen delegate is not correct type");
     XCTAssert(padLockScreenVC.totalAttempts == 0, @"Total attempts do not start at 0");
     XCTAssert([padLockScreenVC.currentPin isEqualToString:@""], @"Current pin starts off as null");
 }

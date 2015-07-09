@@ -20,11 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+@import UIKit;
+
 /**
  Abstract Class that encapsulates common functionality between the lock and setup screen. It is not designed to be used directly
  */
 
-@protocol ABPadLockScreenDelegate;
 @class ABPadLockScreenView;
 
 @interface ABPadLockScreenAbstractViewController : UIViewController
@@ -33,7 +34,6 @@
 }
 
 @property (nonatomic, strong) NSString *currentPin;
-@property (nonatomic, weak) id<ABPadLockScreenDelegate> delegate;
 @property (nonatomic, readonly, getter = isComplexPin) BOOL complexPin;
 @property (nonatomic, assign) BOOL tapSoundEnabled; //No by Default
 @property (nonatomic, assign) BOOL errorVibrateEnabled; //No by Default
@@ -54,11 +54,5 @@
 - (void)setBackgroundView:(UIView*)backgroundView;
 
 - (void)processPin; //Called when the pin has reached maximum digits
-
-@end
-
-@protocol ABPadLockScreenDelegate <NSObject>
-@required
-- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController;
 
 @end
