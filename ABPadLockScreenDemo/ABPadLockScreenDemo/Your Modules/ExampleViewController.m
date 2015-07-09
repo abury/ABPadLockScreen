@@ -33,6 +33,7 @@
 	UIColor* color = [UIColor colorWithRed:229.0f/255.0f green:180.0f/255.0f blue:46.0f/255.0f alpha:1.0f];
 
 	[[ABPadLockScreenView appearance] setLabelColor:[UIColor whiteColor]];
+    [[ABPadLockScreenView appearance] setLabelColor:[UIColor blackColor]];
 	[[ABPadButton appearance] setBackgroundColor:[UIColor clearColor]];
     [[ABPadButton appearance] setBorderColor:color];
     [[ABPadButton appearance] setSelectedColor:color];

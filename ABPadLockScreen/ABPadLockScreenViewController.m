@@ -49,7 +49,6 @@
     self = [super initWithComplexPin:complexPin];
     if (self)
     {
-        self.delegate = delegate;
         _lockScreenDelegate = delegate;
         _remainingAttempts = -1;
         
@@ -83,6 +82,14 @@
 - (void)setSingleAttemptLeftText:(NSString *)title
 {
     _singleAttemptLeftString = title;
+}
+
+#pragma mark -
+#pragma mark - View Controller Lifecycle Methods
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark -
@@ -160,6 +167,16 @@
     if ([self.lockScreenDelegate respondsToSelector:@selector(attemptsExpiredForPadLockScreenViewController:)])
     {
         [self.lockScreenDelegate attemptsExpiredForPadLockScreenViewController:self];
+    }
+}
+
+#pragma mark - 
+#pragma mark - Cancel
+- (void)cancelButtonSelected:(UIButton *)sender
+{
+    if ([self.lockScreenDelegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
+    {
+        [self.lockScreenDelegate unlockWasCancelledForPadLockScreenViewController:self];
     }
 }
 

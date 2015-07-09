@@ -44,8 +44,9 @@
 
 @end
 
-@protocol ABPadLockScreenSetupViewControllerDelegate <ABPadLockScreenDelegate>
+@protocol ABPadLockScreenSetupViewControllerDelegate <NSObject>
 @required
 - (void)pinSet:(NSString *)pin padLockScreenSetupViewController:(ABPadLockScreenSetupViewController *)padLockScreenViewController;
+- (void)unlockWasCancelledForPadLockScreenViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController;
 
 @end

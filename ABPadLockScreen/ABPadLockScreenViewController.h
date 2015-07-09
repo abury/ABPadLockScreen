@@ -48,7 +48,7 @@
 
 @end
 
-@protocol ABPadLockScreenViewControllerDelegate <ABPadLockScreenDelegate>
+@protocol ABPadLockScreenViewControllerDelegate <NSObject>
 @required
 
 /**

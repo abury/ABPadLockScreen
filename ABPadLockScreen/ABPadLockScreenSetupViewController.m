@@ -51,7 +51,6 @@
     self = [super initWithComplexPin:complexPin];
     if (self)
     {
-        self.delegate = delegate;
         _setupScreenDelegate = delegate;
         _enteredPin = nil;
         [self setDefaultTexts];
@@ -83,6 +82,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];    
 }
 
 #pragma mark -
@@ -129,6 +129,14 @@
         {
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         }
+    }
+}
+
+- (void)cancelButtonSelected:(UIButton *)sender
+{
+    if ([self.setupScreenDelegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
+    {
+        [self.setupScreenDelegate unlockWasCancelledForPadLockScreenViewController:self];
     }
 }
 
