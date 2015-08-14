@@ -342,21 +342,16 @@
 				_backgroundBlurringView = [[UIView alloc] initWithFrame:self.bounds];
 				_backgroundBlurringView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
 			}
-            _backgroundBlurringView.frame = _contentView.frame;
+            _backgroundBlurringView.frame = self.frame;
 			_backgroundBlurringView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			[self insertSubview:_backgroundBlurringView belowSubview:_contentView];
 		}
 		
 		[_backgroundBlurringView setHidden:NO];
-
 		[_backgroundView setFrame:self.bounds];
 		[_backgroundView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-        if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
-            //[_backgroundView addSubview:_backgroundBlurringView];
-            [self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
-        } else {
-            [self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
-        }
+
+        [self insertSubview:_backgroundView belowSubview:_backgroundBlurringView];
 	}
 }
 
