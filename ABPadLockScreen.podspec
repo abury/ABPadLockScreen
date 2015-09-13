@@ -25,6 +25,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/abury/ABPadLockScreen.git", :tag => s.version.to_s }
   s.source_files  = 'ABPadLockScreen', 'ABPadLockScreen/**/*.{h,m}'
-
+  s.framework    = "UIKit"
+  
   s.requires_arc = true
 end

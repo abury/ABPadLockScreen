@@ -20,6 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+
+FOUNDATION_EXPORT double ABPadLockScreenVersionNumber;
+FOUNDATION_EXPORT const unsigned char ABPadLockScreenVersionString[];
+
 #import "ABPadLockScreenViewController.h"
 #import "ABPadLockScreenSetupViewController.h"
 #import "ABPadLockScreenView.h"
