@@ -31,7 +31,6 @@
 
 - (void)setUpButtonMapping;
 - (void)buttonSelected:(UIButton *)sender;
-- (void)cancelButtonSelected:(UIButton *)sender;
 - (void)deleteButtonSelected:(UIButton *)sender;
 - (void)okButtonSelected:(UIButton *)sender;
 
@@ -49,7 +48,7 @@
         _tapSoundEnabled = NO;
         _errorVibrateEnabled = NO;
         _currentPin = @"";
-        _complexPin = NO; //default to NO
+        _complexPin = NO;
     }
     return self;
 }
@@ -83,12 +82,11 @@
     self.view = [[ABPadLockScreenView alloc] initWithFrame:bounds complexPin:self.isComplexPin];
     
     [self setUpButtonMapping];
-    [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
     [lockScreenView.deleteButton addTarget:self action:@selector(deleteButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
 	[lockScreenView.okButton addTarget:self action:@selector(okButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     UIUserInterfaceIdiom interfaceIdiom = [[UIDevice currentDevice] userInterfaceIdiom];
     if (interfaceIdiom == UIUserInterfaceIdiomPad) return UIInterfaceOrientationMaskAll;
@@ -268,14 +266,6 @@
         AudioServicesPlaySystemSound(1105);
     }
     [self newPinSelected:tag];
-}
-
-- (void)cancelButtonSelected:(UIButton *)sender
-{
-    if ([self.delegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
-    {
-        [self.delegate unlockWasCancelledForPadLockScreenViewController:self];
-    }
 }
 
 - (void)deleteButtonSelected:(UIButton *)sender
