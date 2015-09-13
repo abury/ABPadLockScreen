@@ -34,6 +34,7 @@
 		9C9798041BA5110E0046BE6C /* ABPinSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPinSelectionView.h; sourceTree = "<group>"; };
 		9C9798051BA5110E0046BE6C /* ABPinSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPinSelectionView.m; sourceTree = "<group>"; };
 		9C97980C1BA511870046BE6C /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		9CD2E6F71BA5539900336B98 /* ABPadLockScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreen.h; sourceTree = "<group>"; };
 		9CD6CAA51BA510730028E61F /* ABPadLockScreenSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ABPadLockScreenSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD6CAA81BA510730028E61F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CD6CAAA1BA510730028E61F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 				9C9798031BA5110E0046BE6C /* ABPadLockScreenViewController.m */,
 				9C9798041BA5110E0046BE6C /* ABPinSelectionView.h */,
 				9C9798051BA5110E0046BE6C /* ABPinSelectionView.m */,
+				9CD2E6F71BA5539900336B98 /* ABPadLockScreen.h */,
 			);
 			name = ABPadLockScreen;
 			path = ../ABPadLockScreen;
