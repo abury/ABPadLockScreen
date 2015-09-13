@@ -1,0 +1,342 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9C9798061BA5110E0046BE6C /* ABPadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9797FB1BA5110E0046BE6C /* ABPadButton.m */; settings = {ASSET_TAGS = (); }; };
+		9C9798071BA5110E0046BE6C /* ABPadLockScreenAbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9797FD1BA5110E0046BE6C /* ABPadLockScreenAbstractViewController.m */; settings = {ASSET_TAGS = (); }; };
+		9C9798081BA5110E0046BE6C /* ABPadLockScreenSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9797FF1BA5110E0046BE6C /* ABPadLockScreenSetupViewController.m */; settings = {ASSET_TAGS = (); }; };
+		9C9798091BA5110E0046BE6C /* ABPadLockScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9798011BA5110E0046BE6C /* ABPadLockScreenView.m */; settings = {ASSET_TAGS = (); }; };
+		9C97980A1BA5110E0046BE6C /* ABPadLockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9798031BA5110E0046BE6C /* ABPadLockScreenViewController.m */; settings = {ASSET_TAGS = (); }; };
+		9C97980B1BA5110E0046BE6C /* ABPinSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9798051BA5110E0046BE6C /* ABPinSelectionView.m */; settings = {ASSET_TAGS = (); }; };
+		9CD6CAA91BA510730028E61F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6CAA81BA510730028E61F /* AppDelegate.swift */; };
+		9CD6CAAB1BA510730028E61F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD6CAAA1BA510730028E61F /* ViewController.swift */; };
+		9CD6CAAE1BA510730028E61F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6CAAC1BA510730028E61F /* Main.storyboard */; };
+		9CD6CAB01BA510730028E61F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6CAAF1BA510730028E61F /* Assets.xcassets */; };
+		9CD6CAB31BA510730028E61F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CD6CAB11BA510730028E61F /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9C9797FA1BA5110E0046BE6C /* ABPadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadButton.h; sourceTree = "<group>"; };
+		9C9797FB1BA5110E0046BE6C /* ABPadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadButton.m; sourceTree = "<group>"; };
+		9C9797FC1BA5110E0046BE6C /* ABPadLockScreenAbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenAbstractViewController.h; sourceTree = "<group>"; };
+		9C9797FD1BA5110E0046BE6C /* ABPadLockScreenAbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenAbstractViewController.m; sourceTree = "<group>"; };
+		9C9797FE1BA5110E0046BE6C /* ABPadLockScreenSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenSetupViewController.h; sourceTree = "<group>"; };
+		9C9797FF1BA5110E0046BE6C /* ABPadLockScreenSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenSetupViewController.m; sourceTree = "<group>"; };
+		9C9798001BA5110E0046BE6C /* ABPadLockScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenView.h; sourceTree = "<group>"; };
+		9C9798011BA5110E0046BE6C /* ABPadLockScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenView.m; sourceTree = "<group>"; };
+		9C9798021BA5110E0046BE6C /* ABPadLockScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPadLockScreenViewController.h; sourceTree = "<group>"; };
+		9C9798031BA5110E0046BE6C /* ABPadLockScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPadLockScreenViewController.m; sourceTree = "<group>"; };
+		9C9798041BA5110E0046BE6C /* ABPinSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABPinSelectionView.h; sourceTree = "<group>"; };
+		9C9798051BA5110E0046BE6C /* ABPinSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABPinSelectionView.m; sourceTree = "<group>"; };
+		9C97980C1BA511870046BE6C /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		9CD6CAA51BA510730028E61F /* ABPadLockScreenSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ABPadLockScreenSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CD6CAA81BA510730028E61F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9CD6CAAA1BA510730028E61F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9CD6CAAD1BA510730028E61F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9CD6CAAF1BA510730028E61F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9CD6CAB21BA510730028E61F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9CD6CAB41BA510730028E61F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9CD6CAA21BA510730028E61F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9C9797F91BA5110E0046BE6C /* ABPadLockScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9C9797FA1BA5110E0046BE6C /* ABPadButton.h */,
+				9C9797FB1BA5110E0046BE6C /* ABPadButton.m */,
+				9C9797FC1BA5110E0046BE6C /* ABPadLockScreenAbstractViewController.h */,
+				9C9797FD1BA5110E0046BE6C /* ABPadLockScreenAbstractViewController.m */,
+				9C9797FE1BA5110E0046BE6C /* ABPadLockScreenSetupViewController.h */,
+				9C9797FF1BA5110E0046BE6C /* ABPadLockScreenSetupViewController.m */,
+				9C9798001BA5110E0046BE6C /* ABPadLockScreenView.h */,
+				9C9798011BA5110E0046BE6C /* ABPadLockScreenView.m */,
+				9C9798021BA5110E0046BE6C /* ABPadLockScreenViewController.h */,
+				9C9798031BA5110E0046BE6C /* ABPadLockScreenViewController.m */,
+				9C9798041BA5110E0046BE6C /* ABPinSelectionView.h */,
+				9C9798051BA5110E0046BE6C /* ABPinSelectionView.m */,
+			);
+			name = ABPadLockScreen;
+			path = ../ABPadLockScreen;
+			sourceTree = "<group>";
+		};
+		9CD6CA9C1BA510730028E61F = {
+			isa = PBXGroup;
+			children = (
+				9C9797F91BA5110E0046BE6C /* ABPadLockScreen */,
+				9CD6CAA71BA510730028E61F /* ABPadLockScreenSwiftDemo */,
+				9CD6CAA61BA510730028E61F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9CD6CAA61BA510730028E61F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9CD6CAA51BA510730028E61F /* ABPadLockScreenSwiftDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9CD6CAA71BA510730028E61F /* ABPadLockScreenSwiftDemo */ = {
+			isa = PBXGroup;
+			children = (
+				9CD6CAA81BA510730028E61F /* AppDelegate.swift */,
+				9CD6CAAA1BA510730028E61F /* ViewController.swift */,
+				9CD6CAAC1BA510730028E61F /* Main.storyboard */,
+				9CD6CAAF1BA510730028E61F /* Assets.xcassets */,
+				9CD6CAB11BA510730028E61F /* LaunchScreen.storyboard */,
+				9CD6CAB41BA510730028E61F /* Info.plist */,
+				9C97980C1BA511870046BE6C /* BridgingHeader.h */,
+			);
+			path = ABPadLockScreenSwiftDemo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9CD6CAA41BA510730028E61F /* ABPadLockScreenSwiftDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9CD6CAB71BA510730028E61F /* Build configuration list for PBXNativeTarget "ABPadLockScreenSwiftDemo" */;
+			buildPhases = (
+				9CD6CAA11BA510730028E61F /* Sources */,
+				9CD6CAA21BA510730028E61F /* Frameworks */,
+				9CD6CAA31BA510730028E61F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ABPadLockScreenSwiftDemo;
+			productName = ABPadLockScreenSwiftDemo;
+			productReference = 9CD6CAA51BA510730028E61F /* ABPadLockScreenSwiftDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9CD6CA9D1BA510730028E61F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Aron Bury";
+				TargetAttributes = {
+					9CD6CAA41BA510730028E61F = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 9CD6CAA01BA510730028E61F /* Build configuration list for PBXProject "ABPadLockScreenSwiftDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9CD6CA9C1BA510730028E61F;
+			productRefGroup = 9CD6CAA61BA510730028E61F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9CD6CAA41BA510730028E61F /* ABPadLockScreenSwiftDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9CD6CAA31BA510730028E61F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CD6CAB31BA510730028E61F /* LaunchScreen.storyboard in Resources */,
+				9CD6CAB01BA510730028E61F /* Assets.xcassets in Resources */,
+				9CD6CAAE1BA510730028E61F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9CD6CAA11BA510730028E61F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C97980A1BA5110E0046BE6C /* ABPadLockScreenViewController.m in Sources */,
+				9C9798081BA5110E0046BE6C /* ABPadLockScreenSetupViewController.m in Sources */,
+				9C97980B1BA5110E0046BE6C /* ABPinSelectionView.m in Sources */,
+				9CD6CAAB1BA510730028E61F /* ViewController.swift in Sources */,
+				9C9798061BA5110E0046BE6C /* ABPadButton.m in Sources */,
+				9C9798071BA5110E0046BE6C /* ABPadLockScreenAbstractViewController.m in Sources */,
+				9C9798091BA5110E0046BE6C /* ABPadLockScreenView.m in Sources */,
+				9CD6CAA91BA510730028E61F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9CD6CAAC1BA510730028E61F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9CD6CAAD1BA510730028E61F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9CD6CAB11BA510730028E61F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9CD6CAB21BA510730028E61F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9CD6CAB51BA510730028E61F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9CD6CAB61BA510730028E61F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9CD6CAB81BA510730028E61F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ABPadLockScreenSwiftDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ab.ABPadLockScreenSwiftDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ABPadLockScreenSwiftDemo/BridgingHeader.h;
+			};
+			name = Debug;
+		};
+		9CD6CAB91BA510730028E61F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ABPadLockScreenSwiftDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ab.ABPadLockScreenSwiftDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ABPadLockScreenSwiftDemo/BridgingHeader.h;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9CD6CAA01BA510730028E61F /* Build configuration list for PBXProject "ABPadLockScreenSwiftDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CD6CAB51BA510730028E61F /* Debug */,
+				9CD6CAB61BA510730028E61F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CD6CAB71BA510730028E61F /* Build configuration list for PBXNativeTarget "ABPadLockScreenSwiftDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CD6CAB81BA510730028E61F /* Debug */,
+				9CD6CAB91BA510730028E61F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9CD6CA9D1BA510730028E61F /* Project object */;
+}
