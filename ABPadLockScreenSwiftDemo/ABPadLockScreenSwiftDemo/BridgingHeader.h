@@ -6,8 +6,4 @@
 //  Copyright © 2015 Aron Bury. All rights reserved.
 //
 
-#import "ABPadLockScreenViewController.h"
-#import "ABPadLockScreenSetupViewController.h"
-#import "ABPadLockScreenView.h"
-#import "ABPadButton.h"
-#import "ABPinSelectionView.h"
+#import "ABPadLockScreen.h"

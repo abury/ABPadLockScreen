@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ABPadLockScreen"
-  s.version      = "3.4.0"
+  s.version      = "3.4.1"
   s.summary      = "A simple, stylish keypad lock screen for your iPhone or iPad App"
 
   s.description  = <<-DESC
@@ -25,6 +25,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/abury/ABPadLockScreen.git", :tag => s.version.to_s }
   s.source_files  = 'ABPadLockScreen', 'ABPadLockScreen/**/*.{h,m}'
-
+  s.framework    = "UIKit"
+  
   s.requires_arc = true
 end
