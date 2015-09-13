@@ -119,4 +119,11 @@
     self.thePin = pin;
     NSLog(@"Pin set to pin %@", self.thePin);
 }
+
+- (void)unlockWasCancelledForSetupViewController:(ABPadLockScreenAbstractViewController *)padLockScreenViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"Pin Setup Cnaclled");
+}
+
 @end

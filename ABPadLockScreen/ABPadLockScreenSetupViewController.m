@@ -134,9 +134,9 @@
 
 - (void)cancelButtonSelected:(UIButton *)sender
 {
-    if ([self.setupScreenDelegate respondsToSelector:@selector(unlockWasCancelledForPadLockScreenViewController:)])
+    if ([self.setupScreenDelegate respondsToSelector:@selector(unlockWasCancelledForSetupViewController:)])
     {
-        [self.setupScreenDelegate unlockWasCancelledForPadLockScreenViewController:self];
+        [self.setupScreenDelegate unlockWasCancelledForSetupViewController:self];
     }
 }
 
