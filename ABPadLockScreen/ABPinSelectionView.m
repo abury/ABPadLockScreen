@@ -23,7 +23,7 @@
 #import "ABPinSelectionView.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define animationLength 0.15
+#define animationLength 0.15f
 
 @interface ABPinSelectionView()
 

@@ -126,7 +126,7 @@
     self.selectedView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [self addSubview:self.selectedView];
     
-    self.numberLabel.frame = CGRectMake(0, self.frame.size.height / 5, self.frame.size.width, self.frame.size.height/2.5);
+    self.numberLabel.frame = CGRectMake(0, self.frame.size.height / 5, self.frame.size.width, self.frame.size.height/2.5f);
     [self addSubview:self.numberLabel];
 	
 	if(self.tag == 0)
