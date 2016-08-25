@@ -87,6 +87,34 @@
 #pragma mark -
 #pragma mark - ABLockScreenDelegate Methods
 
+- (void)forgotPinForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController
+{
+    NSLog(@"Forgot pin");
+    
+    UIAlertController *signOutAlertController = [UIAlertController alertControllerWithTitle:@"Forgot your PIN?"
+                                                                                    message:@"Please try again, or tap here to reset."
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *signOutCancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                                  style:UIAlertActionStyleCancel
+                                                                handler:^(UIAlertAction *action) {
+        NSLog(@"Cancel action");
+        // Dismiss the alert controller.
+    }];
+    
+    UIAlertAction *signOutOkAction = [UIAlertAction actionWithTitle:@"Sign Out"
+                                                               style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSLog(@"Sign out action");
+        // Log out the user out for example
+    }];
+    
+    [signOutAlertController addAction:signOutCancelAction];
+    [signOutAlertController addAction:signOutOkAction];
+    
+    [padLockScreenViewController presentViewController:signOutAlertController animated:YES completion:nil];
+    
+}
+
 - (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin;
 {
 	NSLog(@"Validating pin %@", pin);

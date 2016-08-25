@@ -52,6 +52,11 @@
 @required
 
 /**
+ *  Called when the forgot
+ */
+- (void)forgotPinForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
+
+/**
  Called when pin validation is needed
  */
 - (BOOL)padLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController validatePin:(NSString*)pin;
