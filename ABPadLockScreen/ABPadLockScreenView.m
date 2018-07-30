@@ -26,7 +26,6 @@
 
 #define animationLength 0.15
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
-#define IS_IOS6_OR_LOWER (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
 
 @interface ABPadLockScreenView()
 
@@ -109,10 +108,6 @@
         _buttonZero = [[ABPadButton alloc] initWithFrame:CGRectZero number:0 letters:nil];
         
 		UIButtonType buttonType = UIButtonTypeSystem;
-		if(NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1)
-		{
-			buttonType = UIButtonTypeCustom;
-		}
 		
 		_cancelButton = [UIButton buttonWithType:buttonType];
         [_cancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
@@ -292,19 +287,12 @@
 
 - (void)updatePinTextfieldWithLength:(NSUInteger)length
 {
-	if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
-	{
-		NSAttributedString* digitsTextFieldAttrStr = [[NSAttributedString alloc] initWithString:[@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0]
-																					 attributes:@{NSKernAttributeName: @4,
-																								  NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
-		[UIView transitionWithView:self.digitsTextField duration:animationLength options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-			self.digitsTextField.attributedText = digitsTextFieldAttrStr;
-		} completion:nil];
-	}
-	else
-	{
-		self.digitsTextField.text = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0];
-	}
+    NSAttributedString* digitsTextFieldAttrStr = [[NSAttributedString alloc] initWithString:[@"" stringByPaddingToLength:length withString:@"*" startingAtIndex:0]
+                                                                                 attributes:@{NSKernAttributeName: @4,
+                                                                                              NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
+    [UIView transitionWithView:self.digitsTextField duration:animationLength options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.digitsTextField.attributedText = digitsTextFieldAttrStr;
+    } completion:nil];
 }
 
 - (void)setBackgroundView:(UIView *)backgroundView
@@ -320,20 +308,8 @@
 	{
 		if(_backgroundBlurringView == nil)
 		{
-            if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) { // iOS 8
-                UIBlurEffect *blur = [UIBlurEffect effectWithStyle: UIBlurEffectStyleLight];
-                _backgroundBlurringView = [[UIVisualEffectView alloc] initWithEffect: blur];
-            }
-            else if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
-			{
-				_backgroundBlurringView = [[UINavigationBar alloc] initWithFrame:self.bounds];
-				[(UINavigationBar*)_backgroundBlurringView setBarStyle: UIBarStyleBlack];
-			}
-			else
-			{
-				_backgroundBlurringView = [[UIView alloc] initWithFrame:self.bounds];
-				_backgroundBlurringView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
-			}
+            UIBlurEffect *blur = [UIBlurEffect effectWithStyle: UIBlurEffectStyleLight];
+            _backgroundBlurringView = [[UIVisualEffectView alloc] initWithEffect: blur];
             _backgroundBlurringView.frame = self.frame;
 			_backgroundBlurringView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			[self insertSubview:_backgroundBlurringView belowSubview:_contentView];
@@ -390,16 +366,16 @@
 
 - (void)layoutTitleArea
 {
-    CGFloat top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 15 : 65;
+    CGFloat top = 65;
 	
 	if(!IS_IPHONE5)
 	{
-		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 5 : 20;
+		top = 20;
 	}
 	
 	if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 	{
-		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 30 : 80;;
+		top = 80;
 	}
 	
     self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 150, top, 300, 23);

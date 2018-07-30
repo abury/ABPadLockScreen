@@ -65,7 +65,7 @@
     {
         _subtitleLabelText = subtitleLabelText;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [lockScreenView updateDetailLabelWithString:_subtitleLabelText animated:NO completion:nil];
+            [lockScreenView updateDetailLabelWithString:self.subtitleLabelText animated:NO completion:nil];
         });
     }
     return self;

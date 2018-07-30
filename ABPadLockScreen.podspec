@@ -20,8 +20,8 @@ Pod::Spec.new do |s|
 
   s.author       = { "Aron Bury" => "aron.bury@gmail.com" }
 
-  s.platform     = :ios, '5.0'
-  s.ios.deployment_target = '5.0'
+  s.platform     = :ios, '8.0'
+  s.ios.deployment_target = '8.0'
 
   s.source       = { :git => "https://github.com/abury/ABPadLockScreen.git", :tag => s.version.to_s }
   s.source_files  = 'ABPadLockScreen', 'ABPadLockScreen/**/*.{h,m}'
