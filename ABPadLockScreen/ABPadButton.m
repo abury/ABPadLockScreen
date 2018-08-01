@@ -97,14 +97,6 @@
 	
 	static NSString* fontName = @"HelveticaNeue-Thin";
 	
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		if(NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1)
-		{
-			fontName = @"HelveticaNeue";
-		}
-	});
-	
     _numberLabelFont = [UIFont fontWithName:fontName size:35];
     _letterLabelFont = [UIFont fontWithName:@"HelveticaNeue" size:10];
 }
