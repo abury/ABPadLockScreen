@@ -77,4 +77,9 @@
  */
 - (void)attemptsExpiredForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
 
+/**
+ *  Called when the user forgets their pin
+ */
+- (void)forgotPinForPadLockScreenViewController:(ABPadLockScreenViewController *)padLockScreenViewController;
+
 @end

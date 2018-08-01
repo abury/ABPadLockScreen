@@ -24,7 +24,7 @@
 #import "ABPadButton.h"
 #import "ABPinSelectionView.h"
 
-#define animationLength 0.15
+#define animationLength 0.15f
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
 
 @interface ABPadLockScreenView()
@@ -118,6 +118,11 @@
 		_deleteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _deleteButton.alpha = 0.0f;
         
+        _forgotButton = [UIButton buttonWithType:buttonType];
+        [_forgotButton setTitle:NSLocalizedString(@"Forgot?", @"") forState:UIControlStateNormal];
+        _forgotButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _forgotButton.alpha = 0.0f; //1.0f
+        
 		_okButton = [UIButton buttonWithType:buttonType];
 		[_okButton setTitle:NSLocalizedString(@"OK", @"") forState:UIControlStateNormal];
 		_okButton.alpha = 0.0f;
@@ -190,6 +195,14 @@
     } animated:animated completion:completion];
 }
 
+- (void)showForgotButtonAnimated:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+{
+    __weak ABPadLockScreenView *weakSelf = self;
+    [self performAnimations:^{
+        weakSelf.forgotButton.alpha = show ? 1.0f : 0.0f;
+    } animated:animated completion:completion];
+}
+
 - (void)showOKButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
 	__weak ABPadLockScreenView *weakSelf = self;
@@ -210,7 +223,7 @@
     
     self.detailLabel.text = string;
 
-	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
+	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5f;
 	
     self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, pinSelectionTop + 30, 300, 23);
 }
@@ -280,6 +293,7 @@
     }
     
     [self showCancelButtonAnimated:animated completion:nil];
+    [self showForgotButtonAnimated:animated animated:NO completion:nil];
 	[self showOKButton:NO animated:animated completion:nil];
 	
 	[self updatePinTextfieldWithLength:0];
@@ -351,6 +365,9 @@
     
     [self.deleteButton setTitleColor:self.labelColor forState:UIControlStateNormal];
     self.deleteButton.titleLabel.font = self.deleteCancelLabelFont;
+    
+    [self.forgotButton setTitleColor:self.labelColor forState:UIControlStateNormal];
+    self.forgotButton.titleLabel.font = self.forgotLabelFont;
 
 	[self.okButton setTitleColor:self.labelColor forState:UIControlStateNormal];
 }
@@ -377,11 +394,11 @@
 	{
 		top = 80;
 	}
-	
+    
     self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 150, top, 300, 23);
     [self.contentView addSubview:self.enterPasscodeLabel];
 	
-	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
+	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5f;
 
 	if(self.isComplexPin)
 	{
@@ -418,7 +435,7 @@
     
     CGFloat buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
     
-    CGFloat lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
+    CGFloat lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5f;
     CGFloat centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
     CGFloat rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
     
@@ -465,6 +482,25 @@
     
     self.deleteButton.frame = deleteCancelButtonFrame;
     [self.contentView addSubview:self.deleteButton];
+    
+    CGRect forgotButtonFrame = CGRectMake(lefButtonLeft, zeroRowTop + ABPadButtonHeight + 25, ABPadButtonWidth, 20);
+    if(!IS_IPHONE5)
+    {
+        //Bring it higher for small device screens
+        forgotButtonFrame = CGRectMake(lefButtonLeft, zeroRowTop + ABPadButtonHeight - 20, ABPadButtonWidth, 20);
+    }
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        //Center it with zero button
+        forgotButtonFrame = CGRectMake(lefButtonLeft, zeroRowTop + (ABPadButtonHeight / 2 - 10), ABPadButtonWidth, 20);
+    }
+    
+    if (!self.forgotButtonDisabled) {
+        self.forgotButton.frame = forgotButtonFrame;
+        [self.contentView addSubview:self.forgotButton];
+    }
+
 }
 
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top

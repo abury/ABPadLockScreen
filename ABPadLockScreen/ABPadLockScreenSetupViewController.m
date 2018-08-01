@@ -54,6 +54,7 @@
         _setupScreenDelegate = delegate;
         _enteredPin = nil;
         [self setDefaultTexts];
+        [self forgotButtonDisabled:YES];
     }
     return self;
 }
