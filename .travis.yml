@@ -1,4 +1,4 @@
 language: objective-c
 before_install:
     - brew update
-script: xcodebuild -project ABPadLockScreenDemo/ABPadLockScreenDemo.xcodeproj -scheme ABPadLockScreenDemo -sdk iphonesimulator build test
+script: xcodebuild -project ABPadLockScreenDemo/ABPadLockScreenDemo.xcodeproj -scheme ABPadLockScreenDemo -sdk iphonesimulator -destination 'name=iPhone 5' build test
