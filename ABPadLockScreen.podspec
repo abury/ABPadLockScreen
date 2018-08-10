@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ABPadLockScreen"
-  s.version      = "3.4.1"
+  s.version      = "3.4.2"
   s.summary      = "A simple, stylish keypad lock screen for your iPhone or iPad App"
 
   s.description  = <<-DESC
@@ -18,8 +18,10 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
-  s.author       = { "Aron Bury" => "aron.bury@gmail.com" }
-
+  s.authors       = { 'Aron Bury' => 'aron.bury@gmail.com', 
+                      'Matt Teece' => 'mteece@gmail.com'
+                    }
+  
   s.platform     = :ios, '8.0'
   s.ios.deployment_target = '8.0'
 
