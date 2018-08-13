@@ -32,6 +32,7 @@
 - (void)setUpButtonMapping;
 - (void)buttonSelected:(UIButton *)sender;
 - (void)deleteButtonSelected:(UIButton *)sender;
+- (void)forgotButtonSelected:(UIButton *)sender;
 - (void)okButtonSelected:(UIButton *)sender;
 
 @end
@@ -83,6 +84,7 @@
     
     [self setUpButtonMapping];
     [lockScreenView.deleteButton addTarget:self action:@selector(deleteButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [lockScreenView.forgotButton addTarget:self action:@selector(forgotButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
 	[lockScreenView.okButton addTarget:self action:@selector(okButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -160,6 +162,13 @@
     [lockScreenView.deleteButton sizeToFit];
 }
 
+- (void)setForgotButtonText:(NSString *)text
+{
+    [lockScreenView.forgotButton setTitle:text forState:UIControlStateNormal];
+    [lockScreenView.forgotButton sizeToFit];
+}
+
+
 - (void)setEnterPasscodeLabelText:(NSString *)text
 {
     lockScreenView.enterPasscodeLabel.text = text;
@@ -169,10 +178,7 @@
 {
 	[lockScreenView setBackgroundView:backgroundView];
 	
-	if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
-	{
-		[self setNeedsStatusBarAppearanceUpdate];
-	}
+	[self setNeedsStatusBarAppearanceUpdate];
 }
 
 #pragma mark -
@@ -188,6 +194,16 @@
 - (void)cancelButtonDisabled:(BOOL)disabled
 {
     lockScreenView.cancelButtonDisabled = disabled;
+}
+
+- (void)forgotButtonDisabled:(BOOL)disabled
+{
+    lockScreenView.forgotButtonDisabled = disabled;
+}
+
+- (void)processForgot
+{
+    //Subclass to provide concrete implementation
 }
 
 - (void)processPin
@@ -271,6 +287,11 @@
 - (void)deleteButtonSelected:(UIButton *)sender
 {
     [self deleteFromPin];
+}
+
+- (void)forgotButtonSelected:(UIButton *)sender
+{
+    [self processForgot];
 }
 
 - (void)okButtonSelected:(UIButton *)sender

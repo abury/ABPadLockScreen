@@ -24,9 +24,8 @@
 #import "ABPadButton.h"
 #import "ABPinSelectionView.h"
 
-#define animationLength 0.15
+#define animationLength 0.15f
 #define IS_IPHONE5 ([UIScreen mainScreen].bounds.size.height==568)
-#define IS_IOS6_OR_LOWER (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
 
 @interface ABPadLockScreenView()
 
@@ -109,10 +108,6 @@
         _buttonZero = [[ABPadButton alloc] initWithFrame:CGRectZero number:0 letters:nil];
         
 		UIButtonType buttonType = UIButtonTypeSystem;
-		if(NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1)
-		{
-			buttonType = UIButtonTypeCustom;
-		}
 		
 		_cancelButton = [UIButton buttonWithType:buttonType];
         [_cancelButton setTitle:NSLocalizedString(@"Cancel", @"") forState:UIControlStateNormal];
@@ -122,6 +117,11 @@
         [_deleteButton setTitle:NSLocalizedString(@"Delete", @"") forState:UIControlStateNormal];
 		_deleteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _deleteButton.alpha = 0.0f;
+        
+        _forgotButton = [UIButton buttonWithType:buttonType];
+        [_forgotButton setTitle:NSLocalizedString(@"Forgot?", @"") forState:UIControlStateNormal];
+        _forgotButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _forgotButton.alpha = 0.0f; //1.0f
         
 		_okButton = [UIButton buttonWithType:buttonType];
 		[_okButton setTitle:NSLocalizedString(@"OK", @"") forState:UIControlStateNormal];
@@ -195,6 +195,14 @@
     } animated:animated completion:completion];
 }
 
+- (void)showForgotButtonAnimated:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
+{
+    __weak ABPadLockScreenView *weakSelf = self;
+    [self performAnimations:^{
+        weakSelf.forgotButton.alpha = show ? 1.0f : 0.0f;
+    } animated:animated completion:completion];
+}
+
 - (void)showOKButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion
 {
 	__weak ABPadLockScreenView *weakSelf = self;
@@ -215,7 +223,7 @@
     
     self.detailLabel.text = string;
 
-	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
+	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5f;
 	
     self.detailLabel.frame = CGRectMake(([self correctWidth]/2) - 150, pinSelectionTop + 30, 300, 23);
 }
@@ -285,6 +293,7 @@
     }
     
     [self showCancelButtonAnimated:animated completion:nil];
+    [self showForgotButtonAnimated:animated animated:NO completion:nil];
 	[self showOKButton:NO animated:animated completion:nil];
 	
 	[self updatePinTextfieldWithLength:0];
@@ -292,19 +301,12 @@
 
 - (void)updatePinTextfieldWithLength:(NSUInteger)length
 {
-	if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
-	{
-		NSAttributedString* digitsTextFieldAttrStr = [[NSAttributedString alloc] initWithString:[@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0]
-																					 attributes:@{NSKernAttributeName: @4,
-																								  NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
-		[UIView transitionWithView:self.digitsTextField duration:animationLength options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-			self.digitsTextField.attributedText = digitsTextFieldAttrStr;
-		} completion:nil];
-	}
-	else
-	{
-		self.digitsTextField.text = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0];
-	}
+    NSAttributedString* digitsTextFieldAttrStr = [[NSAttributedString alloc] initWithString:[@"" stringByPaddingToLength:length withString:@"*" startingAtIndex:0]
+                                                                                 attributes:@{NSKernAttributeName: @4,
+                                                                                              NSFontAttributeName: [UIFont boldSystemFontOfSize:18]}];
+    [UIView transitionWithView:self.digitsTextField duration:animationLength options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.digitsTextField.attributedText = digitsTextFieldAttrStr;
+    } completion:nil];
 }
 
 - (void)setBackgroundView:(UIView *)backgroundView
@@ -320,20 +322,8 @@
 	{
 		if(_backgroundBlurringView == nil)
 		{
-            if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) { // iOS 8
-                UIBlurEffect *blur = [UIBlurEffect effectWithStyle: UIBlurEffectStyleLight];
-                _backgroundBlurringView = [[UIVisualEffectView alloc] initWithEffect: blur];
-            }
-            else if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1)
-			{
-				_backgroundBlurringView = [[UINavigationBar alloc] initWithFrame:self.bounds];
-				[(UINavigationBar*)_backgroundBlurringView setBarStyle: UIBarStyleBlack];
-			}
-			else
-			{
-				_backgroundBlurringView = [[UIView alloc] initWithFrame:self.bounds];
-				_backgroundBlurringView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
-			}
+            UIBlurEffect *blur = [UIBlurEffect effectWithStyle: UIBlurEffectStyleLight];
+            _backgroundBlurringView = [[UIVisualEffectView alloc] initWithEffect: blur];
             _backgroundBlurringView.frame = self.frame;
 			_backgroundBlurringView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			[self insertSubview:_backgroundBlurringView belowSubview:_contentView];
@@ -375,6 +365,9 @@
     
     [self.deleteButton setTitleColor:self.labelColor forState:UIControlStateNormal];
     self.deleteButton.titleLabel.font = self.deleteCancelLabelFont;
+    
+    [self.forgotButton setTitleColor:self.labelColor forState:UIControlStateNormal];
+    self.forgotButton.titleLabel.font = self.forgotLabelFont;
 
 	[self.okButton setTitleColor:self.labelColor forState:UIControlStateNormal];
 }
@@ -390,22 +383,22 @@
 
 - (void)layoutTitleArea
 {
-    CGFloat top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 15 : 65;
+    CGFloat top = 65;
 	
 	if(!IS_IPHONE5)
 	{
-		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 5 : 20;
+		top = 20;
 	}
 	
 	if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 	{
-		top = NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1 ? 30 : 80;;
+		top = 80;
 	}
-	
+    
     self.enterPasscodeLabel.frame = CGRectMake(([self correctWidth]/2) - 150, top, 300, 23);
     [self.contentView addSubview:self.enterPasscodeLabel];
 	
-	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5;
+	CGFloat pinSelectionTop = self.enterPasscodeLabel.frame.origin.y + self.enterPasscodeLabel.frame.size.height + 17.5f;
 
 	if(self.isComplexPin)
 	{
@@ -442,7 +435,7 @@
     
     CGFloat buttonRowWidth = (ABPadButtonWidth * 3) + (horizontalButtonPadding * 2);
     
-    CGFloat lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5;
+    CGFloat lefButtonLeft = ([self correctWidth]/2) - (buttonRowWidth/2) + 0.5f;
     CGFloat centerButtonLeft = lefButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
     CGFloat rightButtonLeft = centerButtonLeft + ABPadButtonWidth + horizontalButtonPadding;
     
@@ -489,6 +482,25 @@
     
     self.deleteButton.frame = deleteCancelButtonFrame;
     [self.contentView addSubview:self.deleteButton];
+    
+    CGRect forgotButtonFrame = CGRectMake(lefButtonLeft, zeroRowTop + ABPadButtonHeight + 25, ABPadButtonWidth, 20);
+    if(!IS_IPHONE5)
+    {
+        //Bring it higher for small device screens
+        forgotButtonFrame = CGRectMake(lefButtonLeft, zeroRowTop + ABPadButtonHeight - 20, ABPadButtonWidth, 20);
+    }
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        //Center it with zero button
+        forgotButtonFrame = CGRectMake(lefButtonLeft, zeroRowTop + (ABPadButtonHeight / 2 - 10), ABPadButtonWidth, 20);
+    }
+    
+    if (!self.forgotButtonDisabled) {
+        self.forgotButton.frame = forgotButtonFrame;
+        [self.contentView addSubview:self.forgotButton];
+    }
+
 }
 
 - (void)setUpButton:(UIButton *)button left:(CGFloat)left top:(CGFloat)top

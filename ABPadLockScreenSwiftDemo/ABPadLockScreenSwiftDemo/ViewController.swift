@@ -87,5 +87,9 @@ class ViewController: UIViewController, ABPadLockScreenSetupViewControllerDelega
         print("Unlock Cancled")
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func forgotPinForPadLockScreenViewController(padLockScreenViewController: ABPadLockScreenViewController!) {
+        print("User forgot their pin!")
+    }
 }
 

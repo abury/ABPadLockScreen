@@ -50,6 +50,7 @@
 - (void)setEnterPasscodeLabelText:(NSString *)text;
 
 - (void)cancelButtonDisabled:(BOOL)disabled;
+- (void)forgotButtonDisabled:(BOOL)disabled;
 
 - (void)setBackgroundView:(UIView*)backgroundView;
 

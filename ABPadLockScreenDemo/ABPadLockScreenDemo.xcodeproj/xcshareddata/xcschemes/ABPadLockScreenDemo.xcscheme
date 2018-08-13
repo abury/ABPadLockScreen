@@ -38,16 +38,6 @@
                ReferencedContainer = "container:ABPadLockScreenDemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9C79B189188A1A7100D465D8"
-               BuildableName = "ABPadLockScreenDemoTests.xctest"
-               BlueprintName = "ABPadLockScreenDemoTests"
-               ReferencedContainer = "container:ABPadLockScreenDemo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

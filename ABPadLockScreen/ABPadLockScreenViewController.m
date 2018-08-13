@@ -92,6 +92,16 @@
     [lockScreenView.cancelButton addTarget:self action:@selector(cancelButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+#pragma mark - Forgot
+#pragma mark - Pin Processing
+- (void)processForgot
+{
+    if ([self.lockScreenDelegate respondsToSelector:@selector(forgotPinForPadLockScreenViewController:)])
+    {
+        [self.lockScreenDelegate forgotPinForPadLockScreenViewController:self];
+    }
+}
+
 #pragma mark -
 #pragma mark - Pin Processing
 - (void)processPin
@@ -125,6 +135,8 @@
     {
         [lockScreenView updateDetailLabelWithString:[NSString stringWithFormat:@"%ld %@", (long)self.remainingAttempts, self.pluralAttemptsLeftString]
                                            animated:YES completion:nil];
+        
+        [lockScreenView showForgotButtonAnimated:YES animated:YES completion:nil];
     }
     else if (self.remainingAttempts == 1)
     {

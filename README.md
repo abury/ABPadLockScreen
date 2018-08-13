@@ -20,14 +20,14 @@ ABPadLockScreen aims to provide a universal solution to providing a  secure keyp
 
 <img src="http://www.aronbury.com/assets/images/abpadlockscreen/fb-blue.png" width=50% alt="screenshot" title="screenshot">
 
-## Installation with Cocoapods
+## Installation with CocoaPods
 [CocoaPods](http://cocoapods.org) is the easiest way to manage your iOS/OSX dependencies. Check out their getting started guide to see how to set it up.
 If you have cocoapods setup on your machine, simply set the spec like this:
 
 #### Podfile
 ```ruby
 platform :ios, '6.0'
-pod "ABPadLockScreen", "~> 3.4.1"
+pod "ABPadLockScreen", "~> 3.4.2"
 ```
 The earliest version of this framework that supports cocoapods is 3.0.0
 

@@ -31,11 +31,13 @@
 @property (nonatomic, strong) UIFont *enterPasscodeLabelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIFont *detailLabelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIFont *deleteCancelLabelFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *forgotLabelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *labelColor UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic, strong) UIView* backgroundView;
 
 @property (nonatomic, assign) BOOL cancelButtonDisabled;
+@property (nonatomic, assign) BOOL forgotButtonDisabled;
 
 @property (nonatomic, strong, readonly) UILabel *enterPasscodeLabel;
 @property (nonatomic, strong, readonly) UILabel *detailLabel;
@@ -56,6 +58,7 @@
 
 @property (nonatomic, strong, readonly) UIButton *cancelButton;
 @property (nonatomic, strong, readonly) UIButton *deleteButton;
+@property (nonatomic, strong, readonly) UIButton *forgotButton;
 
 @property (nonatomic, strong, readonly) UIButton *okButton;
 
@@ -73,6 +76,7 @@
 
 - (void)showCancelButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)showDeleteButtonAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (void)showForgotButtonAnimated:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)showOKButton:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 - (void)updateDetailLabelWithString:(NSString *)string animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
